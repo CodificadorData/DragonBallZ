@@ -1,6 +1,0 @@
-framework module Pods_ExampleBanner {
-  umbrella header "Pods-ExampleBanner-umbrella.h"
-
-  export *
-  module * { export * }
-}
