@@ -1,13 +1,13 @@
 //
-//  ViewController2.swift
+//  CharactersView.swift
 //  ExampleBanner
 //
-//  Created by Christian Alexander Morante Santander on 4/02/24.
+//  Created by Christian Morante on 18/02/24.
 //
 
 import UIKit
 
-class ViewController2: UIViewController {
+class CharactersView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,4 +15,3 @@ class ViewController2: UIViewController {
     }
     
 }
-

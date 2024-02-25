@@ -1,20 +1,21 @@
 //
-//  ViewController.swift
+//  HomeView.swift
 //  ExampleBanner
 //
-//  Created by Christian Alexander Morante Santander on 27/12/23.
+//  Created by Christian Morante on 18/02/24.
 //
 
+import Foundation
 import UIKit
 
-class ViewController: UIViewController {
+class HomeController: UIViewController {
     
     let cellIdentifi = "cell"
     let list = ["Goku", "Vegeta","Bulma","Krilin", "Gohan", "Piccolo","ChiChi","Bardock","Freezer","Bills","Whis","Topo","Broly","Chaos","Roshi"]
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         print("Botón presionado")
-        let view2 = ViewController2()
+        let view2 = CharactersView()
         self.navigationController!.pushViewController(view2, animated: true)
         print("PRESIONADO")
     }
@@ -127,7 +128,7 @@ class ViewController: UIViewController {
         setupBannerView()
         tableHome.tableHeaderView = headerView
         
-//        DragonBallInteractor().requestDragonBall()
+        DragonBallInteractor().requestDragonBall()
     }
     
     func setupBannerView() {
@@ -194,7 +195,7 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
