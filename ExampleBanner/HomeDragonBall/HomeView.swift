@@ -8,16 +8,14 @@
 import Foundation
 import UIKit
 
-class HomeController: UIViewController {
+class DragonBallView: UIViewController {
     
+    var presenter: DragonBallPresenter?
     let cellIdentifi = "cell"
-    let list = ["Goku", "Vegeta","Bulma","Krilin", "Gohan", "Piccolo","ChiChi","Bardock","Freezer","Bills","Whis","Topo","Broly","Chaos","Roshi"]
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-        print("Botón presionado")
         let view2 = CharactersView()
         self.navigationController!.pushViewController(view2, animated: true)
-        print("PRESIONADO")
     }
     
     lazy var tableHome: UITableView = {
@@ -106,8 +104,17 @@ class HomeController: UIViewController {
         return view
     }()
     
-    override func viewDidLoad() {
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder: ) has not been implemented")
+    }
+    
+    override func viewDidLoad(){
         super.viewDidLoad()
+        self.title = "Dragon Ball Z"
         view.backgroundColor = .cyan
         view.addSubview(viewContainer)
         viewContainer.addSubview(scrollHome)
@@ -127,8 +134,7 @@ class HomeController: UIViewController {
         tableHome.reloadData()
         setupBannerView()
         tableHome.tableHeaderView = headerView
-        
-        DragonBallInteractor().requestDragonBall()
+        presenter?.bringData()
     }
     
     func setupBannerView() {
@@ -195,19 +201,29 @@ class HomeController: UIViewController {
     
 }
 
-extension HomeController: UITableViewDataSource, UITableViewDelegate {
+extension DragonBallView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return (presenter?.modelDragon.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifi, for: indexPath)
         cell.backgroundColor = .brown
-        let personaje = list[indexPath.row]
+        let personaje = presenter?.modelDragon[indexPath.row].name
         cell.textLabel?.text = personaje
         return cell
     }
     
 }
 
+extension DragonBallView: DragonBallUI {
+    func updateDragonBall(dragonBallList: [Item]) {
+        print("updateDragonBall \(dragonBallList)")
+        DispatchQueue.main.async {
+            self.tableHome.reloadData()
+        }
+    }
+    
+    
+}

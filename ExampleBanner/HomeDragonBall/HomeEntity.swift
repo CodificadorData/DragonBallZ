@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Character: Decodable {
+struct DragonBallEntity: Decodable {
     let items: [Item]
     let meta: Meta
     let links: Links
