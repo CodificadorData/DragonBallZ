@@ -6,5 +6,5 @@ target 'ExampleBanner' do
   use_frameworks!
 
   pod 'Alamofire'
-
+  pod 'Kingfisher'
 end

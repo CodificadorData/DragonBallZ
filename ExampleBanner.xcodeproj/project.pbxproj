@@ -124,8 +124,8 @@
 			children = (
 				65DBA1F52B81D941008393FE /* CharactersDragonBall */,
 				65DBA1E82B81D833008393FE /* HomeDragonBall */,
-				CD10C35B2B3C6AF80068484A /* AppDelegate.swift */,
 				CD10C35D2B3C6AF80068484A /* SceneDelegate.swift */,
+				CD10C35B2B3C6AF80068484A /* AppDelegate.swift */,
 				CD10C3612B3C6AF80068484A /* Main.storyboard */,
 				CD10C3642B3C6AF90068484A /* Assets.xcassets */,
 				CD10C3662B3C6AF90068484A /* LaunchScreen.storyboard */,

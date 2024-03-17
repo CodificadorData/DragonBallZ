@@ -10,14 +10,14 @@ import UIKit
 
 class DragonBallRouter {
     
-    func startDrgonBall(windows: UIWindow?){
+    func startDragonBall(windows: UIWindow?){
         let view = DragonBallView()
         let interactor = DragonBallInteractor()
         let presenter = DragonBallPresenter(dragonBallInteractor: interactor)
         presenter.ui = view
         view.presenter = presenter
-        
-        windows?.rootViewController = view
+        let navigationController = UINavigationController(rootViewController: view)
+        windows?.rootViewController = navigationController
         windows?.makeKeyAndVisible()
         
     }

@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        dragonBallRouter.startDrgonBall(windows: window)
+        dragonBallRouter.startDragonBall(windows: window)
 //        let viewController = DragonBallView()
 //        let navigationController = UINavigationController(rootViewController: viewController)
 //        self.window = UIWindow(windowScene: windowScene)
