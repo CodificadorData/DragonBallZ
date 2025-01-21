@@ -6,10 +6,12 @@
 //
 import UIKit
 import Kingfisher
+import SwiftKeychainWrapper
 
 class LoginViewController: UIViewController {
     
     let router = LoginRouter()
+    var presenter: LoginPresenter?
     
     lazy var loginButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -51,16 +53,17 @@ class LoginViewController: UIViewController {
     lazy var idTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "ID"
-        textField.textColor = .darkGray
+        textField.textColor = .black
         textField.borderStyle = .roundedRect
         textField.backgroundColor = .white
+        textField.keyboardType = .emailAddress
         return textField
     }()
     
     lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Password"
-        textField.textColor = .darkGray
+        textField.textColor = .black
         textField.borderStyle = .roundedRect
         textField.backgroundColor = .white
         textField.isSecureTextEntry = true
@@ -77,6 +80,13 @@ class LoginViewController: UIViewController {
         button.addTarget(self, action: #selector(register), for: .touchUpInside)
         return button
     }()
+    
+    let alert = UIAlertController(title: "Credenciales incorrectas", message: "ID o contraseña incorrecta", preferredStyle: .alert)
+
+    let okAction = UIAlertAction(title: "Aceptar", style: .default) { _ in
+        print("Aceptar pulsado")
+    }
+    
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -97,10 +107,26 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(registerButton)
         setupConstraints()
+        alert.addAction(okAction)
     }
     
     @objc func login() {
-        router.goToHome(mainView: self)
+        guard let id = idTextField.text, let password = passwordTextField.text else {
+            return
+        }
+
+        do {
+            _ = try presenter?.validateUser(email: id, password: password)
+
+            KeychainWrapper.standard.set(id, forKey: "email")
+            KeychainWrapper.standard.set(password, forKey: "password")
+            KeychainWrapper.standard.set("token", forKey: "accessToken")
+            
+            router.goToHome(windows: view.window)
+            presenter?.login(userID: id, password: password)
+        } catch {
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func register() {
@@ -121,7 +147,7 @@ class LoginViewController: UIViewController {
             
             titleLoginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLoginLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLoginLabel.widthAnchor.constraint(equalToConstant: 80),
+            titleLoginLabel.widthAnchor.constraint(equalToConstant: 120),
             
             loginImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginImage.topAnchor.constraint(equalTo: titleLoginLabel.bottomAnchor, constant: 50),

@@ -91,7 +91,6 @@ class CharacterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        print("Datos: \(dragonBallModel)")
         view.addSubview(scrollView)
         setupConstraints()
         navigationController?.isToolbarHidden = true

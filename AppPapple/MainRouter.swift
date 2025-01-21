@@ -9,9 +9,14 @@ import UIKit
 class MainRouter {
     
     var loginView: LoginViewController
+    var loginPresenter: LoginPresenter
+    var loginInteractor: LoginInteractor
     
     init() {
+        self.loginInteractor = LoginInteractor()
+        self.loginPresenter = LoginPresenter(interactor: loginInteractor)
         self.loginView = LoginViewController()
+        loginView.presenter = loginPresenter
     }
     
     func start(windows: UIWindow?){

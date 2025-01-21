@@ -23,8 +23,10 @@ class LoginRouter {
         viewHome.presenter  = presenterHome
     }
     
-    func goToHome(mainView: UIViewController) {
-        mainView.navigationController?.pushViewController(viewHome, animated: true)
+    func goToHome(windows: UIWindow?) {
+        let navigationController = UINavigationController(rootViewController: viewHome)
+        windows?.windowScene?.keyWindow?.rootViewController = navigationController
+        windows?.windowScene?.keyWindow?.makeKeyAndVisible()
     }
     
     func goToRegister(mainView: UIViewController) {

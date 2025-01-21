@@ -16,10 +16,35 @@ class HomeViewController: UIViewController {
     var personaje: Item?
     let router = HomeRouter()
 
+
     @IBAction func buttonPressed(_ sender: UIButton) {
         router.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
     }
     
+    //botones del toolbar
+    @IBAction func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+        switch sender.title {
+        case "Home":
+            view.subviews.forEach { $0.removeFromSuperview() }
+            setupBannerView()
+            setupNavigationBar()
+        case "Additional":
+            view.subviews.forEach { $0.removeFromSuperview() }
+            let _ = AdditionalView(view: view)
+        case "Store":
+            view.subviews.forEach { $0.removeFromSuperview() }
+            let _ = StoreView(view: view)
+        case "Contact":
+            view.subviews.forEach { $0.removeFromSuperview() }
+            let _ = ContactView(view: view)
+        case "Settings":
+            view.subviews.forEach { $0.removeFromSuperview() }
+            let _ = SettingsView(view: view)
+        default:
+            break
+        }
+    }
+
     lazy var tableHome: UITableView = {
         let table = UITableView()
         table.backgroundColor = .darkGray
@@ -109,6 +134,21 @@ class HomeViewController: UIViewController {
         return view
     }()
     
+    lazy var profileView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.layer.borderWidth = 2
+        view.layer.borderColor = .init(red: 100, green: 0, blue: 0, alpha: 1)
+        return view
+    }()
+    
+    lazy var profileImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "userImage")
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -119,9 +159,22 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
+
+        setupBannerView()
+        presenter?.bringData()
+        setupNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = false
+    }
+    
+    func setupBannerView() {
         self.title = "Dragon Ball Z"
         view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         view.addSubview(viewContainer)
+        view.addSubview(profileView)
+        profileView.addSubview(profileImage)
         viewContainer.addSubview(scrollHome)
         scrollHome.addSubview(bannerView)
         scrollHome.addSubview(tableHome)
@@ -137,16 +190,6 @@ class HomeViewController: UIViewController {
         tableHome.tableHeaderView = headerView
         headerView.addSubview(labelHeader)
 
-        setupBannerView()
-        presenter?.bringData()
-        setupNavigationBar()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isToolbarHidden = false
-    }
-    
-    func setupBannerView() {
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         bannerButton.translatesAutoresizingMaskIntoConstraints = false
         bannerTittle.translatesAutoresizingMaskIntoConstraints = false
@@ -157,7 +200,8 @@ class HomeViewController: UIViewController {
         tableHome.translatesAutoresizingMaskIntoConstraints = false
         principalImage.translatesAutoresizingMaskIntoConstraints = false
         labelHeader.translatesAutoresizingMaskIntoConstraints = false
-        
+        profileView.translatesAutoresizingMaskIntoConstraints = false
+        profileImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
@@ -206,10 +250,22 @@ class HomeViewController: UIViewController {
             principalImage.heightAnchor.constraint(equalToConstant: 400),
             principalImage.widthAnchor.constraint(equalToConstant: 150),
             
+            profileView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
+            profileView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            profileView.heightAnchor.constraint(equalToConstant: 40),
+            profileView.widthAnchor.constraint(equalToConstant: 40),
+            
+            profileImage.centerXAnchor.constraint(equalTo: profileView.centerXAnchor),
+            profileImage.centerYAnchor.constraint(equalTo: profileView.centerYAnchor),
+            profileImage.heightAnchor.constraint(equalToConstant: 30),
+            
             labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor)
             
         ])
+        profileView.layer.cornerRadius = 20
+        profileView.layer.masksToBounds = true
+
     }
     
     func setupNavigationBar() {
@@ -218,33 +274,33 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = .clear
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
         self.navigationController?.toolbar.barTintColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
-
+        
         let toolbarItem = [
-            UIBarButtonItem(
-            title: "Inicio",
+        UIBarButtonItem(
+            title: "Home",
             style: .done,
             target: self,
-            action: nil
+            action: #selector(buttonToolBarPressed(_:))
         ), UIBarButtonItem(
-            title: "Noticias",
-            style: .plain,
+            title: "Additional",
+            style: .done,
             target: self,
-            action: nil
+            action: #selector(buttonToolBarPressed(_:))
         ), UIBarButtonItem(
-            title: "Tienda",
-            style: .plain,
+            title: "Store",
+            style: .done,
             target: self,
-            action: nil
+            action: #selector(buttonToolBarPressed(_:))
         ), UIBarButtonItem(
-            title: "Adicional",
-            style: .plain,
+            title: "Contact",
+            style: .done,
             target: self,
-            action: nil
+            action: #selector(buttonToolBarPressed(_:))
         ), UIBarButtonItem(
-            title: "Contacto",
-            style: .plain,
+            title: "Settings",
+            style: .done,
             target: self,
-            action: nil
+            action: #selector(buttonToolBarPressed(_:))
         )]
         toolbarItems = toolbarItem
     }
@@ -282,7 +338,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension HomeViewController: DragonBallUI {
     func updateDragonBall(dragonBallList: [Item]) {
-        print("updateDragonBall \(dragonBallList)")
         DispatchQueue.main.async {
             let imageFirst = self.presenter!.modelDragon.first!.image
             self.tableHome.reloadData()

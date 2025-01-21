@@ -1380,6 +1380,7 @@ PODS:
   - nanopb/encode (3.30910.0)
   - PromisesObjC (2.4.0)
   - RecaptchaInterop (100.0.0)
+  - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
   - Alamofire
@@ -1388,6 +1389,7 @@ DEPENDENCIES:
   - FirebaseFirestore
   - GoogleSignIn
   - Kingfisher
+  - SwiftKeychainWrapper
 
 SPEC REPOS:
   trunk:
@@ -1419,6 +1421,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - RecaptchaInterop
+    - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
@@ -1449,7 +1452,8 @@ SPEC CHECKSUMS:
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: 6b3773525fe8e1576ec9fd2aa88976b0a3a518a8
+PODFILE CHECKSUM: 6d890e71dc460a0d9e82f31317bb4b3e597afa19
 
 COCOAPODS: 1.16.2

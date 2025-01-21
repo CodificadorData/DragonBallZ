@@ -15,4 +15,6 @@ target 'AppPapple' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'GoogleSignIn'
+  
+  pod 'SwiftKeychainWrapper'
 end
