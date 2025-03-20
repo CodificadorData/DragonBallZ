@@ -14,4 +14,14 @@ class HomeRouter {
         mainView.navigationController?.pushViewController(charactersView, animated: true)
     }
     
+    func goToLogin(windows: UIWindow?){
+        let loginInteractor = LoginInteractor()
+        let loginPresenter = LoginPresenter(interactor: loginInteractor)
+        let loginView = LoginViewController(presenter: loginPresenter)
+        
+        let navigationController = UINavigationController(rootViewController: loginView)
+        windows?.windowScene?.keyWindow?.rootViewController = navigationController
+        windows?.windowScene?.keyWindow?.makeKeyAndVisible()
+    }
+    
 }

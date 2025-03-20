@@ -88,8 +88,9 @@ class LoginViewController: UIViewController {
     }
     
     
-    init() {
+    init(presenter: LoginPresenter) {
         super.init(nibName: nil, bundle: nil)
+        self.presenter = presenter
     }
     
     required init?(coder: NSCoder) {

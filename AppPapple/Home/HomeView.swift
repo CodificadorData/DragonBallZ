@@ -16,7 +16,6 @@ class HomeViewController: UIViewController {
     var personaje: Item?
     let router = HomeRouter()
 
-
     @IBAction func buttonPressed(_ sender: UIButton) {
         router.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
     }
@@ -39,7 +38,7 @@ class HomeViewController: UIViewController {
             let _ = ContactView(view: view)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = SettingsView(view: view)
+            let _ = SettingsView(view: self)
         default:
             break
         }

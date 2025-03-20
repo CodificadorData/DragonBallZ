@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class SettingsView: UIView {
+    
+    let router = HomeRouter()
+    var viewController: UIViewController?
     
     lazy var title: UILabel = {
         let title = UILabel()
@@ -89,18 +93,28 @@ class SettingsView: UIView {
         return textField
     }()
 
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+    lazy var logOutLabel: UILabel = {
+        let title = UILabel()
+        title.textColor = .white
+        title.text = "Cerrar Sesión"
+        title.textAlignment = .center
+        title.numberOfLines = 0
+        title.font = UIFont.systemFont(ofSize: 16)
+        title.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(logOutLabelTapped))
+        title.addGestureRecognizer(tapGesture)
+        return title
+    }()
+
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    init(view: UIView) {
+    init(view: UIViewController) {
         super.init(frame: .zero)
-        self.setupView(view: view)
+        self.viewController = view
+        self.setupView(view: view.view)
     }
     
     func setupView(view: UIView) {
@@ -113,6 +127,7 @@ class SettingsView: UIView {
         self.addSubview(phoneNumberTextField)
         self.addSubview(nameTextField)
         self.addSubview(surNameTextField)
+        self.addSubview(logOutLabel)
         profileView.addSubview(profileImage)
 
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -124,6 +139,7 @@ class SettingsView: UIView {
         phoneNumberTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         surNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        logOutLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -167,7 +183,12 @@ class SettingsView: UIView {
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
             passwordTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             passwordTextField.widthAnchor.constraint(equalToConstant: 200),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 40)
+            passwordTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            logOutLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            logOutLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            logOutLabel.widthAnchor.constraint(equalToConstant: 200),
+            logOutLabel.heightAnchor.constraint(equalToConstant: 40)
 
         ])
         profileView.layer.cornerRadius = 100
@@ -176,5 +197,8 @@ class SettingsView: UIView {
         backgroundColor = .red
     }
     
-    
+    @objc func logOutLabelTapped() {
+        KeychainWrapper.standard.removeObject(forKey: "accessToken")
+        router.goToLogin(windows: viewController!.view.window)
+    }
 }

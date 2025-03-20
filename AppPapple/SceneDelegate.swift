@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         router.start(windows: window)
-        
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -31,6 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // Redirige a la pantalla de inicio de sesión
             router.start(windows: window)
         }
-
     }
+    
 }

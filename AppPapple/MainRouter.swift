@@ -15,7 +15,7 @@ class MainRouter {
     init() {
         self.loginInteractor = LoginInteractor()
         self.loginPresenter = LoginPresenter(interactor: loginInteractor)
-        self.loginView = LoginViewController()
+        self.loginView = LoginViewController(presenter: loginPresenter)
         loginView.presenter = loginPresenter
     }
     
