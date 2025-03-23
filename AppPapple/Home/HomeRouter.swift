@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class HomeRouter {
     
@@ -15,6 +16,7 @@ class HomeRouter {
     }
     
     func goToLogin(windows: UIWindow?){
+        KeychainWrapper.standard.removeObject(forKey: "accessToken")
         let loginInteractor = LoginInteractor()
         let loginPresenter = LoginPresenter(interactor: loginInteractor)
         let loginView = LoginViewController(presenter: loginPresenter)

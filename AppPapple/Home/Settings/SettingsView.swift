@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
 
 class SettingsView: UIView {
     
@@ -198,7 +197,6 @@ class SettingsView: UIView {
     }
     
     @objc func logOutLabelTapped() {
-        KeychainWrapper.standard.removeObject(forKey: "accessToken")
         router.goToLogin(windows: viewController!.view.window)
     }
 }
