@@ -141,10 +141,10 @@ class SettingsView: UIView {
         logOutLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            self.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            self.widthAnchor.constraint(equalTo: view.widthAnchor),
+            self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
-            self.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor),
             
             title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),

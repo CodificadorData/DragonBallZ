@@ -29,13 +29,13 @@ class HomeViewController: UIViewController {
             setupNavigationBar()
         case "Additional":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = AdditionalView(view: view)
+            let _ = AdditionalView(view: self)
         case "Store":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = StoreView(view: view)
+            let _ = StoreView(view: self)
         case "Contact":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = ContactView(view: view)
+            let _ = ContactView(view: self)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
             let _ = SettingsView(view: self)
@@ -132,22 +132,7 @@ class HomeViewController: UIViewController {
         view.layer.masksToBounds = true
         return view
     }()
-    
-    lazy var profileView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.borderWidth = 2
-        view.layer.borderColor = .init(red: 100, green: 0, blue: 0, alpha: 1)
-        return view
-    }()
-    
-    lazy var profileImage: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "userImage")
-        image.contentMode = .scaleAspectFit
-        return image
-    }()
-    
+        
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -158,7 +143,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
-
         setupBannerView()
         presenter?.bringData()
         setupNavigationBar()
@@ -168,12 +152,15 @@ class HomeViewController: UIViewController {
         navigationController?.isToolbarHidden = false
     }
     
+    @objc func profileViewTapped() {
+        view.subviews.forEach { $0.removeFromSuperview() }
+        let _ = SettingsView(view: self)
+    }
+    
     func setupBannerView() {
         self.title = "Dragon Ball Z"
         view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         view.addSubview(viewContainer)
-        view.addSubview(profileView)
-        profileView.addSubview(profileImage)
         viewContainer.addSubview(scrollHome)
         scrollHome.addSubview(bannerView)
         scrollHome.addSubview(tableHome)
@@ -199,8 +186,6 @@ class HomeViewController: UIViewController {
         tableHome.translatesAutoresizingMaskIntoConstraints = false
         principalImage.translatesAutoresizingMaskIntoConstraints = false
         labelHeader.translatesAutoresizingMaskIntoConstraints = false
-        profileView.translatesAutoresizingMaskIntoConstraints = false
-        profileImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
@@ -248,22 +233,11 @@ class HomeViewController: UIViewController {
             principalImage.rightAnchor.constraint(equalTo: viewContainer.rightAnchor, constant: -20),
             principalImage.heightAnchor.constraint(equalToConstant: 400),
             principalImage.widthAnchor.constraint(equalToConstant: 150),
-            
-            profileView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
-            profileView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            profileView.heightAnchor.constraint(equalToConstant: 40),
-            profileView.widthAnchor.constraint(equalToConstant: 40),
-            
-            profileImage.centerXAnchor.constraint(equalTo: profileView.centerXAnchor),
-            profileImage.centerYAnchor.constraint(equalTo: profileView.centerYAnchor),
-            profileImage.heightAnchor.constraint(equalToConstant: 30),
-            
+
             labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor)
             
         ])
-        profileView.layer.cornerRadius = 20
-        profileView.layer.masksToBounds = true
 
     }
     
@@ -273,6 +247,36 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = .clear
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
         self.navigationController?.toolbar.barTintColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
+        
+        
+//        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 40)) // Ajusta el tamaño
+//        let titleLabel = UILabel()
+//        titleLabel.text = "Dragon Ball Z"
+//        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+//        titleLabel.textColor = .black
+//        titleLabel.textAlignment = .center
+//
+//        // Usa un stack view para manejar alineaciones
+//        let stackView = UIStackView(arrangedSubviews: [titleLabel])
+//        stackView.axis = .horizontal
+//        stackView.alignment = .center
+//        stackView.frame = titleView.bounds
+//
+//        titleView.addSubview(stackView)
+//
+//        navigationItem.titleView = titleView
+        
+        
+        let image = UIImage(named: "userImage")?.withRenderingMode(.alwaysOriginal)
+
+        // Ajustar el tamaño de la imagen manualmente
+        let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        }
+
+        let button = UIBarButtonItem(image: resizedImage, style: .plain, target: self, action: #selector(profileViewTapped))
+
+        navigationItem.rightBarButtonItem = button
         
         let toolbarItem = [
         UIBarButtonItem(

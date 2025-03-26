@@ -25,9 +25,9 @@ class ContactView: UIView {
         super.init(coder: coder)
     }
     
-    init(view: UIView) {
+    init(view: UIViewController) {
         super.init(frame: .zero)
-        self.setupView(view: view)
+        self.setupView(view: view.view)
     }
     
     func setupView(view: UIView) {
@@ -36,10 +36,10 @@ class ContactView: UIView {
         view.addSubview(self)
         
         NSLayoutConstraint.activate([
-            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            self.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             self.widthAnchor.constraint(equalTo: view.widthAnchor),
-            self.heightAnchor.constraint(equalTo: view.heightAnchor)
+            self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
 
         backgroundColor = .yellow
