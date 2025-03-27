@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     let cellIdentifi = "cell"
     var personaje: Item?
     let router = HomeRouter()
+    var isLoading = false // Para evitar múltiples cargas simultáneas
+    var contador: CGFloat = 1
 
     @IBAction func buttonPressed(_ sender: UIButton) {
         router.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
@@ -248,25 +250,6 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
         self.navigationController?.toolbar.barTintColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         
-        
-//        let titleView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 40)) // Ajusta el tamaño
-//        let titleLabel = UILabel()
-//        titleLabel.text = "Dragon Ball Z"
-//        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
-//        titleLabel.textColor = .black
-//        titleLabel.textAlignment = .center
-//
-//        // Usa un stack view para manejar alineaciones
-//        let stackView = UIStackView(arrangedSubviews: [titleLabel])
-//        stackView.axis = .horizontal
-//        stackView.alignment = .center
-//        stackView.frame = titleView.bounds
-//
-//        titleView.addSubview(stackView)
-//
-//        navigationItem.titleView = titleView
-        
-        
         let image = UIImage(named: "userImage")?.withRenderingMode(.alwaysOriginal)
 
         // Ajustar el tamaño de la imagen manualmente
@@ -341,15 +324,25 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension HomeViewController: DragonBallUI {
     func updateDragonBall(dragonBallList: [Item]) {
-        DispatchQueue.main.async {
-            let imageFirst = self.presenter!.modelDragon.first!.image
-            self.tableHome.reloadData()
-            self.principalImage.kf.setImage(with: URL(string: imageFirst))
-            self.bannerImage.kf.setImage(with: URL(string: imageFirst))
-            let indexPath = IndexPath(row: 0, section: 0)
-            self.tableHome.delegate?.tableView?(self.tableHome, didSelectRowAt: indexPath)
-        }
+        let imageFirst = self.presenter!.modelDragon.first!.image
+        self.tableHome.reloadData()
+        self.principalImage.kf.setImage(with: URL(string: imageFirst))
+        self.bannerImage.kf.setImage(with: URL(string: imageFirst))
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableHome.delegate?.tableView?(self.tableHome, didSelectRowAt: indexPath)
     }
-    
-    
+}
+
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+                
+        if position > contador {
+            presenter?.bringData(bool: true)
+            contador += 500
+        }
+
+    }
 }

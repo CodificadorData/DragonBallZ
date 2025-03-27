@@ -10,13 +10,17 @@ import Alamofire
 import Kingfisher
 
 class HomeInteractor {
-    
-    func requestDragonBall(dataJson: @escaping (_ dataDragon: DragonBallEntity) -> Void) {
+
+    func requestDragonBall(url: String = "https://dragonball-api.com/api/characters", dataJson: @escaping (_ dataDragon: DragonBallEntity) -> Void) {
         
-        AF.request("https://dragonball-api.com/api/characters").responseDecodable(of: DragonBallEntity.self) { response in
+        guard let url = URL(string: url) else { return }
+        
+        AF.request(url).responseDecodable(of: DragonBallEntity.self) { response in
             switch response.result {
             case .success(let response):
-                dataJson(response)
+                DispatchQueue.main.async {
+                    dataJson(response)
+                }
             case .failure(_):
                 print("error")
             }
