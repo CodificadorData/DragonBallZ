@@ -97,7 +97,7 @@ class HomeViewController: UIViewController {
     lazy var principalImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "Bienvenida")
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -135,6 +135,27 @@ class HomeViewController: UIViewController {
         return view
     }()
         
+    lazy var activityIndicatorTableHome: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.hidesWhenStopped = true
+        activity.color = .black
+        return activity
+    }()
+    
+    lazy var activityIndicatorPrincipalImage: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.hidesWhenStopped = true
+        activity.color = .black
+        return activity
+    }()
+
+    lazy var activityIndicatorBannerImage: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .medium)
+        activity.hidesWhenStopped = true
+        activity.color = .black
+        return activity
+    }()
+
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -146,8 +167,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         setupBannerView()
-        presenter?.bringData()
         setupNavigationBar()
+        activityIndicatorTableHome.startAnimating()
+        presenter?.bringData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -176,7 +198,10 @@ class HomeViewController: UIViewController {
         tableHome.dataSource = self
         tableHome.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifi)
         tableHome.tableHeaderView = headerView
+        tableHome.addSubview(activityIndicatorTableHome)
         headerView.addSubview(labelHeader)
+        principalImage.addSubview(activityIndicatorPrincipalImage)
+        bannerImage.addSubview(activityIndicatorBannerImage)
 
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         bannerButton.translatesAutoresizingMaskIntoConstraints = false
@@ -188,6 +213,9 @@ class HomeViewController: UIViewController {
         tableHome.translatesAutoresizingMaskIntoConstraints = false
         principalImage.translatesAutoresizingMaskIntoConstraints = false
         labelHeader.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorTableHome.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorPrincipalImage.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorBannerImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
@@ -237,7 +265,16 @@ class HomeViewController: UIViewController {
             principalImage.widthAnchor.constraint(equalToConstant: 150),
 
             labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor)
+            labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            
+            activityIndicatorTableHome.centerYAnchor.constraint(equalTo: tableHome.centerYAnchor),
+            activityIndicatorTableHome.centerXAnchor.constraint(equalTo: tableHome.centerXAnchor),
+            
+            activityIndicatorPrincipalImage.centerYAnchor.constraint(equalTo: principalImage.centerYAnchor),
+            activityIndicatorPrincipalImage.centerXAnchor.constraint(equalTo: principalImage.centerXAnchor),
+            
+            activityIndicatorBannerImage.centerYAnchor.constraint(equalTo: bannerImage.centerYAnchor),
+            activityIndicatorBannerImage.centerXAnchor.constraint(equalTo: bannerImage.centerXAnchor)
             
         ])
 
@@ -316,14 +353,34 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         guard let url = presenter?.modelDragon[indexPath.row].image else {
             return
         }
-        bannerImage.kf.setImage(with: URL(string: url))
-        principalImage.kf.setImage(with: URL(string: url))
+        self.activityIndicatorPrincipalImage.startAnimating()
+        self.activityIndicatorBannerImage.startAnimating()
+
+        principalImage.kf.setImage(with: URL(string: url), completionHandler: { result in
+            switch result {
+            case .success(_):
+                print("success")
+                self.activityIndicatorPrincipalImage.stopAnimating()
+            case .failure(_):
+                print("failure")
+            }
+        })
+        bannerImage.kf.setImage(with: URL(string: url), completionHandler: { result in
+            switch result {
+            case .success(_):
+                print("success")
+                self.activityIndicatorBannerImage.stopAnimating()
+            case .failure(_):
+                print("failure")
+            }
+        })
         personaje = (presenter?.modelDragon[indexPath.row])!
     }
 }
 
 extension HomeViewController: DragonBallUI {
     func updateDragonBall(dragonBallList: [Item]) {
+        activityIndicatorTableHome.stopAnimating()
         let imageFirst = self.presenter!.modelDragon.first!.image
         self.tableHome.reloadData()
         self.principalImage.kf.setImage(with: URL(string: imageFirst))
@@ -336,8 +393,8 @@ extension HomeViewController: DragonBallUI {
 extension HomeViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let frameHeight = scrollView.frame.size.height
+//        let contentHeight = scrollView.contentSize.height
+//        let frameHeight = scrollView.frame.size.height
                 
         if position > contador {
             presenter?.bringData(bool: true)
