@@ -90,7 +90,7 @@ class HomeViewController: UIViewController {
     
     lazy var bannerImage: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -385,8 +385,6 @@ extension HomeViewController: DragonBallUI {
         self.tableHome.reloadData()
         self.principalImage.kf.setImage(with: URL(string: imageFirst))
         self.bannerImage.kf.setImage(with: URL(string: imageFirst))
-        let indexPath = IndexPath(row: 0, section: 0)
-        self.tableHome.delegate?.tableView?(self.tableHome, didSelectRowAt: indexPath)
     }
 }
 
@@ -395,11 +393,9 @@ extension HomeViewController: UIScrollViewDelegate {
         let position = scrollView.contentOffset.y
 //        let contentHeight = scrollView.contentSize.height
 //        let frameHeight = scrollView.frame.size.height
-                
         if position > contador {
             presenter?.bringData(bool: true)
             contador += 500
         }
-
     }
 }
