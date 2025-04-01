@@ -359,7 +359,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         principalImage.kf.setImage(with: URL(string: url), completionHandler: { result in
             switch result {
             case .success(_):
-                print("success")
                 self.activityIndicatorPrincipalImage.stopAnimating()
             case .failure(_):
                 print("failure")
@@ -368,7 +367,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         bannerImage.kf.setImage(with: URL(string: url), completionHandler: { result in
             switch result {
             case .success(_):
-                print("success")
                 self.activityIndicatorBannerImage.stopAnimating()
             case .failure(_):
                 print("failure")

@@ -81,6 +81,13 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.hidesWhenStopped = true
+        activity.color = .black
+        return activity
+    }()
+
     let alert = UIAlertController(title: "Credenciales incorrectas", message: "ID o contraseña incorrecta", preferredStyle: .alert)
 
     let okAction = UIAlertAction(title: "Aceptar", style: .default) { _ in
@@ -107,6 +114,7 @@ class LoginViewController: UIViewController {
         view.addSubview(idTextField)
         view.addSubview(passwordTextField)
         view.addSubview(registerButton)
+        view.addSubview(activityIndicator)
         setupConstraints()
         alert.addAction(okAction)
     }
@@ -115,7 +123,9 @@ class LoginViewController: UIViewController {
         guard let id = idTextField.text, let password = passwordTextField.text else {
             return
         }
-
+        view.backgroundColor = .lightGray
+        view.layer.opacity = 0.3
+        self.activityIndicator.startAnimating()
         do {
             _ = try presenter?.validateUser(email: id, password: password)
 
@@ -123,7 +133,10 @@ class LoginViewController: UIViewController {
             KeychainWrapper.standard.set(password, forKey: "password")
             KeychainWrapper.standard.set("token", forKey: "accessToken")
             
-            router.goToHome(windows: view.window)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.activityIndicator.stopAnimating()
+                self.router.goToHome(windows: self.view.window)
+            }
             presenter?.login(userID: id, password: password)
         } catch {
             present(alert, animated: true, completion: nil)
@@ -143,6 +156,7 @@ class LoginViewController: UIViewController {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         registerButton.translatesAutoresizingMaskIntoConstraints = false
         titleLoginLabel.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
@@ -172,8 +186,10 @@ class LoginViewController: UIViewController {
             
             registerButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 30),
             registerButton.widthAnchor.constraint(equalToConstant: 100),
-            registerButton.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
+            registerButton.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor),
             
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 
         ])
     }

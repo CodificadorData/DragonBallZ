@@ -105,7 +105,13 @@ class SettingsView: UIView {
         return title
     }()
 
-    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.hidesWhenStopped = true
+        activity.color = .black
+        return activity
+    }()
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -128,7 +134,8 @@ class SettingsView: UIView {
         self.addSubview(surNameTextField)
         self.addSubview(logOutLabel)
         profileView.addSubview(profileImage)
-
+        self.addSubview(activityIndicator
+        )
         self.translatesAutoresizingMaskIntoConstraints = false
         profileView.translatesAutoresizingMaskIntoConstraints = false
         title.translatesAutoresizingMaskIntoConstraints = false
@@ -139,6 +146,7 @@ class SettingsView: UIView {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         surNameTextField.translatesAutoresizingMaskIntoConstraints = false
         logOutLabel.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             self.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -187,7 +195,10 @@ class SettingsView: UIView {
             logOutLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
             logOutLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             logOutLabel.widthAnchor.constraint(equalToConstant: 200),
-            logOutLabel.heightAnchor.constraint(equalToConstant: 40)
+            logOutLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor)
 
         ])
         profileView.layer.cornerRadius = 100
@@ -197,6 +208,13 @@ class SettingsView: UIView {
     }
     
     @objc func logOutLabelTapped() {
-        router.goToLogin(windows: viewController!.view.window)
+        self.backgroundColor = .lightGray
+        self.layer.opacity = 0.3
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.activityIndicator.stopAnimating()
+            self.router.goToLogin(windows: self.viewController!.view.window)
+        }
     }
+    
 }

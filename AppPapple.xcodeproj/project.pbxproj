@@ -92,6 +92,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		659900E62D9BCC1F003970AE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		65D647322D2B938F00431310 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +235,7 @@
 		CD10C35A2B3C6AF80068484A /* AppPapple */ = {
 			isa = PBXGroup;
 			children = (
+				659900E62D9BCC1F003970AE /* Utils */,
 				658879E02D26087D000EA056 /* MainRouter.swift */,
 				CD10C35B2B3C6AF80068484A /* AppDelegate.swift */,
 				CD10C35D2B3C6AF80068484A /* SceneDelegate.swift */,
