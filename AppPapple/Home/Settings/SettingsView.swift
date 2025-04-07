@@ -18,7 +18,7 @@ class SettingsView: UIView {
         title.text = "My account"
         title.textAlignment = .center
         title.numberOfLines = 0
-        title.font = UIFont.systemFont(ofSize: 16)
+        title.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
         return title
     }()
     

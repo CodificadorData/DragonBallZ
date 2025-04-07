@@ -10,6 +10,7 @@ import UIKit
 class RegisterViewController: UIViewController {
     
     let router = RegisterRouter()
+    let presenter = RegisterPresenter()
     
     lazy var successButton: UIButton = {
         let button = UIButton()
@@ -186,6 +187,9 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func register() {
+        let newUser = NewUserEntity(name: nameField.text!, surname: surNameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, phoneNumber: phoneNumberTextField.text!)
+        
+        presenter.registerUser(user: newUser)
         router.goToLogin(mainView: self)
     }
 }

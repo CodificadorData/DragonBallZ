@@ -32,8 +32,6 @@ class HomePresenter {
             })
 
         }
-
-        
     }
         
 }
