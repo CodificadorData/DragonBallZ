@@ -17,7 +17,8 @@ class HomeViewController: UIViewController {
     let router = HomeRouter()
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
-
+    var settingsView: SettingsView?
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
         router.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
     }
@@ -40,7 +41,7 @@ class HomeViewController: UIViewController {
             let _ = ContactView(view: self)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = SettingsView(view: self)
+            settingsView = SettingsView(view: self)
         default:
             break
         }
@@ -397,3 +398,5 @@ extension HomeViewController: UIScrollViewDelegate {
         }
     }
 }
+
+

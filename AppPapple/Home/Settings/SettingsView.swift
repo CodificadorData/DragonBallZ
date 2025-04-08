@@ -34,6 +34,9 @@ class SettingsView: UIView {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.image = UIImage(named: "userImage")
+        image.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappableProfilePicture))
+        image.addGestureRecognizer(tapGesture)
         return image
     }()
     
@@ -242,4 +245,30 @@ class SettingsView: UIView {
         }
     }
     
+    @objc func tappableProfilePicture() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = false
+        viewController?.present(picker, animated: true)
+    }
+    
+}
+
+
+extension SettingsView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    // MARK: - UIImagePickerControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let image = info[.originalImage] as? UIImage {
+            self.profileImage.image = image
+        }
+        
+        picker.dismiss(animated: true)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+
 }
