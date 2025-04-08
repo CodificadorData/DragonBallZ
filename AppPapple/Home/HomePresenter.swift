@@ -13,6 +13,7 @@ class HomePresenter {
     var ui: DragonBallUI?
     var modelDragon: [Item] = []
     var page: String = ""
+    
     init(homeInteractor: HomeInteractor) {
         self.dragonBallInteractor = HomeInteractor()
     }
@@ -30,7 +31,6 @@ class HomePresenter {
                 self.ui?.updateDragonBall(dragonBallList: self.modelDragon)
                 self.page = dataDragon.links.next
             })
-
         }
     }
         
