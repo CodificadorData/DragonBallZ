@@ -41,7 +41,12 @@ class SettingsView: UIView {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 18, weight: .medium)
         textField.textColor = .white
-        textField.text = "name"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: " name",
+            attributes: [
+                .foregroundColor: UIColor.white
+            ]
+        )
         textField.textAlignment = .left
         textField.layer.borderWidth = 2.0
         textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
@@ -52,7 +57,12 @@ class SettingsView: UIView {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 18, weight: .medium)
         textField.textColor = .white
-        textField.text = "surName"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: " surName",
+            attributes: [
+                .foregroundColor: UIColor.white
+            ]
+        )
         textField.textAlignment = .left
         textField.layer.borderWidth = 2.0
         textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
@@ -63,7 +73,12 @@ class SettingsView: UIView {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 18, weight: .medium)
         textField.textColor = .white
-        textField.text = "email"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: " email",
+            attributes: [
+                .foregroundColor: UIColor.white
+            ]
+        )
         textField.textAlignment = .left
         textField.layer.borderWidth = 2.0
         textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
@@ -74,7 +89,12 @@ class SettingsView: UIView {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 18, weight: .medium)
         textField.textColor = .white
-        textField.text = "phoneNumber"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: " phoneNumber",
+            attributes: [
+                .foregroundColor: UIColor.white
+            ]
+        )
         textField.textAlignment = .left
         textField.layer.borderWidth = 2.0
         textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
@@ -85,7 +105,12 @@ class SettingsView: UIView {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 18, weight: .medium)
         textField.textColor = .white
-        textField.text = "Password"
+        textField.attributedPlaceholder = NSAttributedString(
+            string: " password",
+            attributes: [
+                .foregroundColor: UIColor.white
+            ]
+        )
         textField.textAlignment = .left
         textField.layer.borderWidth = 2.0
         textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
