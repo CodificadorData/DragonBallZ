@@ -10,7 +10,8 @@ import UIKit
 class SettingsView: UIView {
     
     let router = HomeRouter()
-    var viewController: UIViewController?
+    var viewController: HomeViewController?
+    let presenter = SettingsPresenter(interactor: SettingsInteractor())
     
     lazy var title: UILabel = {
         let title = UILabel()
@@ -33,6 +34,7 @@ class SettingsView: UIView {
     lazy var profileImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
         image.image = UIImage(named: "userImage")
         image.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappableProfilePicture))
@@ -144,10 +146,25 @@ class SettingsView: UIView {
         super.init(coder: coder)
     }
     
-    init(view: UIViewController) {
+    init(view: HomeViewController) {
         super.init(frame: .zero)
         self.viewController = view
         self.setupView(view: view.view)
+        self.presenter.fetchSettings { dataJson in
+            self.nameTextField.text = dataJson.name
+            self.surNameTextField.text = dataJson.surName
+            self.emailTextField.text = dataJson.email
+            self.phoneNumberTextField.text = dataJson.phoneNumber
+            let cleanedBase64 = dataJson.imageProfile
+                    .replacingOccurrences(of: "data:image/png;base64,", with: "")
+                    .replacingOccurrences(of: "data:image/jpeg;base64,", with: "") // por si es JPG
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                
+            if let imageData = Data(base64Encoded: cleanedBase64),
+                let image = UIImage(data: imageData) {
+                self.profileImage.image = image
+            }
+        }
     }
     
     func setupView(view: UIView) {

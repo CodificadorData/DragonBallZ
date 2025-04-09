@@ -14,8 +14,11 @@ class SettingsPresenter {
         self.interactor = interactor
     }
     
-    func fetchSettings() {
+    func fetchSettings(data: @escaping (_ dataJson: NewUserEntity) -> Void) {
         interactor?.fetchUserData { dataJson in
+            data(dataJson)
         }
     }
 }
+
+

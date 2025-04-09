@@ -187,7 +187,7 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func register() {
-        let newUser = NewUserEntity(name: nameField.text!, surname: surNameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, phoneNumber: phoneNumberTextField.text!)
+        let newUser = NewUserEntity(name: nameField.text!, surName: surNameTextField.text!, email: emailTextField.text!, phoneNumber: phoneNumberTextField.text!, imageProfile: "")
         
         presenter.registerUser(user: newUser)
         router.goToLogin(mainView: self)

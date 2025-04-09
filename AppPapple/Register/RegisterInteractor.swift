@@ -19,9 +19,8 @@ class RegisterInteractor {
         
         let parameters: [String: Any] = [
             "name": user.name,
-            "surName": user.surname,
+            "surName": user.surName,
             "email": user.email,
-            "password": user.password,
             "phoneNumber": user.phoneNumber
         ]
 
