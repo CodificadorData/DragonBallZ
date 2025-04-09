@@ -22,20 +22,11 @@ class SettingsView: UIView {
         title.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
         return title
     }()
-    
-    lazy var profileView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.borderWidth = 5
-        view.layer.borderColor = .init(red: 0, green: 0, blue: 200, alpha: 1)
-        return view
-    }()
-    
+        
     lazy var profileImage: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFit
-        image.clipsToBounds = true
         image.image = UIImage(named: "userImage")
+        image.contentMode = .scaleAspectFit
         image.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappableProfilePicture))
         image.addGestureRecognizer(tapGesture)
@@ -171,18 +162,16 @@ class SettingsView: UIView {
         
         view.addSubview(self)
         self.addSubview(title)
-        self.addSubview(profileView)
+        self.addSubview(profileImage)
         self.addSubview(emailTextField)
         self.addSubview(passwordTextField)
         self.addSubview(phoneNumberTextField)
         self.addSubview(nameTextField)
         self.addSubview(surNameTextField)
         self.addSubview(logOutLabel)
-        profileView.addSubview(profileImage)
         self.addSubview(activityIndicator
         )
         self.translatesAutoresizingMaskIntoConstraints = false
-        profileView.translatesAutoresizingMaskIntoConstraints = false
         title.translatesAutoresizingMaskIntoConstraints = false
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -203,16 +192,12 @@ class SettingsView: UIView {
             title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             title.widthAnchor.constraint(equalToConstant: 200),
             
-            profileView.heightAnchor.constraint(equalToConstant: 200),
-            profileView.widthAnchor.constraint(equalToConstant: 200),
-            profileView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            profileView.topAnchor.constraint(equalTo: self.topAnchor, constant: 80),
+            profileImage.heightAnchor.constraint(equalToConstant: 200),
+            profileImage.widthAnchor.constraint(equalToConstant: 200),
+            profileImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            profileImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 80),
             
-            profileImage.heightAnchor.constraint(equalToConstant: 180),
-            profileImage.centerXAnchor.constraint(equalTo: profileView.centerXAnchor),
-            profileImage.centerYAnchor.constraint(equalTo: profileView.centerYAnchor),
-            
-            nameTextField.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 20),
+            nameTextField.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 20),
             nameTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             nameTextField.widthAnchor.constraint(equalToConstant: 200),
             nameTextField.heightAnchor.constraint(equalToConstant: 40),
@@ -246,9 +231,10 @@ class SettingsView: UIView {
             activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor)
 
         ])
-        profileView.layer.cornerRadius = 100
-        profileView.layer.masksToBounds = true
-
+        DispatchQueue.main.async {
+            self.profileImage.layer.cornerRadius = self.profileImage.frame.width / 2
+            self.profileImage.clipsToBounds = true
+        }
         backgroundColor = .red
     }
     
