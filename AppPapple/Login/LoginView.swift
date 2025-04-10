@@ -6,7 +6,6 @@
 //
 import UIKit
 import Kingfisher
-import SwiftKeychainWrapper
 
 class LoginViewController: UIViewController {
     
@@ -91,7 +90,6 @@ class LoginViewController: UIViewController {
     let alert = UIAlertController(title: "Credenciales incorrectas", message: "ID o contraseña incorrecta", preferredStyle: .alert)
 
     let okAction = UIAlertAction(title: "Aceptar", style: .default) { _ in
-        print("Aceptar pulsado")
     }
     
     
@@ -130,8 +128,6 @@ class LoginViewController: UIViewController {
             self.presenter?.validateUser(email: id, password: password) { dataJson in
                 switch dataJson {
                 case .success(let response):
-                    print("Info User \(dataJson)")
-                    KeychainWrapper.standard.set(response.token, forKey: "accessToken")
                     self.activityIndicator.stopAnimating()
                     self.router.goToHome(windows: self.view.window)
                 case .failure(_):

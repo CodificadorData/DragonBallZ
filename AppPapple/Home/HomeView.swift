@@ -380,7 +380,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
 extension HomeViewController: DragonBallUI {
     func updateDragonBall(dragonBallList: [Item]) {
         activityIndicatorTableHome.stopAnimating()
-        let imageFirst = self.presenter!.modelDragon.first!.image
+        let imageFirst = dragonBallList.first!.image
         self.tableHome.reloadData()
         self.principalImage.kf.setImage(with: URL(string: imageFirst))
         self.bannerImage.kf.setImage(with: URL(string: imageFirst))

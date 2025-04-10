@@ -10,27 +10,26 @@ import Alamofire
 class RegisterInteractor {
     
     func registerUser(user: NewUserEntity) {
-        let url = "http://localhost:3001/registerUserAppPapple" // URL de tu API
-        
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer_mi_token_de_prueba"
-            ]
-        
-        let parameters: [String: Any] = [
+        let url = "http://localhost:3001/registerUserAppPapple"
+            
+        let parameters: [String: Any?] = [
             "name": user.name,
             "surName": user.surName,
             "email": user.email,
-            "phoneNumber": user.phoneNumber
+            "password": user.password,
+            "phoneNumber": user.phoneNumber,
+            "imageProfile": user.imageProfile
         ]
 
-        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-            .responseJSON { response in
+        AF.request(url, method: .post, parameters: parameters)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ResponseRegister.self){
+            response in
                 switch response.result {
                 case .success(let data):
-                    print("Respuesta recibida: \(data)")
+                    print("registerUser: \(data)")
                 case .failure(let error):
-                    print("Error al enviar datos: \(error.localizedDescription)")
+                    print("Error registerUser: \(error)")
                 }
             }
     }

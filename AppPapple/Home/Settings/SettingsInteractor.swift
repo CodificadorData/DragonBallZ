@@ -10,25 +10,59 @@ import Foundation
 
 class SettingsInteractor {
     
-    func fetchUserData(dataUser: @escaping (_ dataJson: NewUserEntity) -> Void) {
-        
+    func fetchUserData(authorizationToken: String, dataUser: @escaping (_ dataJson: NewUserEntity) -> Void) {
         guard let url = URL(string: "http://localhost:3001/fetchUserAppPapple") else { return }
-
-        let queryParams: [String: Int] = [
-            "email": 123,
-            "password": 123
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": authorizationToken
         ]
-
-        AF.request(url, method: .get, parameters: queryParams).responseDecodable(of: NewUserEntity.self) {
+        AF.request(url, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: NewUserEntity.self) {
             response in
             switch response.result {
             case .success(let response):
                 DispatchQueue.main.async {
                     dataUser(response)
+                    print("fetchUserData \(response)")
                 }
             case .failure(let error):
                 print("error \(error)")
             }
         }
     }
+    
+    func updateUserData(name: String, surName: String, phoneNumber: String,
+                        email: String, authorizationToken: String, imageProfile: String,
+                        password: String, dataUser: @escaping (_ dataJson: Result<NewUserEntity, Error>) -> Void ){
+        guard let url = URL(string: "http://localhost:3001/updateUserAppPapple") else { return }
+        let queryParams: [String: String] = [
+            "name": name,
+            "surName": surName,
+            "phoneNumber": phoneNumber,
+            "email": email,
+            "password": password,
+            "imageProfile": imageProfile
+        ]
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": authorizationToken
+        ]
+        AF.request(url, method: .get, parameters: queryParams, headers: headers).responseDecodable(of: NewUserEntity.self) { response in
+            switch response.result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    dataUser(.success(response))
+                    print("updateUserData \(response)")
+
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    dataUser(.failure(error))
+                    print("updateUserData error \(error)")
+                }
+            }
+        }
+    }
+    
 }

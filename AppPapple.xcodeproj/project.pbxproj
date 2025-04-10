@@ -119,7 +119,6 @@
 		65D6473B2D2C1D1300431310 /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				651A0CCF2DA42BBF00C63241 /* NewUserEntity.swift */,
 				65D647422D2C1DCF00431310 /* RegisterRouter.swift */,
 				65D647402D2C1DC800431310 /* RegisterInteractor.swift */,
 				65D6473E2D2C1DBF00431310 /* RegisterPresenter.swift */,
@@ -167,6 +166,7 @@
 		65DD45BB2D35DBDB00B48BE9 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				651A0CCF2DA42BBF00C63241 /* NewUserEntity.swift */,
 				65DD45BC2D35DD0E00B48BE9 /* UserEntity.swift */,
 			);
 			path = Entities;

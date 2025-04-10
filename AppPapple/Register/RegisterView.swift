@@ -106,6 +106,13 @@ class RegisterViewController: UIViewController {
         return textField
     }()
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .large)
+        activity.hidesWhenStopped = true
+        activity.color = .black
+        return activity
+    }()
+
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -127,6 +134,7 @@ class RegisterViewController: UIViewController {
         view.addSubview(phoneNumberTextField)
         view.addSubview(passwordTextField)
         view.addSubview(passwordConfirmTextField)
+        view.addSubview(activityIndicator)
         setupConstraints()
     }
     
@@ -187,9 +195,17 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func register() {
-        let newUser = NewUserEntity(name: nameField.text!, surName: surNameTextField.text!, email: emailTextField.text!, phoneNumber: phoneNumberTextField.text!, imageProfile: "")
-        
-        presenter.registerUser(user: newUser)
-        router.goToLogin(mainView: self)
+        view.backgroundColor = .lightGray
+        view.layer.opacity = 0.3
+        self.activityIndicator.startAnimating()
+
+        let newUser = NewUserEntity(name: nameField.text, surName: surNameTextField.text, email: emailTextField.text, phoneNumber: phoneNumberTextField.text, password: passwordTextField.text, imageProfile: "")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.presenter.registerUser(user: newUser)
+            self.router.goToLogin(mainView: self)
+            self.activityIndicator.stopAnimating()
+            self.view.layer.opacity = 1
+            self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
+        }
     }
 }

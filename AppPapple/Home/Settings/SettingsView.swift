@@ -140,22 +140,35 @@ class SettingsView: UIView {
     init(view: HomeViewController) {
         super.init(frame: .zero)
         self.viewController = view
-        self.setupView(view: view.view)
+        self.start(view: view)
+    }
+    
+    func start(view: HomeViewController) {
+        setupView(view: view.view)
         self.presenter.fetchSettings { dataJson in
             self.nameTextField.text = dataJson.name
             self.surNameTextField.text = dataJson.surName
             self.emailTextField.text = dataJson.email
             self.phoneNumberTextField.text = dataJson.phoneNumber
-            let cleanedBase64 = dataJson.imageProfile
+            let cleanedBase64 = dataJson.imageProfile?
                     .replacingOccurrences(of: "data:image/png;base64,", with: "")
                     .replacingOccurrences(of: "data:image/jpeg;base64,", with: "") // por si es JPG
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                 
-            if let imageData = Data(base64Encoded: cleanedBase64),
+            if let imageData = Data(base64Encoded: cleanedBase64!),
                 let image = UIImage(data: imageData) {
                 self.profileImage.image = image
             }
         }
+        self.presenter.updateUserData(name: "Alex", surName: "Dino", phoneNumber: "321123321", email: "1234", imageProfile: "1", password: "1234") { dataJson in
+            switch dataJson {
+            case .success(let dataJson):
+                print("success")
+            case .failure(let error):
+                print("error")
+            }
+        }
+
     }
     
     func setupView(view: UIView) {

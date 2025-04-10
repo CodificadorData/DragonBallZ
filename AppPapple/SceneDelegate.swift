@@ -24,10 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         if (KeychainWrapper.standard.string(forKey: "accessToken") != nil) {
-            // Redirige a la pantalla principal
             loginRouter.goToHome(windows: window)
         } else {
-            // Redirige a la pantalla de inicio de sesión
             router.start(windows: window)
         }
     }

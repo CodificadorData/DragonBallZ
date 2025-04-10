@@ -15,14 +15,17 @@ class HomeInteractor {
         
         guard let url = URL(string: url) else { return }
         
-        AF.request(url).responseDecodable(of: DragonBallEntity.self) { response in
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: DragonBallEntity.self) { response in
             switch response.result {
             case .success(let response):
                 DispatchQueue.main.async {
                     dataJson(response)
+                    print("requestDragonBall \(response)")
                 }
-            case .failure(_):
-                print("error")
+            case .failure(let error):
+                print("error \(error)")
             }
         }
     }

@@ -19,9 +19,5 @@ class LoginPresenter {
             dataUser(dataJson)
         }
     }
-    
-    func login(userID: String, password: String) {
         
-    }
-    
 }

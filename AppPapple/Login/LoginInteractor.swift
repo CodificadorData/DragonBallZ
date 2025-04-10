@@ -6,6 +6,7 @@
 //
 import Foundation
 import Alamofire
+import SwiftKeychainWrapper
 
 class LoginInteractor {
     
@@ -13,23 +14,27 @@ class LoginInteractor {
     func validateUser(email: String, password: String,
                       dataUser: @escaping (_ dataJson: Result<ResponseUser, Error>) -> Void) {
         
-        guard let url = URL(string: "http://localhost:3001/verifyUserAppPaple/v1") else { return }
-        
+        let url = "http://localhost:3001/verifyUserAppPaple/v1"
+
         let queryParams: [String: String] = [
             "email": email,
             "password": password
         ]
         
-        AF.request(url, method: .get, parameters: queryParams).responseDecodable(of: ResponseUser.self) {
+        AF.request(url, method: .get, parameters: queryParams)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ResponseUser.self) {
             response in
             switch response.result {
-            case .success(let response):
-                DispatchQueue.main.async {
-                    dataUser(.success(response))
-                }
-            case .failure(let error):
-                print("error \(error)")
-                dataUser(.failure(error))
+                case .success(let result):
+                    DispatchQueue.main.async {
+                        dataUser(.success(result))
+                        KeychainWrapper.standard.set(result.token!, forKey: "authToken")
+                        print("validateUser \(result)")
+                    }
+                case .failure(let error):
+                    print("error validateUser \(error)")
+                    dataUser(.failure(error))
             }
         }
     }
