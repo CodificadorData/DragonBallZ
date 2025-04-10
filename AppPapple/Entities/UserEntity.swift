@@ -5,16 +5,16 @@
 //  Created by Christian Morante on 13/01/25.
 //
 struct ResponseUser: Decodable {
-    var users: UserEntity
+    let token: String
 }
 
 struct UserEntity: Decodable {
-    var id: Int
-    var name: String
-    var surName: String
-    var phoneNumber: Int
-    var email: String
-    var password: String
+    let id: Int
+    let name: String
+    let surName: String
+    let phoneNumber: Int
+    let email: String
+    let password: String
 }
 
 enum UserError: Error {

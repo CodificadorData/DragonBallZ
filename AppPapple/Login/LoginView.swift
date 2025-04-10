@@ -126,20 +126,21 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .lightGray
         view.layer.opacity = 0.3
         self.activityIndicator.startAnimating()
-        do {
-            _ = try presenter?.validateUser(email: id, password: password)
-
-            KeychainWrapper.standard.set(id, forKey: "email")
-            KeychainWrapper.standard.set(password, forKey: "password")
-            KeychainWrapper.standard.set("token", forKey: "accessToken")
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.activityIndicator.stopAnimating()
-                self.router.goToHome(windows: self.view.window)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.presenter?.validateUser(email: id, password: password) { dataJson in
+                switch dataJson {
+                case .success(let response):
+                    print("Info User \(dataJson)")
+                    KeychainWrapper.standard.set(response.token, forKey: "accessToken")
+                    self.activityIndicator.stopAnimating()
+                    self.router.goToHome(windows: self.view.window)
+                case .failure(_):
+                    self.activityIndicator.stopAnimating()
+                    self.view.layer.opacity = 1
+                    self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
+                    self.present(self.alert, animated: true, completion: nil)
+                }
             }
-            presenter?.login(userID: id, password: password)
-        } catch {
-            present(alert, animated: true, completion: nil)
         }
     }
     

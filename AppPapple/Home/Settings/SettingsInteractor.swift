@@ -12,9 +12,7 @@ class SettingsInteractor {
     
     func fetchUserData(dataUser: @escaping (_ dataJson: NewUserEntity) -> Void) {
         
-        let url = "http://localhost:3001/fetchUserAppPapple"
-        
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: "http://localhost:3001/fetchUserAppPapple") else { return }
 
         let queryParams: [String: Int] = [
             "email": 123,
