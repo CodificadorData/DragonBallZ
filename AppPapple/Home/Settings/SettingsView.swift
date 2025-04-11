@@ -10,7 +10,7 @@ import UIKit
 class SettingsView: UIView {
     
     let router = HomeRouter()
-    var viewController: HomeViewController?
+//    var viewController: HomeViewController?
     let presenter = SettingsPresenter(interactor: SettingsInteractor())
     
     lazy var title: UILabel = {
@@ -137,14 +137,14 @@ class SettingsView: UIView {
         super.init(coder: coder)
     }
     
-    init(view: HomeViewController) {
+    init(/*view: HomeViewController*/) {
         super.init(frame: .zero)
-        self.viewController = view
-        self.start(view: view)
+//        self.viewController = view
+        self.start(/*view: view*/)
     }
     
-    func start(view: HomeViewController) {
-        setupView(view: view.view)
+    func start(/*view: HomeViewController*/) {
+        setupView(/*view: view.view*/)
         self.presenter.fetchSettings { dataJson in
             self.nameTextField.text = dataJson.name
             self.surNameTextField.text = dataJson.surName
@@ -171,9 +171,9 @@ class SettingsView: UIView {
 
     }
     
-    func setupView(view: UIView) {
+    func setupView(/*view: UIView*/) {
         
-        view.addSubview(self)
+//        view.addSubview(self)
         self.addSubview(title)
         self.addSubview(profileImage)
         self.addSubview(emailTextField)
@@ -182,9 +182,8 @@ class SettingsView: UIView {
         self.addSubview(nameTextField)
         self.addSubview(surNameTextField)
         self.addSubview(logOutLabel)
-        self.addSubview(activityIndicator
-        )
-        self.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(activityIndicator)
+        
         title.translatesAutoresizingMaskIntoConstraints = false
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -196,10 +195,10 @@ class SettingsView: UIView {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            self.widthAnchor.constraint(equalTo: view.widthAnchor),
-            self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            self.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            self.widthAnchor.constraint(equalTo: view.widthAnchor),
+//            self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
@@ -257,7 +256,7 @@ class SettingsView: UIView {
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.activityIndicator.stopAnimating()
-            self.router.goToLogin(windows: self.viewController!.view.window)
+//            self.router.goToLogin(windows: self.viewController!.view.window)
         }
     }
     
@@ -266,7 +265,7 @@ class SettingsView: UIView {
         picker.delegate = self
         picker.sourceType = .photoLibrary
         picker.allowsEditing = false
-        viewController?.present(picker, animated: true)
+//        viewController?.present(picker, animated: true)
     }
     
 }

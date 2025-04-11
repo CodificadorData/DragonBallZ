@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     let router = HomeRouter()
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
-    var settingsView: SettingsView?
+//    var settingsView: SettingsView?
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         router.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
             let _ = ContactView(view: self)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
-            settingsView = SettingsView(view: self)
+//            settingsView = SettingsView(view: self)
         default:
             break
         }
@@ -178,8 +178,10 @@ class HomeViewController: UIViewController {
     }
     
     @objc func profileViewTapped() {
-        view.subviews.forEach { $0.removeFromSuperview() }
-        let _ = SettingsView(view: self)
+//        view.subviews.forEach { $0.removeFromSuperview() }
+        viewContainer.removeFromSuperview()
+        let s = SettingsView(/*view: self*/)
+        self.setupConstraintsView(s: s)
     }
     
     func setupBannerView() {
@@ -375,6 +377,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         })
         personaje = (presenter?.modelDragon[indexPath.row])!
     }
+    
+    func setupConstraintsView(s: UIView) {
+        view.addSubview(s)
+        s.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            s.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            s.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            s.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            s.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        ])
+    }
+    
 }
 
 extension HomeViewController: DragonBallUI {
