@@ -17,7 +17,10 @@ class HomeViewController: UIViewController {
     let router = HomeRouter()
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
-//    var settingsView: SettingsView?
+    let settingsView = SettingsView()
+    let additionalView = AdditionalView()
+    let storeView = StoreView()
+    let contactView = ContactView()
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         router.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
@@ -32,16 +35,16 @@ class HomeViewController: UIViewController {
             setupNavigationBar()
         case "Additional":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = AdditionalView(view: self)
+            self.setupConstraintsView(uiView: additionalView)
         case "Store":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = StoreView(view: self)
+            self.setupConstraintsView(uiView: storeView)
         case "Contact":
             view.subviews.forEach { $0.removeFromSuperview() }
-            let _ = ContactView(view: self)
+            self.setupConstraintsView(uiView: contactView)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
-//            settingsView = SettingsView(view: self)
+            self.setupConstraintsView(uiView: settingsView)
         default:
             break
         }
@@ -178,10 +181,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func profileViewTapped() {
-//        view.subviews.forEach { $0.removeFromSuperview() }
-        viewContainer.removeFromSuperview()
-        let s = SettingsView(/*view: self*/)
-        self.setupConstraintsView(s: s)
+        view.subviews.forEach { $0.removeFromSuperview() }
+        self.setupConstraintsView(uiView: settingsView)
     }
     
     func setupBannerView() {
@@ -378,14 +379,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         personaje = (presenter?.modelDragon[indexPath.row])!
     }
     
-    func setupConstraintsView(s: UIView) {
-        view.addSubview(s)
-        s.translatesAutoresizingMaskIntoConstraints = false
+    func setupConstraintsView(uiView: UIView) {
+        view.addSubview(uiView)
+        uiView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            s.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            s.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            s.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            s.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            uiView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            uiView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            uiView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            uiView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
     }
     

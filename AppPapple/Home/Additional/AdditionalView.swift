@@ -24,23 +24,12 @@ class AdditionalView: UIView {
         super.init(coder: coder)
     }
     
-    init(view: UIViewController) {
+    init() {
         super.init(frame: .zero)
-        self.setupView(view: view.view)
+        self.setupView()
     }
     
-    func setupView(view: UIView) {
-        
-        self.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(self)
-        
-        NSLayoutConstraint.activate([
-            self.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            self.widthAnchor.constraint(equalTo: view.widthAnchor),
-            self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
-
+    func setupView() {
         backgroundColor = .green
     }
     

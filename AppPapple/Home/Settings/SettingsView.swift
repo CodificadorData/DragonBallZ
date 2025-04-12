@@ -171,9 +171,7 @@ class SettingsView: UIView {
 
     }
     
-    func setupView(/*view: UIView*/) {
-        
-//        view.addSubview(self)
+    func setupView() {
         self.addSubview(title)
         self.addSubview(profileImage)
         self.addSubview(emailTextField)
@@ -195,11 +193,6 @@ class SettingsView: UIView {
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-//            self.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            self.widthAnchor.constraint(equalTo: view.widthAnchor),
-//            self.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-//            self.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
             title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             title.widthAnchor.constraint(equalToConstant: 200),
