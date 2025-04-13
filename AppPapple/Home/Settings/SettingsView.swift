@@ -137,14 +137,13 @@ class SettingsView: UIView {
         super.init(coder: coder)
     }
     
-    init(/*view: HomeViewController*/) {
+    init() {
         super.init(frame: .zero)
-//        self.viewController = view
-        self.start(/*view: view*/)
+        self.start()
     }
     
-    func start(/*view: HomeViewController*/) {
-        setupView(/*view: view.view*/)
+    func start() {
+        setupView()
         self.presenter.fetchSettings { dataJson in
             self.nameTextField.text = dataJson.name
             self.surNameTextField.text = dataJson.surName
@@ -154,7 +153,6 @@ class SettingsView: UIView {
                     .replacingOccurrences(of: "data:image/png;base64,", with: "")
                     .replacingOccurrences(of: "data:image/jpeg;base64,", with: "") // por si es JPG
                     .trimmingCharacters(in: .whitespacesAndNewlines)
-                
             if let imageData = Data(base64Encoded: cleanedBase64!),
                 let image = UIImage(data: imageData) {
                 self.profileImage.image = image
@@ -237,6 +235,7 @@ class SettingsView: UIView {
 
         ])
         DispatchQueue.main.async {
+            self.profileImage.layoutIfNeeded()
             self.profileImage.layer.cornerRadius = self.profileImage.frame.width / 2
             self.profileImage.clipsToBounds = true
         }
@@ -249,7 +248,7 @@ class SettingsView: UIView {
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.activityIndicator.stopAnimating()
-//            self.router.goToLogin(windows: self.viewController!.view.window)
+            self.router.goToLogin(windows: self.superview?.window)
         }
     }
     
@@ -258,7 +257,9 @@ class SettingsView: UIView {
         picker.delegate = self
         picker.sourceType = .photoLibrary
         picker.allowsEditing = false
-//        viewController?.present(picker, animated: true)
+        if let viewController = self.parentViewController() {
+            viewController.present(picker, animated: true)
+        }
     }
     
 }
@@ -279,4 +280,17 @@ extension SettingsView: UIImagePickerControllerDelegate, UINavigationControllerD
         picker.dismiss(animated: true)
     }
 
+}
+
+extension UIView {
+    func parentViewController() -> UIViewController? {
+        var responder: UIResponder? = self
+        while let nextResponder = responder?.next {
+            if let vc = nextResponder as? UIViewController {
+                return vc
+            }
+            responder = nextResponder
+        }
+        return nil
+    }
 }
