@@ -12,27 +12,25 @@ class HomePresenter {
     private let dragonBallInteractor: HomeInteractor
     var ui: DragonBallUI?
     var modelDragon: [Item] = []
-    var page: String = ""
+    var page: String?
     
     init(homeInteractor: HomeInteractor) {
         self.dragonBallInteractor = HomeInteractor()
     }
-    
-    func bringData(bool: Bool = false){
-        if bool {
-            dragonBallInteractor.requestDragonBall(url: page, dataJson: { dataDragon in
-                self.modelDragon.append(contentsOf: dataDragon.items)
+        
+    func bringData(){
+        dragonBallInteractor.requestDragonBall(url: page, dataJson: { dataDragon in
+            switch dataDragon {
+            case .success(let response):
+                self.modelDragon.append(contentsOf: response.items)
                 self.ui?.updateDragonBall(dragonBallList: self.modelDragon)
-                self.page = dataDragon.links.next
-            })
-        } else {
-            dragonBallInteractor.requestDragonBall(dataJson: { dataDragon in
-                self.modelDragon.append(contentsOf: dataDragon.items)
-                self.ui?.updateDragonBall(dragonBallList: self.modelDragon)
-                self.page = dataDragon.links.next
-            })
-        }
+                self.page = response.links.next
+            case .failure(let error):
+                print(error)
+            }
+        })
     }
+
         
 }
 protocol DragonBallUI: AnyObject {

@@ -408,7 +408,7 @@ extension HomeViewController: UIScrollViewDelegate {
 //        let contentHeight = scrollView.contentSize.height
 //        let frameHeight = scrollView.frame.size.height
         if position > contador {
-            presenter?.bringData(bool: true)
+            presenter?.bringData()
             contador += 500
         }
     }
