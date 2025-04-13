@@ -115,6 +115,8 @@ class LoginViewController: UIViewController {
         view.addSubview(activityIndicator)
         setupConstraints()
         alert.addAction(okAction)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ocultarTeclado))
+        view.addGestureRecognizer(tapGesture)
     }
     
     @objc func login() {
@@ -144,6 +146,10 @@ class LoginViewController: UIViewController {
         router.goToRegister(mainView: self)
     }
     
+    @objc func ocultarTeclado() {
+        view.endEditing(true)
+    }
+
     func setupConstraints() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         titleLoginLabel.translatesAutoresizingMaskIntoConstraints = false
