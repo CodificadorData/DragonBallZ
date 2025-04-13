@@ -10,7 +10,6 @@ import UIKit
 class SettingsView: UIView {
     
     let router = HomeRouter()
-//    var viewController: HomeViewController?
     let presenter = SettingsPresenter(interactor: SettingsInteractor())
     
     lazy var title: UILabel = {
