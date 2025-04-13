@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        if (KeychainWrapper.standard.string(forKey: "accessToken") != nil) {
+        if (KeychainWrapper.standard.string(forKey: "authToken") != nil) {
             loginRouter.goToHome(windows: window)
         } else {
             router.start(windows: window)
