@@ -24,7 +24,7 @@ class SettingsInteractor {
             case .success(let response):
                 DispatchQueue.main.async {
                     dataUser(response)
-                    print("fetchUserData \(response)")
+                    print("fetchUserData")
                 }
             case .failure(let error):
                 print("error \(error)")
@@ -53,8 +53,7 @@ class SettingsInteractor {
             case .success(let response):
                 DispatchQueue.main.async {
                     dataUser(.success(response))
-                    print("updateUserData \(response)")
-
+                    print("updateUserData")
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
