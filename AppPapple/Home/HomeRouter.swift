@@ -19,7 +19,9 @@ class HomeRouter {
         KeychainWrapper.standard.removeObject(forKey: "authToken")
         let loginInteractor = LoginInteractor()
         let loginPresenter = LoginPresenter(interactor: loginInteractor)
-        let loginView = LoginViewController(presenter: loginPresenter)
+        let loginView = LoginViewController()
+        loginView.presenter = loginPresenter
+        loginPresenter.view = loginView
         
         let navigationController = UINavigationController(rootViewController: loginView)
         windows?.windowScene?.keyWindow?.rootViewController = navigationController

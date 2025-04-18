@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EED12D29-9E31-4BA9-8D3C-DE31267E325B"
+            uuid = "4B8AC77C-D9A8-4232-871A-466CF4D8BA34"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppPapple/Login/LoginInteractor.swift"
+            filePath = "AppPapple/Home/Settings/SettingsInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "validateUser(email:password:dataUser:)"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "fetchUserData(authorizationToken:dataUser:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BE22C1A1-DC21-42C3-B672-DA3A8EA02117"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppPapple/Login/LoginPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "validateUser(email:password:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

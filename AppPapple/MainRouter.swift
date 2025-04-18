@@ -15,14 +15,27 @@ class MainRouter {
     init() {
         self.loginInteractor = LoginInteractor()
         self.loginPresenter = LoginPresenter(interactor: loginInteractor)
-        self.loginView = LoginViewController(presenter: loginPresenter)
+        self.loginView = LoginViewController()
         loginView.presenter = loginPresenter
+        loginPresenter.view = loginView
     }
     
-    func start(windows: UIWindow?){
+    func startWithLogin(windows: UIWindow?){
         let navigationController = UINavigationController(rootViewController: loginView)
         windows?.rootViewController = navigationController
         windows?.makeKeyAndVisible()
     }
     
+    func startWithHome(windows: UIWindow?){
+        let homeInteractor = HomeInteractor()
+        let homePresenter = HomePresenter(homeInteractor: homeInteractor)
+        let homeView = HomeViewController()
+        
+        homePresenter.ui = homeView
+        homeView.presenter = homePresenter
+        
+        let navigationController = UINavigationController(rootViewController: homeView)
+        windows?.rootViewController = navigationController
+        windows?.makeKeyAndVisible()
+    }
 }

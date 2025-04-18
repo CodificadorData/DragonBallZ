@@ -9,27 +9,22 @@ import UIKit
 
 class LoginRouter {
     
-    private var viewHome: HomeViewController
-    private var interactorHome: HomeInteractor
-    private var presenterHome: HomePresenter
-    private var viewRegisterHome: RegisterViewController
-    
-    init() {
-        self.viewHome = HomeViewController()
-        self.interactorHome = HomeInteractor()
-        self.presenterHome = HomePresenter(homeInteractor: interactorHome)
-        self.viewRegisterHome = RegisterViewController()
-        presenterHome.ui = viewHome
-        viewHome.presenter  = presenterHome
-    }
+    private var homeViewController: HomeViewController?
+    private var registerViewController: RegisterViewController?
     
     func goToHome(windows: UIWindow?) {
-        let navigationController = UINavigationController(rootViewController: viewHome)
+        let homeInteractor = HomeInteractor()
+        let homePresenter = HomePresenter(homeInteractor: homeInteractor)
+        self.homeViewController = HomeViewController(/*homePresenter: presenterHome*/)
+        self.homeViewController?.presenter  = homePresenter
+        homePresenter.ui = homeViewController
+        let navigationController = UINavigationController(rootViewController: homeViewController!)
         windows?.windowScene?.keyWindow?.rootViewController = navigationController
         windows?.windowScene?.keyWindow?.makeKeyAndVisible()
     }
     
     func goToRegister(mainView: UIViewController) {
-        mainView.navigationController?.pushViewController(viewRegisterHome, animated: true)
+        self.registerViewController = RegisterViewController()
+        mainView.navigationController?.pushViewController(registerViewController!, animated: true)
     }
 }

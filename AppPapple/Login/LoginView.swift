@@ -92,10 +92,8 @@ class LoginViewController: UIViewController {
     let okAction = UIAlertAction(title: "Aceptar", style: .default) { _ in
     }
     
-    
-    init(presenter: LoginPresenter) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        self.presenter = presenter
     }
     
     required init?(coder: NSCoder) {
@@ -126,20 +124,7 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .lightGray
         view.layer.opacity = 0.3
         self.activityIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.presenter?.validateUser(email: id, password: password) { dataJson in
-                switch dataJson {
-                case .success(let response):
-                    self.activityIndicator.stopAnimating()
-                    self.router.goToHome(windows: self.view.window)
-                case .failure(_):
-                    self.activityIndicator.stopAnimating()
-                    self.view.layer.opacity = 1
-                    self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
-                    self.present(self.alert, animated: true, completion: nil)
-                }
-            }
-        }
+        self.presenter?.validateUser(email: id, password: password)
     }
     
     @objc func register() {
@@ -195,5 +180,22 @@ class LoginViewController: UIViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
 
         ])
+    }
+}
+
+extension LoginViewController: LoginViewProtocol {
+    func validateUser(dataJson: Result<ResponseUser, any Error>) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            switch dataJson {
+            case .success(_):
+                self.activityIndicator.stopAnimating()
+                self.router.goToHome(windows: self.view.window)
+            case .failure(_):
+                self.activityIndicator.stopAnimating()
+                self.view.layer.opacity = 1
+                self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
+                self.present(self.alert, animated: true, completion: nil)
+            }
+        }
     }
 }

@@ -7,17 +7,24 @@
 
 import Foundation
 
+protocol LoginViewProtocol: AnyObject {
+    func validateUser(dataJson: Result<ResponseUser, Error>)
+}
+
 class LoginPresenter {
     var interactor: LoginInteractor?
-    
+    var view: LoginViewProtocol?
+
     init(interactor: LoginInteractor) {
         self.interactor = LoginInteractor()
     }
     
-    func validateUser(email: String, password: String, dataUser: @escaping (_ dataJson: Result<ResponseUser, Error>) -> Void) {
+    func validateUser(email: String, password: String) {
         interactor?.validateUser(email: email, password: password) { dataJson in
-            dataUser(dataJson)
+            self.view?.validateUser(dataJson: dataJson)
         }
     }
-        
+
 }
+
+
