@@ -10,7 +10,7 @@ import UIKit
 class SettingsView: UIView {
     
     let router = HomeRouter()
-    let presenter = SettingsPresenter(interactor: SettingsInteractor())
+    var presenter: HomePresenter?
     
     lazy var title: UILabel = {
         let title = UILabel()
@@ -132,40 +132,20 @@ class SettingsView: UIView {
         return activity
     }()
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    init(presenter: HomePresenter) {
+        super.init(frame: .zero)
+        self.presenter = presenter
+        start()
     }
     
-    init() {
-        super.init(frame: .zero)
-        self.start()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func start() {
         setupView()
-        self.presenter.fetchSettings { dataJson in
-            self.nameTextField.text = dataJson.name
-            self.surNameTextField.text = dataJson.surName
-            self.emailTextField.text = dataJson.email
-            self.phoneNumberTextField.text = dataJson.phoneNumber
-            let cleanedBase64 = dataJson.imageProfile?
-                    .replacingOccurrences(of: "data:image/png;base64,", with: "")
-                    .replacingOccurrences(of: "data:image/jpeg;base64,", with: "") // por si es JPG
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-            if let imageData = Data(base64Encoded: cleanedBase64!),
-                let image = UIImage(data: imageData) {
-                self.profileImage.image = image
-            }
-        }
-        self.presenter.updateUserData(name: "Alex", surName: "Dino", phoneNumber: "321123321", email: "1234", imageProfile: "1", password: "1234") { dataJson in
-            switch dataJson {
-            case .success(let dataJson):
-                print("success")
-            case .failure(let error):
-                print("error")
-            }
-        }
-
+        presenter?.fetchSettings()
+        presenter?.updateUserData(name: "Alex", surName: "Dino", phoneNumber: "321123321", email: "1234", imageProfile: "1", password: "1234")
     }
     
     func setupView() {
@@ -292,4 +272,33 @@ extension UIView {
         }
         return nil
     }
+}
+
+extension HomeView {
+    func fetchSettings(data: NewUserEntity) {
+//        self.presenter?.fetchSettings { dataJson in
+        self.settingsView?.nameTextField.text = data.name
+        self.settingsView?.surNameTextField.text = data.surName
+        self.settingsView?.emailTextField.text = data.email
+        self.settingsView?.phoneNumberTextField.text = data.phoneNumber
+            let cleanedBase64 = data.imageProfile?
+                    .replacingOccurrences(of: "data:image/png;base64,", with: "")
+                    .replacingOccurrences(of: "data:image/jpeg;base64,", with: "") // por si es JPG
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+            if let imageData = Data(base64Encoded: cleanedBase64!),
+                let image = UIImage(data: imageData) {
+                self.settingsView?.profileImage.image = image
+            }
+//        }
+    }
+    
+    func updateUserData(dataUser: Result<NewUserEntity, any Error>) {
+            switch dataUser {
+            case .success(let dataJson):
+                print("success")
+            case .failure(let error):
+                print("error")
+            }
+        }
+    
 }

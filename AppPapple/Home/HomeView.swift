@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class HomeViewController: UIViewController {
+class HomeView: UIViewController {
     
     var presenter: HomePresenter?
     let cellIdentifi = "cell"
@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     let router = HomeRouter()
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
-    let settingsView = SettingsView()
+    var settingsView: SettingsView?
     let additionalView = AdditionalView()
     let storeView = StoreView()
     let contactView = ContactView()
@@ -43,7 +43,11 @@ class HomeViewController: UIViewController {
             self.setupConstraintsView(uiView: contactView)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: settingsView)
+//            let settingsInteractor = SettingsInteractor()
+//            let settingsPresenter = SettingsPresenter(interactor: settingsInteractor)
+//            settingsView.presenter = settingsPresenter
+//            settingsPresenter.view = SettingsView(presenter: presenter)
+            setupConstraintsView(uiView: self.settingsView!)
         default:
             break
         }
@@ -169,6 +173,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        self.settingsView = SettingsView(presenter: presenter!)
         setupBannerView()
         setupNavigationBar()
         activityIndicatorTableHome.startAnimating()
@@ -181,7 +186,7 @@ class HomeViewController: UIViewController {
     
     @objc func profileViewTapped() {
         view.subviews.forEach { $0.removeFromSuperview() }
-        self.setupConstraintsView(uiView: settingsView)
+//        self.setupConstraintsView(uiView: settingsView)
     }
     
     func setupBannerView() {
@@ -332,7 +337,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (presenter?.modelDragon.count) ?? .zero
@@ -391,7 +396,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension HomeViewController: HomeViewProtocol {
+extension HomeView: HomeViewProtocol {
     func updateDragonBall(dragonBallList: [Item]) {
         activityIndicatorTableHome.stopAnimating()
         let imageFirst = dragonBallList.first!.image
@@ -401,7 +406,7 @@ extension HomeViewController: HomeViewProtocol {
     }
 }
 
-extension HomeViewController: UIScrollViewDelegate {
+extension HomeView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
 //        let contentHeight = scrollView.contentSize.height

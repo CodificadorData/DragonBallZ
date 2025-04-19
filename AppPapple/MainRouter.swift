@@ -29,7 +29,7 @@ class MainRouter {
     func startWithHome(windows: UIWindow?){
         let homeInteractor = HomeInteractor()
         let homePresenter = HomePresenter(homeInteractor: homeInteractor)
-        let homeView = HomeViewController()
+        let homeView = HomeView()
         
         homePresenter.view = homeView
         homeView.presenter = homePresenter
