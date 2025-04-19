@@ -9,7 +9,7 @@ import Alamofire
 
 class RegisterInteractor {
     
-    func registerUser(user: NewUserEntity) {
+    func registerUser(user: NewUserEntity, dataJson: @escaping (Result<ResponseRegister, Error>) -> Void) {
         let url = "http://localhost:3001/registerUserAppPapple"
             
         let parameters: [String: Any?] = [
@@ -28,8 +28,10 @@ class RegisterInteractor {
                 switch response.result {
                 case .success(let data):
                     print("registerUser: \(data)")
+                    dataJson(.success(data))
                 case .failure(let error):
                     print("Error registerUser: \(error)")
+                    dataJson(.failure(error))
                 }
             }
     }

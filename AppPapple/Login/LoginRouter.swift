@@ -25,7 +25,12 @@ class LoginRouter {
     }
     
     func goToRegister(mainView: UIViewController) {
+        let registerInteractor = RegisterInteractor()
+        let registerPresenter = RegisterPresenter(interactor: registerInteractor)
         self.registerViewController = RegisterViewController()
+        registerPresenter.view = registerViewController
+        self.registerViewController?.presenter = registerPresenter
+        
         mainView.navigationController?.pushViewController(registerViewController!, animated: true)
     }
 }
