@@ -5,8 +5,6 @@
 //  Created by Christian Morante on 18/02/24.
 //
 
-import Foundation
-
 struct DragonBallEntity: Decodable {
     let items: [Item]
     let meta: Meta

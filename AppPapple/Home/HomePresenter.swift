@@ -5,8 +5,6 @@
 //  Created by Christian Morante on 18/02/24.
 //
 
-import UIKit
-
 class HomePresenter {
     
     private let homeInteractor: HomeInteractor

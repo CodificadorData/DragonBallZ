@@ -5,8 +5,6 @@
 //  Created by Christian Morante on 5/01/25.
 //
 
-import Foundation
-
 protocol LoginViewProtocol: AnyObject {
     func validateUser(dataJson: Result<ResponseUser, Error>)
 }

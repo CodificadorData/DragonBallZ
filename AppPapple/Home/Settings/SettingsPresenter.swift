@@ -5,7 +5,6 @@
 //  Created by Christian Morante on 7/04/25.
 //
 
-import Foundation
 import SwiftKeychainWrapper
 
 class SettingsPresenter {
