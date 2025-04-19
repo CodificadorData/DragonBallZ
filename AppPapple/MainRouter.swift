@@ -31,7 +31,7 @@ class MainRouter {
         let homePresenter = HomePresenter(homeInteractor: homeInteractor)
         let homeView = HomeViewController()
         
-        homePresenter.ui = homeView
+        homePresenter.view = homeView
         homeView.presenter = homePresenter
         
         let navigationController = UINavigationController(rootViewController: homeView)

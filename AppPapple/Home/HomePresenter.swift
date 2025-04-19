@@ -9,21 +9,21 @@ import UIKit
 
 class HomePresenter {
     
-    private let dragonBallInteractor: HomeInteractor
-    var ui: DragonBallUI?
+    private let homeInteractor: HomeInteractor
+    var view: HomeViewProtocol?
     var modelDragon: [Item] = []
     var page: String?
     
     init(homeInteractor: HomeInteractor) {
-        self.dragonBallInteractor = HomeInteractor()
+        self.homeInteractor = HomeInteractor()
     }
         
     func bringData(){
-        dragonBallInteractor.requestDragonBall(url: page, dataJson: { dataDragon in
+        homeInteractor.requestDragonBall(url: page, dataJson: { dataDragon in
             switch dataDragon {
             case .success(let response):
                 self.modelDragon.append(contentsOf: response.items)
-                self.ui?.updateDragonBall(dragonBallList: self.modelDragon)
+                self.view?.updateDragonBall(dragonBallList: self.modelDragon)
                 self.page = response.links.next
             case .failure(let error):
                 print(error)
@@ -33,6 +33,6 @@ class HomePresenter {
 
         
 }
-protocol DragonBallUI: AnyObject {
+protocol HomeViewProtocol: AnyObject {
     func updateDragonBall(dragonBallList: [Item])
 }

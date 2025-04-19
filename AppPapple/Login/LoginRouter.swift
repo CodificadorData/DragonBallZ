@@ -15,9 +15,10 @@ class LoginRouter {
     func goToHome(windows: UIWindow?) {
         let homeInteractor = HomeInteractor()
         let homePresenter = HomePresenter(homeInteractor: homeInteractor)
-        self.homeViewController = HomeViewController(/*homePresenter: presenterHome*/)
+        self.homeViewController = HomeViewController()
         self.homeViewController?.presenter  = homePresenter
-        homePresenter.ui = homeViewController
+        homePresenter.view = homeViewController
+        self.homeViewController?.presenter = homePresenter
         let navigationController = UINavigationController(rootViewController: homeViewController!)
         windows?.windowScene?.keyWindow?.rootViewController = navigationController
         windows?.windowScene?.keyWindow?.makeKeyAndVisible()

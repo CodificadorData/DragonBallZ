@@ -392,7 +392,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension HomeViewController: DragonBallUI {
+extension HomeViewController: HomeViewProtocol {
     func updateDragonBall(dragonBallList: [Item]) {
         activityIndicatorTableHome.stopAnimating()
         let imageFirst = dragonBallList.first!.image
