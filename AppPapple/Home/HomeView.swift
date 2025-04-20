@@ -43,10 +43,6 @@ class HomeView: UIViewController {
             self.setupConstraintsView(uiView: contactView)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
-//            let settingsInteractor = SettingsInteractor()
-//            let settingsPresenter = SettingsPresenter(interactor: settingsInteractor)
-//            settingsView.presenter = settingsPresenter
-//            settingsPresenter.view = SettingsView(presenter: presenter)
             setupConstraintsView(uiView: self.settingsView!)
         default:
             break
@@ -186,7 +182,7 @@ class HomeView: UIViewController {
     
     @objc func profileViewTapped() {
         view.subviews.forEach { $0.removeFromSuperview() }
-//        self.setupConstraintsView(uiView: settingsView)
+        self.setupConstraintsView(uiView: settingsView!)
     }
     
     func setupBannerView() {

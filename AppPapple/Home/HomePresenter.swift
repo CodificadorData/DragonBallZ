@@ -38,8 +38,8 @@ class HomePresenter {
         }
     }
     
-    func updateUserData(name: String, surName: String, phoneNumber: String, email: String, imageProfile: String, password: String) {
-        homeInteractor.updateUserData(name: name, surName: surName, phoneNumber: phoneNumber, email: email, authorizationToken: token, imageProfile: imageProfile, password: password) { dataJson in
+    func updateUserData(user :NewUserEntity) {
+        homeInteractor.updateUserData(user: user, authorizationToken: token) { dataJson in
             self.view?.updateUserData(dataUser: dataJson)
         }
     }

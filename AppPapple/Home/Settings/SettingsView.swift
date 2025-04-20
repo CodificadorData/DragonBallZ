@@ -131,6 +131,13 @@ class SettingsView: UIView {
         activity.color = .black
         return activity
     }()
+    
+    lazy var saveButton: UIButton = {
+        let button = UIButton(type: .infoDark)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .medium)
+        button.setTitle("Guardar", for: .normal)
+        return button
+    }()
 
     init(presenter: HomePresenter) {
         super.init(frame: .zero)
@@ -142,10 +149,16 @@ class SettingsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        let newUser = NewUserEntity(name: nameTextField.text, surName: surNameTextField.text, email: emailTextField.text, phoneNumber: phoneNumberTextField.text, password: passwordTextField.text, imageProfile: "")
+
+        presenter?.updateUserData(user: newUser)
+        presenter?.fetchSettings()
+    }
+    
     func start() {
         setupView()
         presenter?.fetchSettings()
-        presenter?.updateUserData(name: "Alex", surName: "Dino", phoneNumber: "321123321", email: "1234", imageProfile: "1", password: "1234")
     }
     
     func setupView() {
@@ -158,7 +171,9 @@ class SettingsView: UIView {
         self.addSubview(surNameTextField)
         self.addSubview(logOutLabel)
         self.addSubview(activityIndicator)
-        
+        self.addSubview(saveButton)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: .touchUpInside)
+
         title.translatesAutoresizingMaskIntoConstraints = false
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -168,6 +183,7 @@ class SettingsView: UIView {
         surNameTextField.translatesAutoresizingMaskIntoConstraints = false
         logOutLabel.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -210,8 +226,13 @@ class SettingsView: UIView {
             logOutLabel.heightAnchor.constraint(equalToConstant: 40),
             
             activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-
+            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            saveButton.heightAnchor.constraint(equalToConstant: 50),
+            saveButton.widthAnchor.constraint(equalToConstant: 100),
+            saveButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            saveButton.topAnchor.constraint(equalTo: logOutLabel.bottomAnchor, constant: 5)
+            
         ])
         DispatchQueue.main.async {
             self.profileImage.layoutIfNeeded()
@@ -276,28 +297,26 @@ extension UIView {
 
 extension HomeView {
     func fetchSettings(data: NewUserEntity) {
-//        self.presenter?.fetchSettings { dataJson in
         self.settingsView?.nameTextField.text = data.name
         self.settingsView?.surNameTextField.text = data.surName
         self.settingsView?.emailTextField.text = data.email
         self.settingsView?.phoneNumberTextField.text = data.phoneNumber
             let cleanedBase64 = data.imageProfile?
                     .replacingOccurrences(of: "data:image/png;base64,", with: "")
-                    .replacingOccurrences(of: "data:image/jpeg;base64,", with: "") // por si es JPG
+                    .replacingOccurrences(of: "data:image/jpeg;base64,", with: "")
                     .trimmingCharacters(in: .whitespacesAndNewlines)
             if let imageData = Data(base64Encoded: cleanedBase64!),
                 let image = UIImage(data: imageData) {
                 self.settingsView?.profileImage.image = image
             }
-//        }
     }
     
     func updateUserData(dataUser: Result<NewUserEntity, any Error>) {
             switch dataUser {
             case .success(let dataJson):
-                print("success")
+                print("success \(dataJson)")
             case .failure(let error):
-                print("error")
+                print("error \(error)")
             }
         }
     
