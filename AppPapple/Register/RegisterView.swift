@@ -9,7 +9,6 @@ import UIKit
 
 class RegisterViewController: UIViewController {
     
-    let router = RegisterRouter()
     var presenter: RegisterPresenter?
     
     lazy var successButton: UIButton = {
@@ -202,7 +201,7 @@ class RegisterViewController: UIViewController {
         let newUser = NewUserEntity(name: nameField.text, surName: surNameTextField.text, email: emailTextField.text, phoneNumber: phoneNumberTextField.text, password: passwordTextField.text, imageProfile: "")
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.presenter?.registerUser(user: newUser)
-            self.router.goToLogin(mainView: self)
+            self.presenter?.goToLogin(mainView: self)
             self.activityIndicator.stopAnimating()
             self.view.layer.opacity = 1
             self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)

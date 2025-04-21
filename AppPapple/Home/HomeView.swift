@@ -13,7 +13,6 @@ class HomeView: UIViewController {
     var presenter: HomePresenter?
     let cellIdentifi = "cell"
     var personaje: Item?
-    let router = HomeRouter()
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
     var settingsView: SettingsView?
@@ -22,7 +21,7 @@ class HomeView: UIViewController {
     let contactView = ContactView()
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-        router.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
+        presenter?.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
     }
     
     //botones del toolbar

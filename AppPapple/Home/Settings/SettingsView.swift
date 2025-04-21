@@ -9,7 +9,6 @@ import UIKit
 
 class SettingsView: UIView {
     
-    let router = HomeRouter()
     var presenter: HomePresenter?
     
     lazy var title: UILabel = {
@@ -248,7 +247,7 @@ class SettingsView: UIView {
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.activityIndicator.stopAnimating()
-            self.router.goToLogin(windows: self.superview?.window)
+            self.presenter?.goToLogin(windows: self.superview?.window)
         }
     }
     

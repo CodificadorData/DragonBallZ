@@ -11,11 +11,13 @@ protocol RegisterViewProtocol: AnyObject {
 
 class RegisterPresenter {
     
+    var router: RegisterRouter
     let interactor: RegisterInteractor
     weak var view: RegisterViewProtocol?
     
     init(interactor: RegisterInteractor) {
         self.interactor = interactor
+        self.router = RegisterRouter()
     }
     func registerUser(user: NewUserEntity) {
         interactor.registerUser(user: user) { dataJson in
@@ -23,4 +25,7 @@ class RegisterPresenter {
         }
     }
     
+    func goToLogin(mainView: UIViewController) {
+        router?.goToLogin(mainView: mainView)
+    }
 }

@@ -9,7 +9,6 @@ import Kingfisher
 
 class LoginViewController: UIViewController {
     
-    var router: LoginRouter?
     var presenter: LoginPresenter?
     
     lazy var loginButton: UIButton = {
@@ -94,7 +93,6 @@ class LoginViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.router = LoginRouter()
     }
     
     required init?(coder: NSCoder) {
@@ -129,7 +127,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func register() {
-        router?.goToRegister(mainView: self)
+        presenter?.goToRegister(mainView: self)
     }
     
     @objc func ocultarTeclado() {
