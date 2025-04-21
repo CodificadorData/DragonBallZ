@@ -11,10 +11,12 @@ class MainRouter {
     var loginView: LoginViewController
     var loginPresenter: LoginPresenter
     var loginInteractor: LoginInteractor
+    var loginRouter: LoginRouter
     
     init() {
+        self.loginRouter = LoginRouter()
         self.loginInteractor = LoginInteractor()
-        self.loginPresenter = LoginPresenter(interactor: loginInteractor)
+        self.loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
         self.loginView = LoginViewController()
         loginView.presenter = loginPresenter
         loginPresenter.view = loginView
@@ -27,8 +29,9 @@ class MainRouter {
     }
     
     func startWithHome(windows: UIWindow?){
+        let homeRouter = HomeRouter()
         let homeInteractor = HomeInteractor()
-        let homePresenter = HomePresenter(homeInteractor: homeInteractor)
+        let homePresenter = HomePresenter(homeInteractor: homeInteractor, router: homeRouter)
         let homeView = HomeView()
         
         homePresenter.view = homeView

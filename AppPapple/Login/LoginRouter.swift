@@ -13,8 +13,9 @@ class LoginRouter {
     private var registerViewController: RegisterViewController?
     
     func goToHome(windows: UIWindow?) {
+        let homeRouter = HomeRouter()
         let homeInteractor = HomeInteractor()
-        let homePresenter = HomePresenter(homeInteractor: homeInteractor)
+        let homePresenter = HomePresenter(homeInteractor: homeInteractor, router: homeRouter)
         self.homeView = HomeView()
         
         self.homeView?.presenter  = homePresenter
@@ -26,8 +27,9 @@ class LoginRouter {
     }
     
     func goToRegister(mainView: UIViewController) {
+        let registerRouter = RegisterRouter()
         let registerInteractor = RegisterInteractor()
-        let registerPresenter = RegisterPresenter(interactor: registerInteractor)
+        let registerPresenter = RegisterPresenter(interactor: registerInteractor, router: registerRouter)
         self.registerViewController = RegisterViewController()
         
         registerPresenter.view = registerViewController

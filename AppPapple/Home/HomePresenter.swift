@@ -14,11 +14,11 @@ class HomePresenter {
     var modelDragon: [Item] = []
     var page: String?
     let token = KeychainWrapper.standard.string(forKey: "authToken") ?? ""
-    let router: HomeRouter?
+    let router: HomeRouter
     
-    init(homeInteractor: HomeInteractor) {
-        self.homeInteractor = HomeInteractor()
-        self.router = HomeRouter()
+    init(homeInteractor: HomeInteractor, router: HomeRouter) {
+        self.homeInteractor = homeInteractor
+        self.router = router
     }
         
     func bringData(){
@@ -47,15 +47,15 @@ class HomePresenter {
     }
     
     func goToCharacterDetail(dragonBallModel: Item){
-        router?.goToCharacterDetail(mainView: self.view!, dragonBallModel: dragonBallModel)
+        router.goToCharacterDetail(mainView: self.view!, dragonBallModel: dragonBallModel)
     }
 
     func goToLogin(windows: UIWindow?){
-        router?.goToLogin(windows: windows)
+        router.goToLogin(windows: windows)
     }
     
     func goToSocialMedia(socialMedia: String){
-        router?.goToSocialMedia(mainView: self.view!, socialMedia: socialMedia)
+        router.goToSocialMedia(mainView: self.view!, socialMedia: socialMedia)
     }
     
 }

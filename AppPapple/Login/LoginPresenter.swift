@@ -12,27 +12,27 @@ protocol LoginViewProtocol: AnyObject {
 }
 
 class LoginPresenter {
-    var interactor: LoginInteractor?
+    var interactor: LoginInteractor
     var view: LoginViewProtocol?
-    var router: LoginRouter?
+    var router: LoginRouter
     
-    init(interactor: LoginInteractor) {
+    init(interactor: LoginInteractor, router: LoginRouter) {
         self.interactor = interactor
-        self.router = LoginRouter()
+        self.router = router
     }
     
     func validateUser(email: String, password: String) {
-        interactor?.validateUser(email: email, password: password) { dataJson in
+        interactor.validateUser(email: email, password: password) { dataJson in
             self.view?.validateUser(dataJson: dataJson)
         }
     }
 
     func goToRegister(mainView: UIViewController) {
-        router?.goToRegister(mainView: mainView)
+        router.goToRegister(mainView: mainView)
     }
 
     func goToHome(windows: UIWindow?) {
-        router?.goToHome(windows: windows)
+        router.goToHome(windows: windows)
     }
 }
 

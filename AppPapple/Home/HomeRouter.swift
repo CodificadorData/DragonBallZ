@@ -18,8 +18,9 @@ class HomeRouter {
     
     func goToLogin(windows: UIWindow?){
         KeychainWrapper.standard.removeObject(forKey: "authToken")
+        let loginRouter = LoginRouter()
         let loginInteractor = LoginInteractor()
-        let loginPresenter = LoginPresenter(interactor: loginInteractor)
+        let loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
         let loginView = LoginViewController()
         loginView.presenter = loginPresenter
         loginPresenter.view = loginView
