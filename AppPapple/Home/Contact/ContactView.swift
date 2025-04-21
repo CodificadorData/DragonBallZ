@@ -29,7 +29,7 @@ class ContactView: UIView {
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.text = "Hola! Te puedes poner en contacto con nosotros llenando este formulario y visitándonos en nuestras redes sociales que están debajo de esta página. Muchas gracias por visitarnos. ¡Que tengas un buen día!"
+        label.text = "Hola! Te puedes poner en contacto con nosotros llenando este formulario y visitándonos en nuestras redes sociales que están debajo de esta página. Muchas gracias por visitarnos. ¡Que tengas un buen día! Hola! Te puedes poner en contacto con nosotros llenando este formulario y visitándonos en nuestras redes sociales que están debajo de esta página. Muchas gracias por visitarnos. ¡Que tengas un buen día! Hola! Te puedes poner en contacto con nosotros llenando este formulario y visitándonos en nuestras redes sociales que están debajo de esta página. Muchas gracias por visitarnos. ¡Que tengas un buen día! Hola! Te puedes poner en contacto con nosotros llenando este formulario y visitándonos en nuestras redes sociales que están debajo de esta página. Muchas gracias por visitarnos. ¡Que tengas un buen día! Hola! Te puedes poner en contacto con nosotros llenando este formulario y visitándonos en nuestras redes sociales que están debajo de esta página. Muchas gracias por visitarnos. ¡Que tengas un buen día!"
         return label
     }()
     
