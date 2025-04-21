@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		651A0CD02DA42BC800C63241 /* NewUserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651A0CCF2DA42BBF00C63241 /* NewUserEntity.swift */; };
+		655E80262DB60D32006C733E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E80252DB60D26006C733E /* WebView.swift */; };
 		658879E12D26089A000EA056 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658879E02D26087D000EA056 /* MainRouter.swift */; };
 		65D647312D2A553800431310 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65D647302D2A553800431310 /* GoogleService-Info.plist */; };
 		65D647342D2B93A300431310 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D647332D2B939D00431310 /* LoginView.swift */; };
@@ -47,6 +48,7 @@
 		0B89D1AB3B62DF1CE5458C07 /* Pods_AppPapple.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppPapple.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47105AB2DA909DACC18ED599 /* Pods-AppPapple.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppPapple.debug.xcconfig"; path = "Target Support Files/Pods-AppPapple/Pods-AppPapple.debug.xcconfig"; sourceTree = "<group>"; };
 		651A0CCF2DA42BBF00C63241 /* NewUserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserEntity.swift; sourceTree = "<group>"; };
+		655E80252DB60D26006C733E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		658879E02D26087D000EA056 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		65D647302D2A553800431310 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65D647332D2B939D00431310 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		659900E62D9BCC1F003970AE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				655E80252DB60D26006C733E /* WebView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				65DD45CD2D3EC87400B48BE9 /* AdditionalView.swift in Sources */,
 				65D647412D2C1DCC00431310 /* RegisterInteractor.swift in Sources */,
 				65D6473F2D2C1DC300431310 /* RegisterPresenter.swift in Sources */,
+				655E80262DB60D32006C733E /* WebView.swift in Sources */,
 				65D647342D2B93A300431310 /* LoginView.swift in Sources */,
 				65D647362D2B93B300431310 /* LoginPresenter.swift in Sources */,
 				CD10C35C2B3C6AF80068484A /* AppDelegate.swift in Sources */,

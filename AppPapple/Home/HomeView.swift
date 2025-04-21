@@ -21,7 +21,7 @@ class HomeView: UIViewController {
     var contador: CGFloat = 1
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-        presenter?.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
+        presenter?.goToCharacterDetail(dragonBallModel: personaje!)
     }
     
     //botones del toolbar

@@ -9,6 +9,8 @@ import UIKit
 
 class StoreView: UIView {
     
+    var presenter: HomePresenter?
+    
     lazy var title: UILabel = {
         let title = UILabel()
         title.textColor = .white
@@ -24,9 +26,10 @@ class StoreView: UIView {
         super.init(coder: coder)
     }
     
-    init() {
+    init(presenter: HomePresenter) {
         super.init(frame: .zero)
         self.setupView()
+        self.presenter = presenter
     }
     
     func setupView() {

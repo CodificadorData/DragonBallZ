@@ -46,13 +46,18 @@ class HomePresenter {
         }
     }
     
-    func goToCharacterDetail(mainView: UIViewController, dragonBallModel: Item){
-        router?.goToCharacterDetail(mainView: mainView, dragonBallModel: dragonBallModel)
+    func goToCharacterDetail(dragonBallModel: Item){
+        router?.goToCharacterDetail(mainView: self.view!, dragonBallModel: dragonBallModel)
     }
 
     func goToLogin(windows: UIWindow?){
         router?.goToLogin(windows: windows)
     }
+    
+    func goToSocialMedia(socialMedia: String){
+        router?.goToSocialMedia(mainView: self.view!, socialMedia: socialMedia)
+    }
+    
 }
 
 protocol HomeViewProtocol: AnyObject {
