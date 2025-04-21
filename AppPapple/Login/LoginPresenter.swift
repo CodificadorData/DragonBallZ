@@ -30,6 +30,10 @@ class LoginPresenter {
     func goToRegister(mainView: UIViewController) {
         router?.goToRegister(mainView: mainView)
     }
+
+    func goToHome(windows: UIWindow?) {
+        router?.goToHome(windows: windows)
+    }
 }
 
 

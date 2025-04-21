@@ -11,14 +11,14 @@ import Kingfisher
 class HomeView: UIViewController {
     
     var presenter: HomePresenter?
+    var contactView: ContactView?
+    var additionalView: AdditionalView?
+    var settingsView: SettingsView?
+    var storeView: StoreView?
     let cellIdentifi = "cell"
     var personaje: Item?
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
-    var settingsView: SettingsView?
-    let additionalView = AdditionalView()
-    let storeView = StoreView()
-    let contactView = ContactView()
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         presenter?.goToCharacterDetail(mainView: self, dragonBallModel: personaje!)
@@ -33,13 +33,13 @@ class HomeView: UIViewController {
             setupNavigationBar()
         case "Additional":
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: additionalView)
+            self.setupConstraintsView(uiView: self.additionalView!)
         case "Store":
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: storeView)
+            self.setupConstraintsView(uiView: self.storeView!)
         case "Contact":
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: contactView)
+            self.setupConstraintsView(uiView: self.contactView!)
         case "Settings":
             view.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.settingsView!)
@@ -169,6 +169,9 @@ class HomeView: UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         self.settingsView = SettingsView(presenter: presenter!)
+        self.contactView = ContactView(presenter: presenter!)
+        self.additionalView = AdditionalView(presenter: presenter!)
+        self.storeView = StoreView(presenter: presenter!)
         setupBannerView()
         setupNavigationBar()
         activityIndicatorTableHome.startAnimating()

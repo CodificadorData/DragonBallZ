@@ -188,7 +188,7 @@ extension LoginViewController: LoginViewProtocol {
             switch dataJson {
             case .success(_):
                 self.activityIndicator.stopAnimating()
-                self.router?.goToHome(windows: self.view.window)
+                self.presenter?.goToHome(windows: self.view.window)
             case .failure(_):
                 self.activityIndicator.stopAnimating()
                 self.view.layer.opacity = 1

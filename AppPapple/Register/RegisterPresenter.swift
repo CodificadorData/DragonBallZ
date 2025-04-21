@@ -5,6 +5,8 @@
 //  Created by Christian Morante on 6/01/25.
 //
 
+import UIKit
+
 protocol RegisterViewProtocol: AnyObject {
     func registerUser(data: Result<ResponseRegister, Error>)
 }
@@ -26,6 +28,6 @@ class RegisterPresenter {
     }
     
     func goToLogin(mainView: UIViewController) {
-        router?.goToLogin(mainView: mainView)
+        router.goToLogin(mainView: mainView)
     }
 }
