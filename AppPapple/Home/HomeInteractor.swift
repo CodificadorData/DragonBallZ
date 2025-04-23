@@ -78,5 +78,20 @@ class HomeInteractor {
             }
         }
     }
+    
+    func fetchProducts(dataResponse: @escaping (_ dataJson: Result<ProductEntity, Error>) -> Void) {
+        guard let url = URL(string: "https://rickandmortyapi.com/api/character") else { return }
+        
+        AF.request(url, method: .get)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: ProductEntity.self) { response in
+                switch response.result {
+            case .success(let characters):
+                dataResponse(.success(characters))
+            case .failure(let error):
+                dataResponse(.failure(error))
+            }
+        }
+    }
 
 }

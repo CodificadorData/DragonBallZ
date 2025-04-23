@@ -387,7 +387,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
         NSLayoutConstraint.activate([
             uiView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             uiView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            uiView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            uiView.bottomAnchor.constraint(equalTo: self.navigationController?.toolbar.topAnchor ?? self.view.bottomAnchor),
             uiView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
     }

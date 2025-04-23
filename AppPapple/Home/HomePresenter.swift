@@ -12,6 +12,7 @@ class HomePresenter {
     private let homeInteractor: HomeInteractor
     var view: HomeViewProtocol?
     var modelDragon: [Item] = []
+    var modelProduct: [Results] = []
     var page: String?
     let token = KeychainWrapper.standard.string(forKey: "authToken") ?? ""
     let router: HomeRouter
@@ -46,6 +47,18 @@ class HomePresenter {
         }
     }
     
+    func fetchProducts() {
+        homeInteractor.fetchProducts { dataJson in
+            switch dataJson {
+            case .success(let products):
+                self.view?.updateProductList(product: dataJson)
+                self.modelProduct.append(contentsOf: products.results)
+            case .failure(let error):
+                print("error \(error)")
+            }
+        }
+    }
+    
     func goToCharacterDetail(dragonBallModel: Item){
         router.goToCharacterDetail(mainView: self.view!, dragonBallModel: dragonBallModel)
     }
@@ -64,4 +77,5 @@ protocol HomeViewProtocol: AnyObject {
     func updateDragonBall(dragonBallList: [Item])
     func fetchSettings(data: NewUserEntity)
     func updateUserData(dataUser: Result<NewUserEntity, Error>)
+    func updateProductList(product: Result<ProductEntity, Error>)
 }
