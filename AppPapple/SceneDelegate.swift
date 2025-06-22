@@ -18,15 +18,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        router.startWithLogin(windows: window)
+        verifyLogin()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        verifyLogin()
+    }
+    
+    func verifyLogin() {
         if (KeychainWrapper.standard.string(forKey: "authToken") != nil) {
             router.startWithHome(windows: window)
         } else {
             router.startWithLogin(windows: window)
         }
+
     }
-    
 }

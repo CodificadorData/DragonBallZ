@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SettingsView: UIView {
     
@@ -300,14 +301,9 @@ extension HomeView {
         self.settingsView?.surNameTextField.text = data.surName
         self.settingsView?.emailTextField.text = data.email
         self.settingsView?.phoneNumberTextField.text = data.phoneNumber
-            let cleanedBase64 = data.imageProfile?
-                    .replacingOccurrences(of: "data:image/png;base64,", with: "")
-                    .replacingOccurrences(of: "data:image/jpeg;base64,", with: "")
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-            if let imageData = Data(base64Encoded: cleanedBase64!),
-                let image = UIImage(data: imageData) {
-                self.settingsView?.profileImage.image = image
-            }
+        guard let image = data.imageProfile else { return }
+        let url = URL(string: image)
+        self.settingsView?.profileImage.kf.setImage(with: url)
     }
     
     func updateUserData(dataUser: Result<NewUserEntity, any Error>) {
