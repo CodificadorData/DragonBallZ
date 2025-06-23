@@ -235,7 +235,7 @@ class HomeView: UIViewController {
             scrollHome.widthAnchor.constraint(equalTo: view.widthAnchor),
             scrollHome.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            bannerView.bottomAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: 150),
+            bannerView.bottomAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: 120),
             bannerView.centerXAnchor.constraint(equalTo: scrollHome.centerXAnchor),
             bannerView.widthAnchor.constraint(equalToConstant: 327),
             bannerView.heightAnchor.constraint(equalToConstant: 104),
@@ -262,8 +262,8 @@ class HomeView: UIViewController {
             tableHome.topAnchor.constraint(equalTo: scrollHome.topAnchor, constant: 20),
             tableHome.leftAnchor.constraint(equalTo: scrollHome.leftAnchor, constant: 20),
             tableHome.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
-            tableHome.heightAnchor.constraint(equalToConstant: 500),
-            tableHome.widthAnchor.constraint(equalToConstant: 200),
+            tableHome.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.6),
+            tableHome.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.5),
             
             principalImage.centerYAnchor.constraint(equalTo: tableHome.centerYAnchor),
             principalImage.rightAnchor.constraint(equalTo: viewContainer.rightAnchor, constant: -20),
@@ -295,7 +295,6 @@ class HomeView: UIViewController {
         
         let image = UIImage(named: "userImage")?.withRenderingMode(.alwaysOriginal)
 
-        // Ajustar el tamaño de la imagen manualmente
         let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
@@ -367,7 +366,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
             case .success(_):
                 self.activityIndicatorPrincipalImage.stopAnimating()
             case .failure(_):
-                print("failure")
+                print("No cargo/no terminó de cargar la imagen")
             }
         })
         bannerImage.kf.setImage(with: URL(string: url), completionHandler: { result in
@@ -375,7 +374,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
             case .success(_):
                 self.activityIndicatorBannerImage.stopAnimating()
             case .failure(_):
-                print("failure")
+                print("No cargo/no terminó de cargar la imagen")
             }
         })
         personaje = (presenter?.modelDragon[indexPath.row])!
@@ -391,7 +390,9 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
             uiView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.bounds.height * 0.1
+    }
 }
 
 extension HomeView: HomeViewProtocol {
@@ -407,11 +408,10 @@ extension HomeView: HomeViewProtocol {
 extension HomeView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//        let frameHeight = scrollView.frame.size.height
+        let heigth = tableHome.frame.height
         if position > contador {
             presenter?.bringData()
-            contador += 500
+            contador += heigth
         }
     }
 }
