@@ -12,7 +12,7 @@ class HomeView: UIViewController {
     
     var presenter: HomePresenter?
     var contactView: ContactView?
-    var additionalView: AdditionalView?
+    var socialView: SocialView?
     var settingsView: SettingsView?
     var storeView: StoreView?
     let cellIdentifi = "cell"
@@ -31,9 +31,9 @@ class HomeView: UIViewController {
             view.subviews.forEach { $0.removeFromSuperview() }
             setupBannerView()
             setupNavigationBar()
-        case "Additional":
+        case "Social":
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: self.additionalView!)
+            self.setupConstraintsView(uiView: self.socialView!)
         case "Store":
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.storeView!)
@@ -171,7 +171,7 @@ class HomeView: UIViewController {
         super.viewDidLoad()
         self.settingsView = SettingsView(presenter: presenter!)
         self.contactView = ContactView(presenter: presenter!)
-        self.additionalView = AdditionalView(presenter: presenter!)
+        self.socialView = SocialView(presenter: presenter!)
         self.storeView = StoreView()
         storeView?.presenter = presenter!
         presenter?.storeView = self.storeView
@@ -313,7 +313,7 @@ class HomeView: UIViewController {
             target: self,
             action: #selector(buttonToolBarPressed(_:))
         ), UIBarButtonItem(
-            title: "Additional",
+            title: "Social",
             style: .done,
             target: self,
             action: #selector(buttonToolBarPressed(_:))

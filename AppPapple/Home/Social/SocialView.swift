@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdditionalView: UIView {
+class SocialView: UIView {
     
     var presenter: HomePresenter?
     
@@ -17,7 +17,7 @@ class AdditionalView: UIView {
         title.textColor = .black
         title.numberOfLines = 0
         title.font = UIFont.systemFont(ofSize: 18)
-        title.text = "Additional"
+        title.text = "Social"
         return title
     }()
     

@@ -44,7 +44,6 @@ class HomePresenter {
                 self.modelProduct.append(contentsOf: products.results)
                 self.storeView?.updateProductList(product: dataJson)
                 self.pageProduct = products.info.next
-                print("fetchProducts \(self.pageProduct)")
             case .failure(let error):
                 print("error \(error)")
             }
