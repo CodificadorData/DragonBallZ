@@ -12,6 +12,7 @@ class StoreView: UIView {
     
     var presenter: HomePresenter?
     private var items: [String] = ["Uno", "Dos", "Tres", "Cuatro", "Cinco"]
+    var contador: CGFloat = 1
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -40,11 +41,9 @@ class StoreView: UIView {
         super.init(coder: coder)
     }
     
-    init(presenter: HomePresenter) {
+    init() {
         super.init(frame: .zero)
-        self.presenter = presenter
         self.setupView()
-        self.presenter?.fetchProducts()
         self.setupCollectionView()
     }
     
@@ -146,8 +145,22 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension HomeView {
+extension StoreView: StoreViewProtocol {
     func updateProductList(product: Result<ProductEntity, any Error>) {
-//        print(product)
+        collectionView.reloadData()
+
+    }
+}
+
+extension StoreView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == collectionView {
+            let position = scrollView.contentOffset.y
+            let heigth = collectionView.frame.height
+            if position > contador {
+                presenter?.fetchProducts()
+                contador += heigth
+            }
+        }
     }
 }

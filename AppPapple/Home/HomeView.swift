@@ -37,6 +37,7 @@ class HomeView: UIViewController {
         case "Store":
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.storeView!)
+            self.presenter?.fetchProducts()
         case "Contact":
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.contactView!)
@@ -171,7 +172,9 @@ class HomeView: UIViewController {
         self.settingsView = SettingsView(presenter: presenter!)
         self.contactView = ContactView(presenter: presenter!)
         self.additionalView = AdditionalView(presenter: presenter!)
-        self.storeView = StoreView(presenter: presenter!)
+        self.storeView = StoreView()
+        storeView?.presenter = presenter!
+        presenter?.storeView = self.storeView
         setupBannerView()
         setupNavigationBar()
         activityIndicatorTableHome.startAnimating()
@@ -407,11 +410,14 @@ extension HomeView: HomeViewProtocol {
 
 extension HomeView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        let heigth = tableHome.frame.height
-        if position > contador {
-            presenter?.bringData()
-            contador += heigth
+        if scrollView == tableHome {
+            let position = scrollView.contentOffset.y
+            let heigth = tableHome.frame.height
+            if position > contador {
+                presenter?.bringData()
+                contador += heigth
+            }
+
         }
     }
 }
