@@ -20,28 +20,33 @@ class HomeView: UIViewController {
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
     
+    var homeButton: UIBarButtonItem!
+    var newsButton: UIBarButtonItem!
+    var storeButton: UIBarButtonItem!
+    var contactButton: UIBarButtonItem!
+    var settingButton: UIBarButtonItem!
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
         presenter?.goToCharacterDetail(dragonBallModel: personaje!)
     }
     
-    //botones del toolbar
     @IBAction func buttonToolBarPressed(_ sender: UIBarButtonItem) {
-        switch sender.title {
-        case "Home":
+        switch sender {
+        case homeButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             setupBannerView()
             setupNavigationBar()
-        case "Social":
+        case newsButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.socialView!)
-        case "Store":
+        case storeButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.storeView!)
             self.presenter?.fetchProducts()
-        case "Contact":
+        case contactButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.contactView!)
-        case "Settings":
+        case settingButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.settingsView!)
         default:
@@ -302,38 +307,80 @@ class HomeView: UIViewController {
             image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
 
-        let button = UIBarButtonItem(image: resizedImage, style: .plain, target: self, action: #selector(profileViewTapped))
-
+        let button = UIBarButtonItem(
+            image: resizedImage,
+            style: .plain,
+            target: self,
+            action: #selector(profileViewTapped)
+        )
+        
         navigationItem.rightBarButtonItem = button
         
-        let toolbarItem = [
-        UIBarButtonItem(
-            title: "Home",
-            style: .done,
+        let homeIcon = UIImage(named: "homeIcon")?.withRenderingMode(.alwaysOriginal)
+        let newsIcon = UIImage(named: "newsIcon")?.withRenderingMode(.alwaysOriginal)
+        let settingIcon = UIImage(named: "settingIcon")?.withRenderingMode(.alwaysOriginal)
+        let contactIcon = UIImage(named: "contactIcon")?.withRenderingMode(.alwaysOriginal)
+        let storeIcon = UIImage(named: "storeIcon")?.withRenderingMode(.alwaysOriginal)
+
+        
+        let homeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            homeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        }
+        
+        let newsIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            newsIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        }
+        
+        let settingIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            settingIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        }
+
+        let contactIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            contactIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        }
+
+        let storeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            storeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        }
+
+        homeButton = UIBarButtonItem(
+            image: homeIconResized,
+            style: .plain,
             target: self,
             action: #selector(buttonToolBarPressed(_:))
-        ), UIBarButtonItem(
-            title: "Social",
-            style: .done,
+        )
+        
+        newsButton = UIBarButtonItem(
+            image: newsIconResized,
+            style: .plain,
             target: self,
             action: #selector(buttonToolBarPressed(_:))
-        ), UIBarButtonItem(
-            title: "Store",
-            style: .done,
+        )
+        
+        settingButton = UIBarButtonItem(
+            image: settingIconResized,
+            style: .plain,
             target: self,
             action: #selector(buttonToolBarPressed(_:))
-        ), UIBarButtonItem(
-            title: "Contact",
-            style: .done,
+        )
+
+        contactButton = UIBarButtonItem(
+            image: contactIconResized,
+            style: .plain,
             target: self,
             action: #selector(buttonToolBarPressed(_:))
-        ), UIBarButtonItem(
-            title: "Settings",
-            style: .done,
+        )
+        
+        storeButton = UIBarButtonItem(
+            image: storeIconResized,
+            style: .plain,
             target: self,
             action: #selector(buttonToolBarPressed(_:))
-        )]
-        toolbarItems = toolbarItem
+        )
+        
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        toolbarItems = [homeButton, space, newsButton, space, storeButton, space, contactButton, space, settingButton]
     }
 }
 
