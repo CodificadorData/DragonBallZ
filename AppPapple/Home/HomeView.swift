@@ -42,7 +42,9 @@ class HomeView: UIViewController {
         case storeButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.storeView!)
-            self.presenter?.fetchProducts()
+            DispatchQueue.main.async {
+                self.presenter?.fetchProducts()
+            }
         case contactButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             self.setupConstraintsView(uiView: self.contactView!)
@@ -184,7 +186,9 @@ class HomeView: UIViewController {
         activityIndicatorPrincipalImage.startAnimating()
         activityIndicatorTableHome.startAnimating()
         activityIndicatorBannerImage.startAnimating()
-        presenter?.bringData()
+        DispatchQueue.main.async {
+            self.presenter?.bringData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -465,7 +469,9 @@ extension HomeView: UIScrollViewDelegate {
             let position = scrollView.contentOffset.y
             let heigth = tableHome.frame.height
             if position > contador {
-                presenter?.bringData()
+                DispatchQueue.main.async {
+                    self.presenter?.bringData()
+                }
                 contador += heigth
             }
 

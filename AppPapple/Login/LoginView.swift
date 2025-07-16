@@ -123,7 +123,9 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .lightGray
         view.layer.opacity = 0.3
         self.activityIndicator.startAnimating()
-        self.presenter?.validateUser(email: id, password: password)
+        DispatchQueue.main.async {
+            self.presenter?.validateUser(email: id, password: password)
+        }
     }
     
     @objc func register() {

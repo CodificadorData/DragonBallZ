@@ -17,9 +17,7 @@ class HomeInteractor {
             .responseDecodable(of: DragonBallEntity.self) { response in
             switch response.result {
             case .success(let response):
-                DispatchQueue.main.async {
                     dataJson(.success(response))
-                }
             case .failure(let error):
                 dataJson(.failure(error))
             }
@@ -38,10 +36,8 @@ class HomeInteractor {
             response in
             switch response.result {
             case .success(let response):
-                DispatchQueue.main.async {
                     dataUser(response)
                     print("fetchUserData")
-                }
             case .failure(let error):
                 print("error \(error)")
             }
@@ -66,15 +62,11 @@ class HomeInteractor {
         AF.request(url, method: .get, parameters: queryParams, headers: headers).responseDecodable(of: NewUserEntity.self) { response in
             switch response.result {
             case .success(let response):
-                DispatchQueue.main.async {
                     dataUser(.success(response))
                     print("updateUserData")
-                }
             case .failure(let error):
-                DispatchQueue.main.async {
                     dataUser(.failure(error))
                     print("updateUserData error \(error)")
-                }
             }
         }
     }
@@ -86,9 +78,7 @@ class HomeInteractor {
             .responseDecodable(of: ProductEntity.self) { response in
                 switch response.result {
             case .success(let characters):
-                DispatchQueue.main.async {
                     dataResponse(.success(characters))
-                }
             case .failure(let error):
                 dataResponse(.failure(error))
             }

@@ -158,7 +158,9 @@ extension StoreView: UIScrollViewDelegate {
             let position = scrollView.contentOffset.y
             let heigth = collectionView.frame.height
             if position > contador {
-                presenter?.fetchProducts()
+                DispatchQueue.main.async {
+                    self.presenter?.fetchProducts()
+                }
                 contador += heigth
             }
         }

@@ -158,13 +158,17 @@ class SettingsView: UIView {
         let newUser = NewUserEntity(name: name, surName: surName, email: email,
                                     phoneNumber: phoneNumber, password: password, imageProfile: "")
 
-        presenter?.updateUserData(user: newUser)
-        presenter?.fetchSettings()
+        DispatchQueue.main.async {
+            self.presenter?.updateUserData(user: newUser)
+            self.presenter?.fetchSettings()
+        }
     }
     
     func start() {
         setupView()
-        presenter?.fetchSettings()
+        DispatchQueue.main.async {
+            self.presenter?.fetchSettings()
+        }
     }
     
     func setupView() {
