@@ -104,7 +104,6 @@ class HomeView: UIViewController {
     
     lazy var principalImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Bienvenida")
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -182,7 +181,9 @@ class HomeView: UIViewController {
         presenter?.storeView = self.storeView
         setupBannerView()
         setupNavigationBar()
+        activityIndicatorPrincipalImage.startAnimating()
         activityIndicatorTableHome.startAnimating()
+        activityIndicatorBannerImage.startAnimating()
         presenter?.bringData()
     }
     
@@ -447,11 +448,14 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
 
 extension HomeView: HomeViewProtocol {
     func updateDragonBall(dragonBallList: [Item]) {
-        activityIndicatorTableHome.stopAnimating()
-        let imageFirst = dragonBallList.first!.image
         self.tableHome.reloadData()
-        self.principalImage.kf.setImage(with: URL(string: imageFirst))
-        self.bannerImage.kf.setImage(with: URL(string: imageFirst))
+        activityIndicatorTableHome.stopAnimating()
+        if !isLoading {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableHome.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            self.tableView(self.tableHome, didSelectRowAt: indexPath)
+            isLoading = true
+        }
     }
 }
 
