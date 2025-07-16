@@ -6,10 +6,10 @@
 //
 
 struct NewUserEntity: Decodable {
-    let name: String?
-    let surName: String?
-    let email: String?
-    let phoneNumber: String?
-    let password: String?
+    let name: String
+    let surName: String
+    let email: String
+    let phoneNumber: String
+    let password: String
     let imageProfile: String?
 }

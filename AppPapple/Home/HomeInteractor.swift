@@ -51,13 +51,13 @@ class HomeInteractor {
     func updateUserData(user: NewUserEntity, authorizationToken: String
                         , dataUser: @escaping (_ dataJson: Result<NewUserEntity, Error>) -> Void ){
         guard let url = URL(string: "http://localhost:3001/updateUserAppPapple") else { return }
-        let queryParams: [String: String] = [
-            "name": user.name!,
-            "surName": user.surName!,
-            "phoneNumber": user.phoneNumber!,
-            "email": user.email!,
-            "password": user.password!,
-            "imageProfile": user.imageProfile!
+        let queryParams: [String: String?] = [
+            "name": user.name,
+            "surName": user.surName,
+            "phoneNumber": user.phoneNumber,
+            "email": user.email,
+            "password": user.password,
+            "imageProfile": user.imageProfile
         ]
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",

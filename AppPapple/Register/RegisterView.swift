@@ -197,8 +197,12 @@ class RegisterViewController: UIViewController {
         view.backgroundColor = .lightGray
         view.layer.opacity = 0.3
         self.activityIndicator.startAnimating()
-
-        let newUser = NewUserEntity(name: nameField.text, surName: surNameTextField.text, email: emailTextField.text, phoneNumber: phoneNumberTextField.text, password: passwordTextField.text, imageProfile: "")
+        guard let name = nameField.text, let surName = surNameTextField.text, let email = emailTextField.text, let phoneNumber = phoneNumberTextField.text, let password = passwordTextField.text else {
+            return
+        }
+        
+        let newUser = NewUserEntity(name: name, surName: surName, email: email, phoneNumber: phoneNumber, password: password, imageProfile: "")
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.presenter?.registerUser(user: newUser)
             self.presenter?.goToLogin(mainView: self)

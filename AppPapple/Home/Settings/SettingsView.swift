@@ -150,7 +150,13 @@ class SettingsView: UIView {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        let newUser = NewUserEntity(name: nameTextField.text, surName: surNameTextField.text, email: emailTextField.text, phoneNumber: phoneNumberTextField.text, password: passwordTextField.text, imageProfile: "")
+        guard let name = nameTextField.text, let surName = surNameTextField.text,
+                let email = emailTextField.text, let phoneNumber = phoneNumberTextField.text,
+                let password = passwordTextField.text else {
+            return
+        }
+        let newUser = NewUserEntity(name: name, surName: surName, email: email,
+                                    phoneNumber: phoneNumber, password: password, imageProfile: "")
 
         presenter?.updateUserData(user: newUser)
         presenter?.fetchSettings()

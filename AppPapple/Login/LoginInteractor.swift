@@ -28,7 +28,7 @@ class LoginInteractor {
                 case .success(let result):
                     DispatchQueue.main.async {
                         dataUser(.success(result))
-                        KeychainWrapper.standard.set(result.token!, forKey: "authToken")
+                        KeychainWrapper.standard.set(result.token, forKey: "authToken")
                         print("validateUser \(result)")
                     }
                 case .failure(let error):
