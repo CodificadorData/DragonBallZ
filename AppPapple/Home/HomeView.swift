@@ -51,6 +51,7 @@ class HomeView: UIViewController {
         case settingButton:
             view.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.settingsView!)
+            settingsView?.start()
         default:
             break
         }
@@ -387,6 +388,12 @@ class HomeView: UIViewController {
         
         toolbarItems = [homeButton, space, newsButton, space, storeButton, space, contactButton, space, settingButton]
     }
+    
+    func showErrorPopUp(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension HomeView: UITableViewDataSource, UITableViewDelegate {
@@ -451,6 +458,10 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension HomeView: HomeViewProtocol {
+    func errorPopUp(title: String, message: String) {
+        self.showErrorPopUp(title: title, message: message)
+    }
+    
     func updateDragonBall(dragonBallList: [Item]) {
         self.tableHome.reloadData()
         activityIndicatorTableHome.stopAnimating()

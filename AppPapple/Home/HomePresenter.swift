@@ -32,7 +32,7 @@ class HomePresenter {
                 self.view?.updateDragonBall(dragonBallList: self.modelDragon)
                 self.page = response.links.next
             case .failure(let error):
-                print(error)
+                self.view?.errorPopUp(title: "error requestDragonBall", message: error.localizedDescription)
             }
         })
     }
@@ -42,23 +42,33 @@ class HomePresenter {
             switch dataJson {
             case .success(let products):
                 self.modelProduct.append(contentsOf: products.results)
-                self.storeView?.updateProductList(product: dataJson)
+                self.storeView?.updateProductList(product: products)
                 self.pageProduct = products.info.next
             case .failure(let error):
-                print("error \(error)")
+                self.view?.errorPopUp(title: "error fetchProducts", message: error.localizedDescription)
             }
         })
     }
 
     func fetchSettings() {
         homeInteractor.fetchUserData(authorizationToken: token) { dataJson in
-            self.view?.fetchSettings(data: dataJson)
+            switch dataJson {
+            case .success(let token):
+                self.view?.fetchSettings(data: token)
+            case .failure(let error):
+                self.view?.errorPopUp(title: "error fetchSettings", message: error.localizedDescription)
+            }
         }
     }
     
     func updateUserData(user :NewUserEntity) {
         homeInteractor.updateUserData(user: user, authorizationToken: token) { dataJson in
-            self.view?.updateUserData(dataUser: dataJson)
+            switch dataJson {
+            case .success(let data):
+                self.view?.updateUserData(dataUser: data)
+            case .failure(let error):
+                self.view?.errorPopUp(title: "error updateUserData", message: error.localizedDescription)
+            }
         }
     }
     
@@ -79,9 +89,11 @@ class HomePresenter {
 protocol HomeViewProtocol: AnyObject {
     func updateDragonBall(dragonBallList: [Item])
     func fetchSettings(data: NewUserEntity)
-    func updateUserData(dataUser: Result<NewUserEntity, Error>)
+    func updateUserData(dataUser: NewUserEntity)
+    func errorPopUp(title: String, message: String)
 }
 
 protocol StoreViewProtocol: AnyObject {
-    func updateProductList(product: Result<ProductEntity, Error>)
+    func updateProductList(product: ProductEntity)
+    func errorPopUp(title: String, message: String)
 }

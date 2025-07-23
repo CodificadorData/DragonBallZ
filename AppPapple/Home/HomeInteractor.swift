@@ -25,7 +25,7 @@ class HomeInteractor {
         }
     }
     
-    func fetchUserData(authorizationToken: String, dataUser: @escaping (_ dataJson: NewUserEntity) -> Void) {
+    func fetchUserData(authorizationToken: String, dataUser: @escaping (_ dataJson: Result<NewUserEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "user_url") as? String
         guard let url = endPoint else { return }
         let headers: HTTPHeaders = [
@@ -38,10 +38,9 @@ class HomeInteractor {
             response in
             switch response.result {
             case .success(let response):
-                    dataUser(response)
-                    print("fetchUserData")
+                dataUser(.success(response))
             case .failure(let error):
-                print("error \(error)")
+                dataUser(.failure(error))
             }
         }
     }

@@ -142,7 +142,7 @@ class SettingsView: UIView {
     init(presenter: HomePresenter) {
         super.init(frame: .zero)
         self.presenter = presenter
-        start()
+//        start()
     }
     
     required init?(coder: NSCoder) {
@@ -316,13 +316,8 @@ extension HomeView {
         self.settingsView?.profileImage.kf.setImage(with: url)
     }
     
-    func updateUserData(dataUser: Result<NewUserEntity, any Error>) {
-            switch dataUser {
-            case .success(let dataJson):
-                print("success \(dataJson)")
-            case .failure(let error):
-                print("error \(error)")
-            }
-        }
-    
+    func updateUserData(dataUser: NewUserEntity) {
+        print("success \(dataUser)")
+    }
+        
 }

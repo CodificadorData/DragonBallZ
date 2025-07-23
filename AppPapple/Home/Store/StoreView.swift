@@ -63,8 +63,17 @@ class StoreView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
         ])
     }
-
     
+    func showErrorPopUp(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
+        guard let viewController = self.parentViewController() else {
+            print("No se encontró un UIViewController.")
+            return
+        }
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+
 }
 
 extension StoreView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -146,9 +155,12 @@ class CustomCollectionViewCell: UICollectionViewCell {
 }
 
 extension StoreView: StoreViewProtocol {
-    func updateProductList(product: Result<ProductEntity, any Error>) {
+    func errorPopUp(title: String, message: String) {
+        self.showErrorPopUp(title: title, message: message)
+    }
+    
+    func updateProductList(product: ProductEntity) {
         collectionView.reloadData()
-
     }
 }
 
