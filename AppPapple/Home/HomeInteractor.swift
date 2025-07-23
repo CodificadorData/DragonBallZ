@@ -11,7 +11,8 @@ import Kingfisher
 class HomeInteractor {
 
     func requestDragonBall(url: String?, dataJson: @escaping (_ dataDragon: Result<DragonBallEntity, Error>) -> Void) {
-        let urlFinal = url ?? "https://dragonball-api.com/api/characters"
+        let endPoint = Bundle.main.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
+        let urlFinal = url ?? endPoint
         AF.request(urlFinal, method: .get)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: DragonBallEntity.self) { response in

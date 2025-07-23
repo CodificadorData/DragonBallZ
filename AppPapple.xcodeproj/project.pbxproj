@@ -53,6 +53,7 @@
 		655E80252DB60D26006C733E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		655E80272DB6C208006C733E /* ProductEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntity.swift; sourceTree = "<group>"; };
 		6580E7402E280BAB009A647A /* UIImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageUtil.swift; sourceTree = "<group>"; };
+		6580E7472E2B1770009A647A /* dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = dev.xcconfig; sourceTree = "<group>"; };
 		658879E02D26087D000EA056 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		65D647302D2A553800431310 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65D647332D2B939D00431310 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -229,6 +230,7 @@
 		CD10C34F2B3C6AF80068484A = {
 			isa = PBXGroup;
 			children = (
+				6580E7472E2B1770009A647A /* dev.xcconfig */,
 				CD10C35A2B3C6AF80068484A /* AppPapple */,
 				CD10C3592B3C6AF80068484A /* Products */,
 				8C9732EFB8B590DEAC36441E /* Pods */,
@@ -494,6 +496,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = AppPapple/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -550,6 +553,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = AppPapple/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -562,7 +566,7 @@
 		};
 		CD10C36D2B3C6AF90068484A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47105AB2DA909DACC18ED599 /* Pods-AppPapple.debug.xcconfig */;
+			baseConfigurationReference = 6580E7472E2B1770009A647A /* dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -592,7 +596,7 @@
 		};
 		CD10C36E2B3C6AF90068484A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03EAE95A6159FA3715423247 /* Pods-AppPapple.release.xcconfig */;
+			baseConfigurationReference = 6580E7472E2B1770009A647A /* dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

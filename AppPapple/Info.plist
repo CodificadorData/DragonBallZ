@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>BASE_URL</key>
+    <string>https://$(BASE_URL)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -17,8 +19,8 @@
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
 					<string>Main</string>
-                    <key>NSPhotoLibraryUsageDescription</key>
-                    <string>Necesitamos acceder a tu galería para elegir una foto</string>
+					<key>NSPhotoLibraryUsageDescription</key>
+					<string>Necesitamos acceder a tu galería para elegir una foto</string>
 				</dict>
 			</array>
 		</dict>

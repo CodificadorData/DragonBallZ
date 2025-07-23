@@ -1,0 +1,12 @@
+//
+//  dev.xcconfig
+//  AppPapple
+//
+//  Created by Christian Morante on 18/07/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+#include "Pods/Target Support Files/Pods-AppPapple/Pods-AppPapple.debug.xcconfig"
+BASE_URL=dragonball-api.com/api/characters
