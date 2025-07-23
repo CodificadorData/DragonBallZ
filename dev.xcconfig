@@ -9,4 +9,7 @@
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 
 #include "Pods/Target Support Files/Pods-AppPapple/Pods-AppPapple.debug.xcconfig"
-BASE_URL=dragonball-api.com/api/characters
+db_url=dragonball-api.com/api/characters
+user_url=localhost:3001/fetchUserAppPapple
+updateUser_url=localhost:3001/updateUserAppPapple
+product_url=rickandmortyapi.com/api/character

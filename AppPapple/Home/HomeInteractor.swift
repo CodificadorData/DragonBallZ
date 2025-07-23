@@ -11,7 +11,7 @@ import Kingfisher
 class HomeInteractor {
 
     func requestDragonBall(url: String?, dataJson: @escaping (_ dataDragon: Result<DragonBallEntity, Error>) -> Void) {
-        let endPoint = Bundle.main.object(forInfoDictionaryKey: "BASE_URL") as? String ?? ""
+        let endPoint = Bundle.main.object(forInfoDictionaryKey: "db_url") as? String ?? ""
         let urlFinal = url ?? endPoint
         AF.request(urlFinal, method: .get)
             .validate(statusCode: 200..<300)
@@ -26,7 +26,8 @@ class HomeInteractor {
     }
     
     func fetchUserData(authorizationToken: String, dataUser: @escaping (_ dataJson: NewUserEntity) -> Void) {
-        guard let url = URL(string: "http://localhost:3001/fetchUserAppPapple") else { return }
+        let endPoint = Bundle.main.object(forInfoDictionaryKey: "user_url") as? String
+        guard let url = endPoint else { return }
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "Authorization": authorizationToken
@@ -47,7 +48,8 @@ class HomeInteractor {
     
     func updateUserData(user: NewUserEntity, authorizationToken: String
                         , dataUser: @escaping (_ dataJson: Result<NewUserEntity, Error>) -> Void ){
-        guard let url = URL(string: "http://localhost:3001/updateUserAppPapple") else { return }
+        let endPoint = Bundle.main.object(forInfoDictionaryKey: "updateUser_url") as? String
+        guard let url = endPoint else { return }
         let queryParams: [String: String?] = [
             "name": user.name,
             "surName": user.surName,
@@ -73,7 +75,8 @@ class HomeInteractor {
     }
     
     func fetchProducts(url: String?, dataResponse: @escaping (_ dataJson: Result<ProductEntity, Error>) -> Void) {
-        let url = url ?? "https://rickandmortyapi.com/api/character"
+        let endPoint = Bundle.main.object(forInfoDictionaryKey: "product_url") as? String ?? ""
+        let url = url ?? endPoint
         AF.request(url, method: .get)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ProductEntity.self) { response in

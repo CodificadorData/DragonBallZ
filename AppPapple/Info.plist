@@ -2,8 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>BASE_URL</key>
-    <string>https://$(BASE_URL)</string>
+	<key>db_url</key>
+	<string>https://$(db_url)</string>
+    <key>user_url</key>
+    <string>http://$(user_url)</string>
+    <key>product_url</key>
+    <string>https://$(product_url)</string>
+    <key>updateUser_url</key>
+    <string>http://$(updateUser_url)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
