@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func verifyLogin() {
-        if (KeychainWrapper.standard.string(forKey: "authToken") != nil) {
+        if let token = KeychainWrapper.standard.string(forKey: "authToken") {
             MainRouter.shared.goToHome()
         } else {
             MainRouter.shared.goToLogin()
