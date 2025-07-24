@@ -13,14 +13,16 @@ class LoginInteractor {
     func validateUser(email: String, password: String,
                       dataUser: @escaping (_ dataJson: Result<ResponseUser, Error>) -> Void) {
         
-        let url = "http://localhost:3001/verifyUserAppPaple/v1"
+        guard let endPoint = Bundle.main.object(forInfoDictionaryKey: "verifyUser_url") as? String else {
+            return
+        }
 
         let queryParams: [String: String] = [
             "email": email,
             "password": password
         ]
         
-        AF.request(url, method: .get, parameters: queryParams)
+        AF.request(endPoint, method: .get, parameters: queryParams)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseUser.self) {
             response in

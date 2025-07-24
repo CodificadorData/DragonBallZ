@@ -10,6 +10,10 @@
     <string>https://$(product_url)</string>
     <key>updateUser_url</key>
     <string>http://$(updateUser_url)</string>
+    <key>registerUser_url</key>
+    <string>http://$(registerUser_url)</string>
+    <key>verifyUser_url</key>
+    <string>http://$(verifyUser_url)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

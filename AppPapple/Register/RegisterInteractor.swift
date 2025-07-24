@@ -10,8 +10,10 @@ import Alamofire
 class RegisterInteractor {
     
     func registerUser(user: NewUserEntity, dataJson: @escaping (Result<ResponseRegister, Error>) -> Void) {
-        let url = "http://localhost:3001/registerUserAppPapple"
-            
+        guard let endPoint = Bundle.main.object(forInfoDictionaryKey: "user_url") as? String else {
+            return
+        }
+
         let parameters: [String: Any?] = [
             "name": user.name,
             "surName": user.surName,
@@ -21,7 +23,7 @@ class RegisterInteractor {
             "imageProfile": user.imageProfile
         ]
 
-        AF.request(url, method: .post, parameters: parameters)
+        AF.request(endPoint, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseRegister.self){
             response in

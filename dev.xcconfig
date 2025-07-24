@@ -13,3 +13,5 @@ db_url=dragonball-api.com/api/characters
 user_url=localhost:3001/fetchUserAppPapple
 updateUser_url=localhost:3001/updateUserAppPapple
 product_url=rickandmortyapi.com/api/character
+registerUser_url=localhost:3001/registerUserAppPapple
+verifyUser_url=localhost:3001/verifyUserAppPaple/v1
