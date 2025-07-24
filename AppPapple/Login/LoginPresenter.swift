@@ -31,8 +31,8 @@ class LoginPresenter {
         router.goToRegister(mainView: mainView)
     }
 
-    func goToHome(windows: UIWindow?) {
-        router.goToHome(windows: windows)
+    func goToHome() {
+        router.goToHome()
     }
 }
 

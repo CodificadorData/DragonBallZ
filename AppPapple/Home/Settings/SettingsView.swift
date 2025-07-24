@@ -256,7 +256,7 @@ class SettingsView: UIView {
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.activityIndicator.stopAnimating()
-            self.presenter?.goToLogin(windows: self.superview?.window)
+            self.presenter?.goToLogin()
         }
     }
     

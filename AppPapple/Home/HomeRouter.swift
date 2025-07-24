@@ -16,18 +16,8 @@ class HomeRouter {
         mainView.navigationController?.pushViewController(charactersView, animated: true)
     }
     
-    func goToLogin(windows: UIWindow?){
-        KeychainWrapper.standard.removeObject(forKey: "authToken")
-        let loginRouter = LoginRouter()
-        let loginInteractor = LoginInteractor()
-        let loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
-        let loginView = LoginViewController()
-        loginView.presenter = loginPresenter
-        loginPresenter.view = loginView
-        
-        let navigationController = UINavigationController(rootViewController: loginView)
-        windows?.windowScene?.keyWindow?.rootViewController = navigationController
-        windows?.windowScene?.keyWindow?.makeKeyAndVisible()
+    func goToLogin(){
+        MainRouter.shared.goToLogin()
     }
     
     func goToSocialMedia(mainView: AnyObject, socialMedia: SocialMedia){

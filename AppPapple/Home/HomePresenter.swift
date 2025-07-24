@@ -82,8 +82,8 @@ class HomePresenter {
         router.goToCharacterDetail(mainView: self.view!, dragonBallModel: dragonBallModel)
     }
 
-    func goToLogin(windows: UIWindow?){
-        router.goToLogin(windows: windows)
+    func goToLogin(){
+        router.goToLogin()
     }
     
     func goToSocialMedia(socialMedia: SocialMedia){

@@ -12,18 +12,8 @@ class LoginRouter {
     private var homeView: HomeView?
     private var registerViewController: RegisterViewController?
     
-    func goToHome(windows: UIWindow?) {
-        let homeRouter = HomeRouter()
-        let homeInteractor = HomeInteractor()
-        let homePresenter = HomePresenter(homeInteractor: homeInteractor, router: homeRouter)
-        self.homeView = HomeView()
-        
-        self.homeView?.presenter  = homePresenter
-        homePresenter.view = homeView
-        
-        let navigationController = UINavigationController(rootViewController: homeView!)
-        windows?.windowScene?.keyWindow?.rootViewController = navigationController
-        windows?.windowScene?.keyWindow?.makeKeyAndVisible()
+    func goToHome() {
+        MainRouter.shared.goToHome()
     }
     
     func goToRegister(mainView: UIViewController) {

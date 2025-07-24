@@ -12,12 +12,12 @@ import SwiftKeychainWrapper
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    let router = MainRouter()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+        MainRouter.shared.start(windows: window)
         verifyLogin()
     }
 
@@ -27,9 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func verifyLogin() {
         if (KeychainWrapper.standard.string(forKey: "authToken") != nil) {
-            router.startWithHome(windows: window)
+            MainRouter.shared.goToHome()
         } else {
-            router.startWithLogin(windows: window)
+            MainRouter.shared.goToLogin()
         }
 
     }

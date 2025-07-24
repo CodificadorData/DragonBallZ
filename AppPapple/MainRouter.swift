@@ -6,29 +6,29 @@
 //
 import UIKit
 
-class MainRouter {
+final class MainRouter {
     
-    var loginView: LoginViewController
-    var loginPresenter: LoginPresenter
-    var loginInteractor: LoginInteractor
-    var loginRouter: LoginRouter
+    static let shared = MainRouter()
+        
+    weak var windows: UIWindow?
     
-    init() {
-        self.loginRouter = LoginRouter()
-        self.loginInteractor = LoginInteractor()
-        self.loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
-        self.loginView = LoginViewController()
-        loginView.presenter = loginPresenter
-        loginPresenter.view = loginView
+    func start(windows: UIWindow?) {
+        self.windows = windows
     }
     
-    func startWithLogin(windows: UIWindow?){
+    func goToLogin(){
+        let loginRouter = LoginRouter()
+        let loginInteractor = LoginInteractor()
+        let loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
+        let loginView = LoginViewController()
+        loginView.presenter = loginPresenter
+        loginPresenter.view = loginView
         let navigationController = UINavigationController(rootViewController: loginView)
         windows?.rootViewController = navigationController
         windows?.makeKeyAndVisible()
     }
     
-    func startWithHome(windows: UIWindow?){
+    func goToHome(){
         let homeRouter = HomeRouter()
         let homeInteractor = HomeInteractor()
         let homePresenter = HomePresenter(homeInteractor: homeInteractor, router: homeRouter)
