@@ -177,6 +177,8 @@ class HomeView: UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         self.settingsView = SettingsView(presenter: presenter!)
+        settingsView?.presenter = presenter!
+        presenter?.settingsView = self.settingsView
         self.contactView = ContactView(presenter: presenter!)
         self.socialView = SocialView(presenter: presenter!)
         self.storeView = StoreView()
@@ -458,6 +460,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension HomeView: HomeViewProtocol {
+    
     func errorPopUp(title: String, message: String) {
         self.showErrorPopUp(title: title, message: message)
     }

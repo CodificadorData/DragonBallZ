@@ -159,14 +159,13 @@ class SettingsView: UIView {
 
         DispatchQueue.main.async {
             self.presenter?.updateUserData(user: newUser)
-            self.presenter?.fetchSettings()
         }
     }
     
     func start() {
         setupView()
         DispatchQueue.main.async {
-            self.presenter?.fetchSettings()
+            self.presenter?.fetchUserData()
         }
     }
     
@@ -271,6 +270,15 @@ class SettingsView: UIView {
         }
     }
     
+    func showErrorPopUp(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
+        guard let viewController = self.parentViewController() else {
+            return
+        }
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 
@@ -304,19 +312,30 @@ extension UIView {
     }
 }
 
-extension HomeView {
-    func fetchSettings(data: NewUserEntity) {
-        self.settingsView?.nameTextField.text = data.name
-        self.settingsView?.surNameTextField.text = data.surName
-        self.settingsView?.emailTextField.text = data.email
-        self.settingsView?.phoneNumberTextField.text = data.phoneNumber
+extension SettingsView: SettingsViewProtocol {
+    
+    func fetchUserData(data: NewUserEntity) {
+        self.nameTextField.text = data.name
+        self.surNameTextField.text = data.surName
+        self.emailTextField.text = data.email
+        self.phoneNumberTextField.text = data.phoneNumber
         guard let image = data.imageProfile else { return }
         let url = URL(string: image)
-        self.settingsView?.profileImage.kf.setImage(with: url)
+        self.profileImage.kf.setImage(with: url)
+    }
+
+    func errorPopUp(title: String, message: String) {
+        self.showErrorPopUp(title: title, message: message)
     }
     
     func updateUserData(dataUser: NewUserEntity) {
-        print("success \(dataUser)")
+        self.nameTextField.text = dataUser.name
+        self.surNameTextField.text = dataUser.surName
+        self.emailTextField.text = dataUser.email
+        self.phoneNumberTextField.text = dataUser.phoneNumber
+        guard let image = dataUser.imageProfile else { return }
+        let url = URL(string: image)
+        self.profileImage.kf.setImage(with: url)
     }
-        
+
 }

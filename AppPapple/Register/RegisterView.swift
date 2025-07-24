@@ -211,15 +211,22 @@ class RegisterViewController: UIViewController {
             self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         }
     }
+    
+    func showErrorPopUp(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+    }
+
 }
 
 extension RegisterViewController: RegisterViewProtocol {
     func registerUser(data: Result<ResponseRegister, any Error>) {
         switch data {
         case .success(let response):
-            print("La repuesta es \(response)")
+            self.showErrorPopUp(title: "Registro exitoso", message: response.message)
         case .failure(let error):
-            print("El error es \(error)")
+            self.showErrorPopUp(title: "Registro erróneo", message: error.localizedDescription)
         }
     }
 }
