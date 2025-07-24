@@ -142,7 +142,6 @@ class SettingsView: UIView {
     init(presenter: HomePresenter) {
         super.init(frame: .zero)
         self.presenter = presenter
-//        start()
     }
     
     required init?(coder: NSCoder) {

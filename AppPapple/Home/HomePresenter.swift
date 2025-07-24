@@ -7,6 +7,11 @@
 
 import SwiftKeychainWrapper
 
+enum SocialMedia {
+    case facebook
+    case instagram
+    case youtube
+}
 class HomePresenter {
     
     private let homeInteractor: HomeInteractor
@@ -80,7 +85,7 @@ class HomePresenter {
         router.goToLogin(windows: windows)
     }
     
-    func goToSocialMedia(socialMedia: String){
+    func goToSocialMedia(socialMedia: SocialMedia){
         router.goToSocialMedia(mainView: self.view!, socialMedia: socialMedia)
     }
     

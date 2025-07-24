@@ -30,18 +30,18 @@ class HomeRouter {
         windows?.windowScene?.keyWindow?.makeKeyAndVisible()
     }
     
-    func goToSocialMedia(mainView: AnyObject, socialMedia: String){
+    func goToSocialMedia(mainView: AnyObject, socialMedia: SocialMedia){
         let webView = WebView()
         var url: String = ""
         switch socialMedia {
-            case "facebook":
-            url = "https://www.facebook.com/"
-            case "instagram":
-                url = "https://www.instagram.com/"
-            case "youtube":
-                url = "https://www.youtube.com/"
+            case .facebook:
+                url = "https://www.facebook.com/"
+            case .instagram:
+                    url = "https://www.instagram.com/"
+            case .youtube:
+                    url = "https://www.youtube.com/"
             default:
-            break
+                break
         }
         webView.urlString = url
         mainView.present(webView, animated: true)

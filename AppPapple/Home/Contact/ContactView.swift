@@ -81,15 +81,15 @@ class ContactView: UIView {
     }
     
     @objc func facebookImageTapped() {
-        presenter?.goToSocialMedia(socialMedia: "facebook")
+        presenter?.goToSocialMedia(socialMedia: .facebook)
     }
     
     @objc func instagramImageTapped() {
-        presenter?.goToSocialMedia(socialMedia: "instagram")
+        presenter?.goToSocialMedia(socialMedia: .instagram)
     }
     
     @objc func youtubeImageTapped() {
-        presenter?.goToSocialMedia(socialMedia: "youtube")
+        presenter?.goToSocialMedia(socialMedia: .youtube)
     }
     
     func setupView() {
