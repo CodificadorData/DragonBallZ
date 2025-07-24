@@ -27,10 +27,8 @@ class RegisterInteractor {
             response in
                 switch response.result {
                 case .success(let data):
-                    print("registerUser: \(data)")
                     dataJson(.success(data))
                 case .failure(let error):
-                    print("Error registerUser: \(error)")
                     dataJson(.failure(error))
                 }
             }

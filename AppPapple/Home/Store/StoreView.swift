@@ -68,7 +68,6 @@ class StoreView: UIView {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
         guard let viewController = self.parentViewController() else {
-            print("No se encontró un UIViewController.")
             return
         }
         viewController.present(alertController, animated: true, completion: nil)

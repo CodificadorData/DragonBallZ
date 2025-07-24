@@ -28,9 +28,7 @@ class LoginInteractor {
                 case .success(let result):
                         dataUser(.success(result))
                         KeychainWrapper.standard.set(result.token, forKey: "authToken")
-                        print("validateUser \(result)")
                 case .failure(let error):
-                    print("error validateUser \(error)")
                     dataUser(.failure(error))
             }
         }

@@ -427,8 +427,8 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
             switch result {
             case .success(_):
                 self.activityIndicatorPrincipalImage.stopAnimating()
-            case .failure(_):
-                print("No cargo/no terminó de cargar la imagen")
+            case .failure(let error):
+                self.showErrorPopUp(title: "No cargo/no terminó de cargar la imagen", message: error.localizedDescription.description)
             }
         })
         bannerImage.kf.setImage(with: URL(string: url), completionHandler: { result in
@@ -436,7 +436,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
             case .success(_):
                 self.activityIndicatorBannerImage.stopAnimating()
             case .failure(_):
-                print("No cargo/no terminó de cargar la imagen")
+                break 
             }
         })
         personaje = (presenter?.modelDragon[indexPath.row])!

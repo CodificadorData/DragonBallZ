@@ -65,10 +65,8 @@ class HomeInteractor {
             switch response.result {
             case .success(let response):
                     dataUser(.success(response))
-                    print("updateUserData")
             case .failure(let error):
                     dataUser(.failure(error))
-                    print("updateUserData error \(error)")
             }
         }
     }
