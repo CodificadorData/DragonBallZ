@@ -31,6 +31,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             MainRouter.shared.goToLogin()
         }
-
     }
 }

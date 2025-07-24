@@ -297,9 +297,7 @@ class HomeView: UIViewController {
             
             activityIndicatorBannerImage.centerYAnchor.constraint(equalTo: bannerImage.centerYAnchor),
             activityIndicatorBannerImage.centerXAnchor.constraint(equalTo: bannerImage.centerXAnchor)
-            
         ])
-
     }
     
     func setupNavigationBar() {
@@ -488,7 +486,6 @@ extension HomeView: UIScrollViewDelegate {
                 }
                 contador += heigth
             }
-
         }
     }
 }
