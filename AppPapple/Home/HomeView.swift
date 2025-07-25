@@ -11,20 +11,20 @@ import Kingfisher
 class HomeView: UIViewController {
     
     var presenter: HomePresenter?
-    var contactView: ContactView?
-    var socialView: SocialView?
-    var settingsView: SettingsView?
-    var storeView: StoreView?
+    var contactView = ContactView()
+    var socialView = SocialView()
+    var settingsView = SettingsView()
+    var storeView = StoreView()
     let cellIdentifi = "cell"
     var personaje: Item?
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
     
-    var homeButton: UIBarButtonItem!
-    var newsButton: UIBarButtonItem!
-    var storeButton: UIBarButtonItem!
-    var contactButton: UIBarButtonItem!
-    var settingButton: UIBarButtonItem!
+    var homeButton = UIBarButtonItem()
+    var newsButton = UIBarButtonItem()
+    var storeButton = UIBarButtonItem()
+    var contactButton = UIBarButtonItem()
+    var settingButton = UIBarButtonItem()
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         presenter?.goToCharacterDetail(dragonBallModel: personaje!)
@@ -38,20 +38,20 @@ class HomeView: UIViewController {
             setupNavigationBar()
         case newsButton:
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: self.socialView!)
+            self.setupConstraintsView(uiView: self.socialView)
         case storeButton:
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: self.storeView!)
+            self.setupConstraintsView(uiView: self.storeView)
             DispatchQueue.main.async {
                 self.presenter?.fetchProducts()
             }
         case contactButton:
             view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: self.contactView!)
+            self.setupConstraintsView(uiView: self.contactView)
         case settingButton:
             view.subviews.forEach { $0.removeFromSuperview() }
-            setupConstraintsView(uiView: self.settingsView!)
-            settingsView?.start()
+            setupConstraintsView(uiView: self.settingsView)
+            settingsView.start()
         default:
             break
         }
@@ -176,14 +176,6 @@ class HomeView: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        self.settingsView = SettingsView(presenter: presenter!)
-        settingsView?.presenter = presenter!
-        presenter?.settingsView = self.settingsView
-        self.contactView = ContactView(presenter: presenter!)
-        self.socialView = SocialView(presenter: presenter!)
-        self.storeView = StoreView()
-        storeView?.presenter = presenter!
-        presenter?.storeView = self.storeView
         setupBannerView()
         setupNavigationBar()
         activityIndicatorPrincipalImage.startAnimating()
@@ -192,6 +184,12 @@ class HomeView: UIViewController {
         DispatchQueue.main.async {
             self.presenter?.bringData()
         }
+        settingsView.presenter = presenter
+        presenter?.settingsView = settingsView
+        storeView.presenter = presenter
+        presenter?.storeView = storeView
+        contactView.presenter = presenter
+        socialView.presenter = presenter
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -200,7 +198,7 @@ class HomeView: UIViewController {
     
     @objc func profileViewTapped() {
         view.subviews.forEach { $0.removeFromSuperview() }
-        self.setupConstraintsView(uiView: settingsView!)
+        self.setupConstraintsView(uiView: settingsView)
     }
     
     func setupBannerView() {
@@ -399,7 +397,7 @@ class HomeView: UIViewController {
 extension HomeView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (presenter?.modelDragon.count) ?? .zero
+        return presenter?.modelDragon.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -409,9 +407,10 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
         cell.textLabel?.text = personajeNombre
         
         cell.textLabel?.translatesAutoresizingMaskIntoConstraints = false
+        guard let textLabel = cell.textLabel else {return cell}
         NSLayoutConstraint.activate([
-            cell.textLabel!.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
-            cell.textLabel!.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
+            textLabel.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+            textLabel.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
         ])
         return cell
     }
@@ -439,7 +438,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
                 break 
             }
         })
-        personaje = (presenter?.modelDragon[indexPath.row])!
+        personaje = presenter?.modelDragon[indexPath.row]
     }
     
     func setupConstraintsView(uiView: UIView) {

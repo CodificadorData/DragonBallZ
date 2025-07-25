@@ -19,7 +19,7 @@ struct Item: Decodable {
     let race: String
     let gender: String
     let description: String
-    let image: String
+    let image: String?
     let affiliation: String
 }
 

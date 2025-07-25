@@ -9,12 +9,12 @@ import WebKit
 
 class WebView: UIViewController {
     var urlString: String = ""
-    private var webView: WKWebView!
+    private var webView: WKWebView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        guard var webView = self.webView else { return }
         webView = WKWebView(frame: .zero)
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)

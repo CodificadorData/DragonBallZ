@@ -30,8 +30,6 @@ class HomeRouter {
                     url = "https://www.instagram.com/"
             case .youtube:
                     url = "https://www.youtube.com/"
-            default:
-                break
         }
         webView.urlString = url
         mainView.present(webView, animated: true)

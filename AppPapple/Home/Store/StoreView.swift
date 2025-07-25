@@ -87,8 +87,11 @@ extension StoreView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         ) as? CustomCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let url = URL(string: self.presenter?.modelProduct[indexPath.row].image ?? "")!
-        cell.configure(with: self.presenter?.modelProduct[indexPath.row].name ?? " ", url: url)
+        guard let modelProduct = self.presenter?.modelProduct else { return cell }
+        
+        guard let url = URL(string: modelProduct[indexPath.row].image) else { return cell }
+        
+        cell.configure(with: modelProduct[indexPath.row].name, url: url)
         return cell
     }
 

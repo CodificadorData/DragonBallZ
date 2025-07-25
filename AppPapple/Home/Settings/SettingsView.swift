@@ -139,9 +139,8 @@ class SettingsView: UIView {
         return button
     }()
 
-    init(presenter: HomePresenter) {
+    init() {
         super.init(frame: .zero)
-        self.presenter = presenter
     }
     
     required init?(coder: NSCoder) {

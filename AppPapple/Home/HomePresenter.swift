@@ -79,7 +79,8 @@ class HomePresenter {
     }
     
     func goToCharacterDetail(dragonBallModel: Item){
-        router.goToCharacterDetail(mainView: self.view!, dragonBallModel: dragonBallModel)
+        guard let view = view else { return }
+        router.goToCharacterDetail(mainView: view, dragonBallModel: dragonBallModel)
     }
 
     func goToLogin(){
@@ -87,7 +88,8 @@ class HomePresenter {
     }
     
     func goToSocialMedia(socialMedia: SocialMedia){
-        router.goToSocialMedia(mainView: self.view!, socialMedia: socialMedia)
+        guard let view = view else { return }
+        router.goToSocialMedia(mainView: view, socialMedia: socialMedia)
     }
     
 }

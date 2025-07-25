@@ -62,7 +62,8 @@ class CharacterViewController: UIViewController {
 
     lazy var characterImageView: UIImageView = {
         let image = UIImageView()
-        image.kf.setImage(with: URL(string: dragonBallModel.image))
+        guard let imageUrl = dragonBallModel.image else { return image }
+        image.kf.setImage(with: URL(string: imageUrl))
         image.contentMode = .scaleAspectFit
         return image
     }()

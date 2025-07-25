@@ -74,10 +74,9 @@ class ContactView: UIView {
         super.init(coder: coder)
     }
     
-    init(presenter: HomePresenter) {
+    init() {
         super.init(frame: .zero)
         self.setupView()
-        self.presenter = presenter
     }
     
     @objc func facebookImageTapped() {
