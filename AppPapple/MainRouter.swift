@@ -9,7 +9,7 @@ import UIKit
 final class MainRouter {
     
     static let shared = MainRouter()
-        
+    
     weak var windows: UIWindow?
     
     func start(windows: UIWindow?) {

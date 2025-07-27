@@ -29,7 +29,7 @@ class HomePresenter {
         self.homeInteractor = homeInteractor
         self.router = router
     }
-        
+    
     func bringData(){
         homeInteractor.requestDragonBall(url: page, dataJson: { dataDragon in
             switch dataDragon {
@@ -55,7 +55,7 @@ class HomePresenter {
             }
         })
     }
-
+    
     func fetchUserData() {
         homeInteractor.fetchUserData(authorizationToken: token) { dataJson in
             switch dataJson {
@@ -82,7 +82,7 @@ class HomePresenter {
         guard let view = view else { return }
         router.goToCharacterDetail(mainView: view, dragonBallModel: dragonBallModel)
     }
-
+    
     func goToLogin(){
         router.goToLogin()
     }

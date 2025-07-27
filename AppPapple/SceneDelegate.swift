@@ -10,7 +10,7 @@ import Alamofire
 import SwiftKeychainWrapper
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         verifyLogin()
     }
-
+    
     func sceneDidBecomeActive(_ scene: UIScene) {
         verifyLogin()
     }

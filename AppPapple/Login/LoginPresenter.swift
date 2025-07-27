@@ -26,11 +26,11 @@ class LoginPresenter {
             self.view?.validateUser(dataJson: dataJson)
         }
     }
-
+    
     func goToRegister(mainView: UIViewController) {
         router.goToRegister(mainView: mainView)
     }
-
+    
     func goToHome() {
         router.goToHome()
     }

@@ -16,7 +16,7 @@ class LoginInteractor {
         guard let endPoint = Bundle.main.object(forInfoDictionaryKey: "verifyUser_url") as? String else {
             return
         }
-
+        
         let queryParams: [String: String] = [
             "email": email,
             "password": password
@@ -25,14 +25,14 @@ class LoginInteractor {
         AF.request(endPoint, method: .get, parameters: queryParams)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseUser.self) {
-            response in
-            switch response.result {
+                response in
+                switch response.result {
                 case .success(let result):
-                        dataUser(.success(result))
-                        KeychainWrapper.standard.set(result.token, forKey: "authToken")
+                    dataUser(.success(result))
+                    KeychainWrapper.standard.set(result.token, forKey: "authToken")
                 case .failure(let error):
                     dataUser(.failure(error))
+                }
             }
-        }
     }
 }

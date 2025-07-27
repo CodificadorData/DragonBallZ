@@ -13,7 +13,7 @@ class RegisterInteractor {
         guard let endPoint = Bundle.main.object(forInfoDictionaryKey: "user_url") as? String else {
             return
         }
-
+        
         let parameters: [String: Any?] = [
             "name": user.name,
             "surName": user.surName,
@@ -22,11 +22,11 @@ class RegisterInteractor {
             "phoneNumber": user.phoneNumber,
             "imageProfile": user.imageProfile
         ]
-
+        
         AF.request(endPoint, method: .post, parameters: parameters)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseRegister.self){
-            response in
+                response in
                 switch response.result {
                 case .success(let data):
                     dataJson(.success(data))

@@ -11,7 +11,6 @@ import Kingfisher
 class StoreView: UIView {
     
     var presenter: HomePresenter?
-    private var items: [String] = ["Uno", "Dos", "Tres", "Cuatro", "Cinco"]
     var contador: CGFloat = 1
     
     private lazy var collectionView: UICollectionView = {

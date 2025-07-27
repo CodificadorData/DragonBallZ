@@ -21,7 +21,7 @@ class RegisterViewController: UIViewController {
         button.addTarget(self, action: #selector(register), for: .touchUpInside)
         return button
     }()
-        
+    
     lazy var titleRegisterLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
@@ -66,7 +66,7 @@ class RegisterViewController: UIViewController {
         textField.backgroundColor = .white
         return textField
     }()
-        
+    
     lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Email"
@@ -111,7 +111,7 @@ class RegisterViewController: UIViewController {
         activity.color = .black
         return activity
     }()
-
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -169,11 +169,11 @@ class RegisterViewController: UIViewController {
             surNameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             surNameTextField.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 30),
             surNameTextField.widthAnchor.constraint(equalToConstant: 200),
-
+            
             emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emailTextField.topAnchor.constraint(equalTo: surNameTextField.bottomAnchor, constant: 30),
             emailTextField.widthAnchor.constraint(equalToConstant: 200),
-
+            
             phoneNumberTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             phoneNumberTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 30),
             phoneNumberTextField.widthAnchor.constraint(equalToConstant: 200),
@@ -181,11 +181,11 @@ class RegisterViewController: UIViewController {
             passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 30),
             passwordTextField.widthAnchor.constraint(equalToConstant: 200),
-
+            
             passwordConfirmTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordConfirmTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
             passwordConfirmTextField.widthAnchor.constraint(equalToConstant: 200),
-
+            
             
             successButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             successButton.topAnchor.constraint(equalTo: passwordConfirmTextField.bottomAnchor, constant: 20),
@@ -217,7 +217,7 @@ class RegisterViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
 }
 
 extension RegisterViewController: RegisterViewProtocol {

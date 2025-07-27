@@ -56,7 +56,7 @@ class HomeView: UIViewController {
             break
         }
     }
-
+    
     lazy var tableHome: UITableView = {
         let table = UITableView()
         table.backgroundColor = .darkGray
@@ -144,7 +144,7 @@ class HomeView: UIViewController {
         view.layer.masksToBounds = true
         return view
     }()
-        
+    
     lazy var activityIndicatorTableHome: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .large)
         activity.hidesWhenStopped = true
@@ -158,14 +158,14 @@ class HomeView: UIViewController {
         activity.color = .black
         return activity
     }()
-
+    
     lazy var activityIndicatorBannerImage: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .medium)
         activity.hidesWhenStopped = true
         activity.color = .black
         return activity
     }()
-
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -222,7 +222,7 @@ class HomeView: UIViewController {
         headerView.addSubview(labelHeader)
         principalImage.addSubview(activityIndicatorPrincipalImage)
         bannerImage.addSubview(activityIndicatorBannerImage)
-
+        
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         bannerButton.translatesAutoresizingMaskIntoConstraints = false
         bannerTittle.translatesAutoresizingMaskIntoConstraints = false
@@ -248,7 +248,7 @@ class HomeView: UIViewController {
             scrollHome.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             scrollHome.widthAnchor.constraint(equalTo: view.widthAnchor),
             scrollHome.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
+            
             bannerView.bottomAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: 120),
             bannerView.centerXAnchor.constraint(equalTo: scrollHome.centerXAnchor),
             bannerView.widthAnchor.constraint(equalToConstant: 327),
@@ -283,7 +283,7 @@ class HomeView: UIViewController {
             principalImage.rightAnchor.constraint(equalTo: viewContainer.rightAnchor, constant: -20),
             principalImage.heightAnchor.constraint(equalToConstant: 400),
             principalImage.widthAnchor.constraint(equalToConstant: 150),
-
+            
             labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             
@@ -306,11 +306,11 @@ class HomeView: UIViewController {
         self.navigationController?.toolbar.barTintColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         
         let image = UIImage(named: "userImage")?.withRenderingMode(.alwaysOriginal)
-
+        
         let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
-
+        
         let button = UIBarButtonItem(
             image: resizedImage,
             style: .plain,
@@ -325,7 +325,7 @@ class HomeView: UIViewController {
         let settingIcon = UIImage(named: "settingIcon")?.withRenderingMode(.alwaysOriginal)
         let contactIcon = UIImage(named: "contactIcon")?.withRenderingMode(.alwaysOriginal)
         let storeIcon = UIImage(named: "storeIcon")?.withRenderingMode(.alwaysOriginal)
-
+        
         
         let homeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             homeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
@@ -338,15 +338,15 @@ class HomeView: UIViewController {
         let settingIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             settingIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
-
+        
         let contactIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             contactIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
-
+        
         let storeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             storeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
-
+        
         homeButton = UIBarButtonItem(
             image: homeIconResized,
             style: .plain,
@@ -367,7 +367,7 @@ class HomeView: UIViewController {
             target: self,
             action: #selector(buttonToolBarPressed(_:))
         )
-
+        
         contactButton = UIBarButtonItem(
             image: contactIconResized,
             style: .plain,
@@ -421,7 +421,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
         }
         self.activityIndicatorPrincipalImage.startAnimating()
         self.activityIndicatorBannerImage.startAnimating()
-
+        
         principalImage.kf.setImage(with: URL(string: url), completionHandler: { result in
             switch result {
             case .success(_):

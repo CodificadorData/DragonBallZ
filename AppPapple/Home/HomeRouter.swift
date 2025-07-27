@@ -34,12 +34,12 @@ class HomeRouter {
         let webView = WebView()
         var url: String = ""
         switch socialMedia {
-            case .facebook:
-                url = "https://www.facebook.com/"
-            case .instagram:
-                    url = "https://www.instagram.com/"
-            case .youtube:
-                    url = "https://www.youtube.com/"
+        case .facebook:
+            url = "https://www.facebook.com/"
+        case .instagram:
+            url = "https://www.instagram.com/"
+        case .youtube:
+            url = "https://www.youtube.com/"
         }
         webView.urlString = url
         mainView.present(webView, animated: true)

@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginRouter {
-        
+    
     static func createModule() -> UIViewController {
         let loginRouter = LoginRouter()
         let loginInteractor = LoginInteractor()
@@ -18,11 +18,11 @@ class LoginRouter {
         loginPresenter.view = loginView
         return loginView
     }
-
+    
     func goToHome() {
         MainRouter.shared.goToHome()
     }
-        
+    
     func goToRegister(mainView: UIViewController) {
         let registerModule = RegisterRouter.createModule()
         mainView.navigationController?.pushViewController(registerModule, animated: true)

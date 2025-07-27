@@ -9,20 +9,20 @@ import Alamofire
 import Kingfisher
 
 class HomeInteractor {
-
+    
     func requestDragonBall(url: String?, dataJson: @escaping (_ dataDragon: Result<DragonBallEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "db_url") as? String ?? ""
         let urlFinal = url ?? endPoint
         AF.request(urlFinal, method: .get)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: DragonBallEntity.self) { response in
-            switch response.result {
-            case .success(let response):
+                switch response.result {
+                case .success(let response):
                     dataJson(.success(response))
-            case .failure(let error):
-                dataJson(.failure(error))
+                case .failure(let error):
+                    dataJson(.failure(error))
+                }
             }
-        }
     }
     
     func fetchUserData(authorizationToken: String, dataUser: @escaping (_ dataJson: Result<NewUserEntity, Error>) -> Void) {
@@ -35,14 +35,14 @@ class HomeInteractor {
         AF.request(url, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: NewUserEntity.self) {
-            response in
-            switch response.result {
-            case .success(let response):
-                dataUser(.success(response))
-            case .failure(let error):
-                dataUser(.failure(error))
+                response in
+                switch response.result {
+                case .success(let response):
+                    dataUser(.success(response))
+                case .failure(let error):
+                    dataUser(.failure(error))
+                }
             }
-        }
     }
     
     func updateUserData(user: NewUserEntity, authorizationToken: String
@@ -64,9 +64,9 @@ class HomeInteractor {
         AF.request(url, method: .get, parameters: queryParams, headers: headers).responseDecodable(of: NewUserEntity.self) { response in
             switch response.result {
             case .success(let response):
-                    dataUser(.success(response))
+                dataUser(.success(response))
             case .failure(let error):
-                    dataUser(.failure(error))
+                dataUser(.failure(error))
             }
         }
     }
@@ -78,12 +78,12 @@ class HomeInteractor {
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ProductEntity.self) { response in
                 switch response.result {
-            case .success(let characters):
+                case .success(let characters):
                     dataResponse(.success(characters))
-            case .failure(let error):
-                dataResponse(.failure(error))
+                case .failure(let error):
+                    dataResponse(.failure(error))
+                }
             }
-        }
     }
-
+    
 }

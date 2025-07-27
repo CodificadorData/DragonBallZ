@@ -85,9 +85,9 @@ class LoginViewController: UIViewController {
         activity.color = .black
         return activity
     }()
-
+    
     let alert = UIAlertController(title: "Credenciales incorrectas", message: "ID o contraseña incorrecta", preferredStyle: .alert)
-
+    
     let okAction = UIAlertAction(title: "Aceptar", style: .default) { _ in
     }
     
@@ -135,7 +135,7 @@ class LoginViewController: UIViewController {
     @objc func ocultarTeclado() {
         view.endEditing(true)
     }
-
+    
     func setupConstraints() {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         titleLoginLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -179,7 +179,7 @@ class LoginViewController: UIViewController {
             
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-
+            
         ])
     }
 }
