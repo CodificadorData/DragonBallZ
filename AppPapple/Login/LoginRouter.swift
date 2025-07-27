@@ -8,22 +8,24 @@
 import UIKit
 
 class LoginRouter {
-    
-    private var homeView: HomeView?
-    
+        
+    static func createModule() -> UIViewController {
+        let loginRouter = LoginRouter()
+        let loginInteractor = LoginInteractor()
+        let loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
+        let loginView = LoginViewController()
+        loginView.presenter = loginPresenter
+        loginPresenter.view = loginView
+        return loginView
+    }
+
     func goToHome() {
         MainRouter.shared.goToHome()
     }
-    
+        
     func goToRegister(mainView: UIViewController) {
-        let registerRouter = RegisterRouter()
-        let registerInteractor = RegisterInteractor()
-        let registerPresenter = RegisterPresenter(interactor: registerInteractor, router: registerRouter)
-        let registerViewController = RegisterViewController()
-        
-        registerPresenter.view = registerViewController
-        registerViewController.presenter = registerPresenter
-        
-        mainView.navigationController?.pushViewController(registerViewController, animated: true)
+        let registerModule = RegisterRouter.createModule()
+        mainView.navigationController?.pushViewController(registerModule, animated: true)
     }
+    
 }

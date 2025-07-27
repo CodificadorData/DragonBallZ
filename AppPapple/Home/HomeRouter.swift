@@ -11,6 +11,16 @@ import WebKit
 
 class HomeRouter {
     
+    static func createModule() -> UIViewController {
+        let homeRouter = HomeRouter()
+        let homeInteractor = HomeInteractor()
+        let homePresenter = HomePresenter(homeInteractor: homeInteractor, router: homeRouter)
+        let homeView = HomeView()
+        homePresenter.view = homeView
+        homeView.presenter = homePresenter
+        return homeView
+    }
+    
     func goToCharacterDetail(mainView: AnyObject, dragonBallModel: Item) {
         let charactersView = CharacterViewController(dragonBallModel: dragonBallModel)
         mainView.navigationController?.pushViewController(charactersView, animated: true)
@@ -34,4 +44,5 @@ class HomeRouter {
         webView.urlString = url
         mainView.present(webView, animated: true)
     }
+    
 }

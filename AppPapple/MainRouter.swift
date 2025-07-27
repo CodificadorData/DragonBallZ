@@ -17,27 +17,15 @@ final class MainRouter {
     }
     
     func goToLogin(){
-        let loginRouter = LoginRouter()
-        let loginInteractor = LoginInteractor()
-        let loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
-        let loginView = LoginViewController()
-        loginView.presenter = loginPresenter
-        loginPresenter.view = loginView
-        let navigationController = UINavigationController(rootViewController: loginView)
+        let loginModule = LoginRouter.createModule()
+        let navigationController = UINavigationController(rootViewController: loginModule)
         windows?.rootViewController = navigationController
         windows?.makeKeyAndVisible()
     }
     
     func goToHome(){
-        let homeRouter = HomeRouter()
-        let homeInteractor = HomeInteractor()
-        let homePresenter = HomePresenter(homeInteractor: homeInteractor, router: homeRouter)
-        let homeView = HomeView()
-        
-        homePresenter.view = homeView
-        homeView.presenter = homePresenter
-        
-        let navigationController = UINavigationController(rootViewController: homeView)
+        let homeModule = HomeRouter.createModule()
+        let navigationController = UINavigationController(rootViewController: homeModule)
         windows?.rootViewController = navigationController
         windows?.makeKeyAndVisible()
     }
