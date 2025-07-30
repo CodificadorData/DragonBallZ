@@ -89,35 +89,38 @@ class HomeView: UIViewController {
     lazy var scrollHome: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        scroll.contentSize = CGSize(width: viewContainer.frame.width, height: 1000)
         return scroll
     }()
     
     lazy var bannerButton: UIButton = {
         let button = UIButton()
         button.setTitle(">", for: .normal)
+        button.contentHorizontalAlignment = .center
+        button.clipsToBounds = true
         return button
     }()
     
     lazy var bannerImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
         return image
     }()
     
     lazy var principalImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
         return image
     }()
     
     lazy var bannerDescription: UILabel = {
         let description = UILabel()
-        description.text = "Todos los personajes cuentan con caracteristicas distintas y estas las podrás averiguar en la siguiente pantalla:"
-        description.textAlignment = .center
+        description.text = "Todos los personajes cuentan con caracteristicas distintas y estan en la siguiente pantalla:"
+        description.textAlignment = .justified
         description.textColor = .black
         description.numberOfLines = 0
-        description.font = UIFont.systemFont(ofSize: 12)
+        description.font = UIFont.systemFont(ofSize: 15)
         return description
     }()
     
@@ -127,7 +130,7 @@ class HomeView: UIViewController {
         tittle.textAlignment = .center
         tittle.numberOfLines = 0
         tittle.textColor = .black
-        tittle.font = UIFont.systemFont(ofSize: 16)
+        tittle.font = UIFont.systemFont(ofSize: 18)
         return tittle
     }()
     
@@ -204,11 +207,11 @@ class HomeView: UIViewController {
     func setupBannerView() {
         self.title = "Dragon Ball Z"
         view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
-        view.addSubview(viewContainer)
-        viewContainer.addSubview(scrollHome)
-        scrollHome.addSubview(bannerView)
-        scrollHome.addSubview(tableHome)
-        scrollHome.addSubview(principalImage)
+        view.addSubview(scrollHome)
+        scrollHome.addSubview(viewContainer)
+        viewContainer.addSubview(bannerView)
+        viewContainer.addSubview(tableHome)
+        viewContainer.addSubview(principalImage)
         bannerView.addSubview(bannerButton)
         bannerView.addSubview(bannerTittle)
         bannerView.addSubview(bannerDescription)
@@ -239,50 +242,51 @@ class HomeView: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            viewContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            viewContainer.widthAnchor.constraint(equalTo: view.widthAnchor),
-            viewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            viewContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
             scrollHome.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollHome.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollHome.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollHome.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollHome.widthAnchor.constraint(equalTo: view.widthAnchor),
-            scrollHome.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            bannerView.bottomAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: 120),
-            bannerView.centerXAnchor.constraint(equalTo: scrollHome.centerXAnchor),
-            bannerView.widthAnchor.constraint(equalToConstant: 327),
-            bannerView.heightAnchor.constraint(equalToConstant: 104),
+            viewContainer.topAnchor.constraint(equalTo: scrollHome.topAnchor),
+            viewContainer.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
+            viewContainer.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
+            viewContainer.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
+            viewContainer.widthAnchor.constraint(equalTo: scrollHome.widthAnchor),
             
-            bannerButton.widthAnchor.constraint(equalToConstant: 20),
-            bannerButton.heightAnchor.constraint(equalToConstant: 20),
+            bannerView.topAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: getBounds(percentage: 2, .height)),
+            bannerView.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: getBounds(percentage: 2, .width)),
+            bannerView.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: getBounds(percentage: -2, .width)),
+            bannerView.heightAnchor.constraint(equalToConstant: getBounds(percentage: 12, .height)),
+            bannerView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor, constant: getBounds(percentage: -35, .height)),
+            
+            bannerButton.heightAnchor.constraint(equalToConstant: getBounds(percentage: 3, .height)),
+            bannerButton.widthAnchor.constraint(equalToConstant: getBounds(percentage: 4, .width)),
+
             bannerButton.centerYAnchor.constraint(equalTo: bannerView.centerYAnchor),
-            bannerButton.rightAnchor.constraint(equalTo: bannerView.rightAnchor, constant: -10),
+            bannerButton.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor, constant: getBounds(percentage: -2, .width)),
             
-            bannerTittle.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: 10),
-            bannerTittle.widthAnchor.constraint(equalTo: bannerView.widthAnchor, multiplier: 0.9),
+            bannerTittle.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: getBounds(percentage: 1, .height)),
             bannerTittle.centerXAnchor.constraint(equalTo: bannerView.centerXAnchor),
             
-            bannerDescription.topAnchor.constraint(equalTo: bannerTittle.topAnchor, constant: 25),
-            bannerDescription.rightAnchor.constraint(equalTo: bannerImage.leftAnchor, constant: -5),
-            bannerDescription.leftAnchor.constraint(equalTo: bannerView.leftAnchor, constant: 20),
-            bannerDescription.widthAnchor.constraint(equalToConstant: 100),
+            bannerDescription.topAnchor.constraint(equalTo: bannerTittle.topAnchor, constant: getBounds(percentage: 3, .height)),
+            bannerDescription.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor, constant: getBounds(percentage: -24, .width)),
+            bannerDescription.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor, constant: getBounds(percentage: 4, .width)),
+            bannerDescription.widthAnchor.constraint(equalToConstant: getBounds(percentage: 45, .width)),
             
-            bannerImage.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: 20),
-            bannerImage.rightAnchor.constraint(equalTo: bannerView.rightAnchor, constant: -50),
-            bannerImage.heightAnchor.constraint(equalToConstant: 80),
-            bannerImage.widthAnchor.constraint(equalToConstant: 30),
+            bannerImage.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: getBounds(percentage: 2, .height)),
+            bannerImage.leadingAnchor.constraint(equalTo: bannerDescription.trailingAnchor, constant: getBounds(percentage: 1, .width)),
+            bannerImage.trailingAnchor.constraint(equalTo: bannerButton.leadingAnchor, constant: getBounds(percentage: -1, .width)),
+            bannerImage.heightAnchor.constraint(equalToConstant: getBounds(percentage: 9, .height)),
             
-            tableHome.topAnchor.constraint(equalTo: scrollHome.topAnchor, constant: 20),
-            tableHome.leftAnchor.constraint(equalTo: scrollHome.leftAnchor, constant: 20),
-            tableHome.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
-            tableHome.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.6),
-            tableHome.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.5),
+            tableHome.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: getBounds(percentage: 2, .height)),
+            tableHome.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: getBounds(percentage: 2, .width)),
+            tableHome.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: getBounds(percentage: -48, .width)),
+            tableHome.heightAnchor.constraint(equalToConstant: getBounds(percentage: 60, .height)),
             
             principalImage.centerYAnchor.constraint(equalTo: tableHome.centerYAnchor),
-            principalImage.rightAnchor.constraint(equalTo: viewContainer.rightAnchor, constant: -20),
-            principalImage.heightAnchor.constraint(equalToConstant: 400),
-            principalImage.widthAnchor.constraint(equalToConstant: 150),
+            principalImage.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: getBounds(percentage: -2, .width)),
+            principalImage.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: getBounds(percentage: 54, .width)),
+            principalImage.heightAnchor.constraint(equalToConstant: getBounds(percentage: 50, .height)),
             
             labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
@@ -392,6 +396,18 @@ class HomeView: UIViewController {
         alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func getBounds(percentage: Double, _ dimention: Dimention) -> CGFloat {
+        var total: CGFloat = 0
+        switch dimention {
+        case .width :
+            total = UIScreen.main.bounds.width
+        case .height :
+            total = UIScreen.main.bounds.height
+        }
+        return total * (percentage/100)
+    }
+    
 }
 
 extension HomeView: UITableViewDataSource, UITableViewDelegate {
@@ -489,4 +505,7 @@ extension HomeView: UIScrollViewDelegate {
     }
 }
 
-
+enum Dimention {
+    case width
+    case height
+}
