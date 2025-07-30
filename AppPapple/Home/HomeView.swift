@@ -201,7 +201,8 @@ class HomeView: UIViewController {
     
     @objc func profileViewTapped() {
         view.subviews.forEach { $0.removeFromSuperview() }
-        self.setupConstraintsView(uiView: settingsView)
+        setupConstraintsView(uiView: self.settingsView)
+        settingsView.start()
     }
     
     func setupBannerView() {
