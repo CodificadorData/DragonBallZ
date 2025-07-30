@@ -14,7 +14,7 @@ class SocialView: UIView {
     lazy var title: UILabel = {
         let title = UILabel()
         title.textAlignment = .center
-        title.textColor = .black
+        title.textColor = .white
         title.numberOfLines = 0
         title.font = UIFont.systemFont(ofSize: 18)
         title.text = "Social"
@@ -31,6 +31,9 @@ class SocialView: UIView {
     
     init() {
         super.init(frame: .zero)
+    }
+    
+    func start() {
         self.setupView()
     }
     
@@ -41,11 +44,9 @@ class SocialView: UIView {
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            title.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            title.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-        backgroundColor = .green
-        
     }
-    
     
 }

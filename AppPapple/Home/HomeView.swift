@@ -33,23 +33,23 @@ class HomeView: UIViewController {
     @IBAction func buttonToolBarPressed(_ sender: UIBarButtonItem) {
         switch sender {
         case homeButton:
-            view.subviews.forEach { $0.removeFromSuperview() }
+            scrollHome.subviews.forEach { $0.removeFromSuperview() }
             setupBannerView()
             setupNavigationBar()
         case newsButton:
-            view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: self.socialView)
+            scrollHome.subviews.forEach { $0.removeFromSuperview() }
+            setupConstraintsView(uiView: self.socialView)
+            socialView.start()
         case storeButton:
-            view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: self.storeView)
-            DispatchQueue.main.async {
-                self.presenter?.fetchProducts()
-            }
+            scrollHome.subviews.forEach { $0.removeFromSuperview() }
+            setupConstraintsView(uiView: self.storeView)
+            storeView.start()
         case contactButton:
-            view.subviews.forEach { $0.removeFromSuperview() }
-            self.setupConstraintsView(uiView: self.contactView)
+            scrollHome.subviews.forEach { $0.removeFromSuperview() }
+            setupConstraintsView(uiView: self.contactView)
+            contactView.start()
         case settingButton:
-            view.subviews.forEach { $0.removeFromSuperview() }
+            scrollHome.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.settingsView)
             settingsView.start()
         default:
@@ -59,7 +59,7 @@ class HomeView: UIViewController {
     
     lazy var tableHome: UITableView = {
         let table = UITableView()
-        table.backgroundColor = .darkGray
+        table.backgroundColor = .black
         table.layer.cornerRadius = 15
         table.clipsToBounds = true
         table.rowHeight = 50.0
@@ -76,7 +76,7 @@ class HomeView: UIViewController {
         labelHeader.text = "Personajes"
         labelHeader.textAlignment = .center
         labelHeader.font = UIFont.boldSystemFont(ofSize: 18)
-        labelHeader.textColor = .black
+        labelHeader.textColor = .white
         return labelHeader
     }()
     
@@ -118,7 +118,7 @@ class HomeView: UIViewController {
         let description = UILabel()
         description.text = "Todos los personajes cuentan con caracteristicas distintas y estan en la siguiente pantalla:"
         description.textAlignment = .justified
-        description.textColor = .black
+        description.textColor = .white
         description.numberOfLines = 0
         description.font = UIFont.systemFont(ofSize: 15)
         return description
@@ -129,7 +129,7 @@ class HomeView: UIViewController {
         tittle.text = "Info de tu Personaje"
         tittle.textAlignment = .center
         tittle.numberOfLines = 0
-        tittle.textColor = .black
+        tittle.textColor = .white
         tittle.font = UIFont.systemFont(ofSize: 18)
         return tittle
     }()
@@ -142,7 +142,7 @@ class HomeView: UIViewController {
     
     lazy var bannerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 35/255.0, green: 78/255.0, blue: 178/255.0, alpha: 1)
+        view.backgroundColor = UIColor(red: 7/255.0, green: 32/255.0, blue: 131/255.0, alpha: 1)
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         return view
@@ -200,7 +200,7 @@ class HomeView: UIViewController {
     }
     
     @objc func profileViewTapped() {
-        view.subviews.forEach { $0.removeFromSuperview() }
+        scrollHome.subviews.forEach { $0.removeFromSuperview() }
         setupConstraintsView(uiView: self.settingsView)
         settingsView.start()
     }
@@ -409,6 +409,18 @@ class HomeView: UIViewController {
         return total * (percentage/100)
     }
     
+    func setupConstraintsView(uiView: UIView) {
+        scrollHome.addSubview(uiView)
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            uiView.topAnchor.constraint(equalTo: scrollHome.topAnchor),
+            uiView.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
+            uiView.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
+            uiView.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
+            uiView.widthAnchor.constraint(equalTo: scrollHome.widthAnchor)
+        ])
+    }
+    
 }
 
 extension HomeView: UITableViewDataSource, UITableViewDelegate {
@@ -419,10 +431,10 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifi, for: indexPath)
-        cell.backgroundColor = .brown
+        cell.backgroundColor = UIColor(red: 7/255.0, green: 32/255.0, blue: 131/255.0, alpha: 1)
         let personajeNombre = presenter?.modelDragon[indexPath.row].name
         cell.textLabel?.text = personajeNombre
-        
+        cell.textLabel?.textColor = .white
         cell.textLabel?.translatesAutoresizingMaskIntoConstraints = false
         guard let textLabel = cell.textLabel else {return cell}
         NSLayoutConstraint.activate([
@@ -457,17 +469,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
         })
         personaje = presenter?.modelDragon[indexPath.row]
     }
-    
-    func setupConstraintsView(uiView: UIView) {
-        view.addSubview(uiView)
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            uiView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            uiView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            uiView.bottomAnchor.constraint(equalTo: self.navigationController?.toolbar.topAnchor ?? self.view.bottomAnchor),
-            uiView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
-        ])
-    }
+        
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.bounds.height * 0.1
     }

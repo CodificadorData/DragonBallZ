@@ -238,15 +238,14 @@ class SettingsView: UIView {
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             saveButton.widthAnchor.constraint(equalToConstant: 100),
             saveButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            saveButton.topAnchor.constraint(equalTo: logOutLabel.bottomAnchor, constant: 5)
-            
+            saveButton.topAnchor.constraint(equalTo: logOutLabel.bottomAnchor, constant: 5),
+            saveButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         DispatchQueue.main.async {
             self.profileImage.layoutIfNeeded()
             self.profileImage.layer.cornerRadius = self.profileImage.frame.width / 2
             self.profileImage.clipsToBounds = true
         }
-        backgroundColor = .red
     }
     
     @objc func logOutLabelTapped() {

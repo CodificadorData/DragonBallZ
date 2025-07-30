@@ -21,7 +21,7 @@ class StoreView: UIView {
         layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .gray
+        cv.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
         cv.dataSource = self
         cv.delegate = self
         cv.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
@@ -42,12 +42,17 @@ class StoreView: UIView {
     
     init() {
         super.init(frame: .zero)
+    }
+    
+    func start() {
         self.setupView()
-        self.setupCollectionView()
+        DispatchQueue.main.async {
+            self.presenter?.fetchProducts()
+        }
     }
     
     func setupView() {
-        backgroundColor = .orange
+        setupCollectionView()
     }
     
     private func setupCollectionView() {
@@ -56,10 +61,11 @@ class StoreView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 1000)
         ])
     }
     
@@ -109,6 +115,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
 
     private let label: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +132,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .red
+        contentView.backgroundColor = UIColor(red: 7/255.0, green: 32/255.0, blue: 131/255.0, alpha: 1)
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
         contentView.addSubview(label)

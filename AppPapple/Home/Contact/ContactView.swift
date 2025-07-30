@@ -17,14 +17,14 @@ class ContactView: UIView {
         title.textAlignment = .center
         title.numberOfLines = 0
         title.font = .systemFont(ofSize: 18, weight: .bold)
-        title.textColor = .black
+        title.textColor = .white
         title.text = "Contact"
         return title
     }()
     
     lazy var contactInfoLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .white
         label.textAlignment = .justified
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
@@ -76,6 +76,9 @@ class ContactView: UIView {
     
     init() {
         super.init(frame: .zero)
+    }
+    
+    func start() {
         self.setupView()
     }
     
@@ -125,7 +128,8 @@ class ContactView: UIView {
             youtubeImage.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
             youtubeImage.widthAnchor.constraint(equalToConstant: 25),
             youtubeImage.heightAnchor.constraint(equalToConstant: 25),
-            youtubeImage.leadingAnchor.constraint(equalTo: instagramImage.trailingAnchor, constant: 20)
+            youtubeImage.leadingAnchor.constraint(equalTo: instagramImage.trailingAnchor, constant: 20),
+            youtubeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         
         DispatchQueue.main.async {
@@ -140,11 +144,6 @@ class ContactView: UIView {
             self.youtubeImage.layoutIfNeeded()
             self.youtubeImage.layer.cornerRadius = self.youtubeImage.frame.width / 2
             self.youtubeImage.clipsToBounds = true
-
         }
-
-        backgroundColor = .yellow
     }
-    
-    
 }
