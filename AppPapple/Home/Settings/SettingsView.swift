@@ -43,8 +43,12 @@ class SettingsView: UIView {
             ]
         )
         textField.textAlignment = .left
-        textField.layer.borderWidth = 2.0
-        textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = .init(red: 156, green: 156, blue: 156, alpha: 1)
+        textField.layer.cornerRadius = 10
+        textField.clipsToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        textField.leftViewMode = .always
         return textField
     }()
     
@@ -59,8 +63,12 @@ class SettingsView: UIView {
             ]
         )
         textField.textAlignment = .left
-        textField.layer.borderWidth = 2.0
-        textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = .init(red: 156, green: 156, blue: 156, alpha: 1)
+        textField.layer.cornerRadius = 10
+        textField.clipsToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        textField.leftViewMode = .always
         return textField
     }()
 
@@ -75,8 +83,12 @@ class SettingsView: UIView {
             ]
         )
         textField.textAlignment = .left
-        textField.layer.borderWidth = 2.0
-        textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = .init(red: 156, green: 156, blue: 156, alpha: 1)
+        textField.layer.cornerRadius = 10
+        textField.clipsToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        textField.leftViewMode = .always
         return textField
     }()
 
@@ -91,8 +103,12 @@ class SettingsView: UIView {
             ]
         )
         textField.textAlignment = .left
-        textField.layer.borderWidth = 2.0
-        textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = .init(red: 156, green: 156, blue: 156, alpha: 1)
+        textField.layer.cornerRadius = 10
+        textField.clipsToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        textField.leftViewMode = .always
         return textField
     }()
 
@@ -107,8 +123,12 @@ class SettingsView: UIView {
             ]
         )
         textField.textAlignment = .left
-        textField.layer.borderWidth = 2.0
-        textField.layer.borderColor = .init(red: 0, green: 0, blue: 255, alpha: 1)
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = .init(red: 156, green: 156, blue: 156, alpha: 1)
+        textField.layer.cornerRadius = 10
+        textField.clipsToBounds = true
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        textField.leftViewMode = .always
         return textField
     }()
 
@@ -200,31 +220,31 @@ class SettingsView: UIView {
             profileImage.heightAnchor.constraint(equalToConstant: 200),
             profileImage.widthAnchor.constraint(equalToConstant: 200),
             profileImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            profileImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 80),
+            profileImage.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20),
             
             nameTextField.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 20),
-            nameTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            nameTextField.widthAnchor.constraint(equalToConstant: 200),
+            nameTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            nameTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
             nameTextField.heightAnchor.constraint(equalToConstant: 40),
             
             surNameTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20),
-            surNameTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            surNameTextField.widthAnchor.constraint(equalToConstant: 200),
+            surNameTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            surNameTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
             surNameTextField.heightAnchor.constraint(equalToConstant: 40),
 
             phoneNumberTextField.topAnchor.constraint(equalTo: surNameTextField.bottomAnchor, constant: 20),
-            phoneNumberTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            phoneNumberTextField.widthAnchor.constraint(equalToConstant: 200),
+            phoneNumberTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            phoneNumberTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
             phoneNumberTextField.heightAnchor.constraint(equalToConstant: 40),
 
             emailTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 20),
-            emailTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            emailTextField.widthAnchor.constraint(equalToConstant: 200),
+            emailTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            emailTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
             emailTextField.heightAnchor.constraint(equalToConstant: 40),
 
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
-            passwordTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            passwordTextField.widthAnchor.constraint(equalToConstant: 200),
+            passwordTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30),
+            passwordTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
             passwordTextField.heightAnchor.constraint(equalToConstant: 40),
             
             logOutLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
