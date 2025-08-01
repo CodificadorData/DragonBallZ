@@ -18,8 +18,10 @@ class HomePresenter {
     var view: HomeViewProtocol?
     var storeView: StoreViewProtocol?
     var settingsView: SettingsViewProtocol?
+    var socialView: SocialViewProtocol?
     var modelDragon: [Item] = []
     var modelProduct: [Results] = []
+    var modelNews: [News] = []
     var page: String?
     var pageProduct: String?
     let token = KeychainWrapper.standard.string(forKey: "authToken") ?? ""
@@ -78,6 +80,18 @@ class HomePresenter {
         }
     }
     
+    func fetchNews() {
+        homeInteractor.fetchNews { dataJson in
+            switch dataJson {
+            case .success(let response):
+                self.socialView?.fetchNews(news: response)
+                self.modelNews = response.news
+            case .failure(let error):
+                self.view?.errorPopUp(title: "error fetchNews", message: error.localizedDescription)
+            }
+        }
+    }
+    
     func goToCharacterDetail(dragonBallModel: Item){
         guard let view = view else { return }
         router.goToCharacterDetail(mainView: view, dragonBallModel: dragonBallModel)
@@ -108,4 +122,8 @@ protocol SettingsViewProtocol: AnyObject {
     func updateUserData(dataUser: NewUserEntity)
     func errorPopUp(title: String, message: String)
     func fetchUserData(data: NewUserEntity)
+}
+
+protocol SocialViewProtocol: AnyObject {
+    func fetchNews(news: NewsEntity)
 }

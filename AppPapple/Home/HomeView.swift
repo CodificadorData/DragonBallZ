@@ -193,6 +193,7 @@ class HomeView: UIViewController {
         presenter?.storeView = storeView
         contactView.presenter = presenter
         socialView.presenter = presenter
+        presenter?.socialView = socialView
     }
     
     override func viewWillAppear(_ animated: Bool) {

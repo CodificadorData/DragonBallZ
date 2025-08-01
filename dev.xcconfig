@@ -15,3 +15,4 @@ updateUser_url=localhost:3001/updateUserAppPapple
 product_url=rickandmortyapi.com/api/character
 registerUser_url=localhost:3001/registerUserAppPapple
 verifyUser_url=localhost:3001/verifyUserAppPaple/v1
+news_url=localhost:3001/news_url

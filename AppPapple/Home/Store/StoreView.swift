@@ -35,14 +35,14 @@ class StoreView: UIView {
         return title
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    init() {
-        super.init(frame: .zero)
-    }
-    
+        
     func start() {
         self.setupView()
         DispatchQueue.main.async {

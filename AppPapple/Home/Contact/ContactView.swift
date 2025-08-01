@@ -71,11 +71,7 @@ class ContactView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    init() {
-        super.init(frame: .zero)
+        fatalError("init(coder:) has not been implemented")
     }
     
     func start() {
