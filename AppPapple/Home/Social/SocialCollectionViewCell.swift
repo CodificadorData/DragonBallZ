@@ -55,7 +55,7 @@ class SocialCollectionViewCell: UICollectionViewCell {
         contentView.layer.masksToBounds = true
 
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             titleLabel.leadingAnchor.constraint(equalTo: imageCell.trailingAnchor, constant: 5),
             
@@ -66,8 +66,7 @@ class SocialCollectionViewCell: UICollectionViewCell {
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             descriptionLabel.leadingAnchor.constraint(equalTo: imageCell.trailingAnchor, constant: -5),
-            descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
+            descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
     }
     
