@@ -16,6 +16,10 @@
     <string>http://$(verifyUser_url)</string>
     <key>news_url</key>
     <string>http://$(news_url)</string>
+    <key>shorts_url</key>
+    <string>http://$(shorts_url)</string>
+    <key>multimedia_url</key>
+    <string>http://$(multimedia_url)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

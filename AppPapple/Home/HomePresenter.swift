@@ -22,6 +22,8 @@ class HomePresenter {
     var modelDragon: [Item] = []
     var modelProduct: [Results] = []
     var modelNews: [News] = []
+    var modelShorts: [ResultShort] = []
+    var modelMultimedia: MultimediaEntityResult?
     var page: String?
     var pageProduct: String?
     let token = KeychainWrapper.standard.string(forKey: "authToken") ?? ""
@@ -92,6 +94,30 @@ class HomePresenter {
         }
     }
     
+    func fetchShorts() {
+        homeInteractor.fetchShorts { dataJson in
+            switch dataJson {
+            case .success(let response):
+                self.socialView?.fetchShorts(shorts: response)
+                self.modelShorts = response.results
+            case .failure(let error):
+                self.view?.errorPopUp(title: "error fetchShorts", message: error.localizedDescription)
+            }
+        }
+    }
+    
+    func fetchMultimedia() {
+        homeInteractor.fetchMultimedia { dataResponse in
+            switch dataResponse {
+            case .success(let response):
+                self.socialView?.fetchMultimedia(multimedia: response)
+                self.modelMultimedia = response.results
+            case .failure(let error):
+                self.view?.errorPopUp(title: "error fetchMultimedia", message: error.localizedDescription)
+            }
+        }
+    }
+    
     func goToCharacterDetail(dragonBallModel: Item){
         guard let view = view else { return }
         router.goToCharacterDetail(mainView: view, dragonBallModel: dragonBallModel)
@@ -126,4 +152,6 @@ protocol SettingsViewProtocol: AnyObject {
 
 protocol SocialViewProtocol: AnyObject {
     func fetchNews(news: NewsEntity)
+    func fetchShorts(shorts: ShortsEntity)
+    func fetchMultimedia(multimedia: MultimediaEntity)
 }
