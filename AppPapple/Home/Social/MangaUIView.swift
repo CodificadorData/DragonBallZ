@@ -4,6 +4,7 @@
 //
 //  Created by Christian Morante on 3/08/25.
 //
+
 import UIKit
 import Kingfisher
 
@@ -36,9 +37,9 @@ class MangaUIView: UIView {
     }
     
     func setupUI() {
-        self.addSubview(titleLabel)
         self.addSubview(mangaImageView)
-        
+        self.addSubview(titleLabel)
+
         NSLayoutConstraint.activate([
             
             mangaImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
@@ -47,11 +48,11 @@ class MangaUIView: UIView {
             mangaImageView.heightAnchor.constraint(equalToConstant: 120),
             
             titleLabel.topAnchor.constraint(equalTo: mangaImageView.bottomAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             
         ])
         
-        self.backgroundColor = .orange
+        self.backgroundColor = .brown
         self.layer.cornerRadius = 20
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false

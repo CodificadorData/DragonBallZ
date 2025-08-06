@@ -24,4 +24,5 @@ struct SongsEntity: Decodable {
     let songTitle: String
     let songLink: String
     let songCover: String
+    let songBackground: String
 }

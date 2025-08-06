@@ -34,6 +34,7 @@ class SocialView: UIView {
     lazy var newsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.sectionInset = .zero
         layout.minimumLineSpacing = 0
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
@@ -58,20 +59,13 @@ class SocialView: UIView {
     
     var firtsMangaView = MangaUIView()
     var lastMangaView = MangaUIView()
-    
-    lazy var musicView: UIView = {
-       let view = UIView()
-        view.backgroundColor = .blue
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 20
-        view.clipsToBounds = true
-        return view
-    }()
+    var musicView = MusicUIView()
     
     lazy var shortsLabel: UILabel = {
        let label = UILabel()
         label.text = "Shorts"
         label.font = UIFont.systemFont(ofSize: 24)
+        label.sizeToFit()
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -80,9 +74,9 @@ class SocialView: UIView {
     lazy var shortsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 10
+        layout.minimumInteritemSpacing = .zero
         layout.minimumLineSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        layout.sectionInset = .zero
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .clear
         collection.showsHorizontalScrollIndicator = false
@@ -116,7 +110,6 @@ class SocialView: UIView {
     
     func setupView() {
         self.addSubview(title)
-        self.addSubview(greetingLabel)
         self.addSubview(newsCollectionView)
         self.addSubview(multimediaLabel)
         self.addSubview(firtsMangaView)
@@ -129,10 +122,7 @@ class SocialView: UIView {
             title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            greetingLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
-            greetingLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            newsCollectionView.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 10),
+            newsCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
             newsCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             newsCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             newsCollectionView.heightAnchor.constraint(equalToConstant: 150),
@@ -150,7 +140,7 @@ class SocialView: UIView {
             lastMangaView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.45),
             lastMangaView.heightAnchor.constraint(equalToConstant: 200),
             
-            musicView.topAnchor.constraint(equalTo: lastMangaView.bottomAnchor, constant: 10),
+            musicView.topAnchor.constraint(equalTo: lastMangaView.bottomAnchor, constant: 15),
             musicView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             musicView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             musicView.heightAnchor.constraint(equalToConstant: 100),
@@ -159,10 +149,10 @@ class SocialView: UIView {
             shortsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             
             shortsCollectionView.topAnchor.constraint(equalTo: shortsLabel.bottomAnchor, constant: 10),
-            shortsCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            shortsCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             shortsCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             shortsCollectionView.heightAnchor.constraint(equalToConstant: 200),
-            shortsCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            shortsCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
     
@@ -239,9 +229,9 @@ extension SocialView: UICollectionViewDataSource, UICollectionViewDelegateFlowLa
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView {
         case newsCollectionView:
-            return CGSize(width: collectionView.frame.width, height: 150)
+            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         case shortsCollectionView:
-            return CGSize(width: 150, height: collectionView.frame.height - 20)
+            return CGSize(width: 150, height: collectionView.frame.height)
         default:
             return CGSize(width: 0, height: 0)
         }
@@ -256,6 +246,7 @@ extension SocialView: SocialViewProtocol {
             self?.firtsMangaView.configure(image: url, title: multimedia.results.mangas[0].mangaTitle)
             guard let url = URL(string: multimedia.results.mangas.last!.mangaImage) else { return }
             self?.lastMangaView.configure(image: url, title: multimedia.results.mangas.last!.mangaTitle)
+            self?.musicView.configure(music: multimedia.results.songs.first!, count: multimedia.results.songs.count)
         }
     }
     
