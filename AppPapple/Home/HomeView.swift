@@ -34,24 +34,28 @@ class HomeView: UIViewController {
         switch sender {
         case homeButton:
             scrollHome.subviews.forEach { $0.removeFromSuperview() }
-            setupBannerView()
-            setupNavigationBar()
+            setupUI()
+            selectedToolbarItem(selectedButton: sender)
         case newsButton:
             scrollHome.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.socialView)
             socialView.start()
+            selectedToolbarItem(selectedButton: sender)
         case storeButton:
             scrollHome.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.storeView)
             storeView.start()
+            selectedToolbarItem(selectedButton: sender)
         case contactButton:
             scrollHome.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.contactView)
             contactView.start()
+            selectedToolbarItem(selectedButton: sender)
         case settingButton:
             scrollHome.subviews.forEach { $0.removeFromSuperview() }
             setupConstraintsView(uiView: self.settingsView)
             settingsView.start()
+            selectedToolbarItem(selectedButton: sender)
         default:
             break
         }
@@ -151,7 +155,7 @@ class HomeView: UIViewController {
     lazy var activityIndicatorTableHome: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .large)
         activity.hidesWhenStopped = true
-        activity.color = .black
+        activity.color = .gray
         return activity
     }()
     
@@ -179,7 +183,10 @@ class HomeView: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        setupBannerView()
+        self.title = "Dragon Ball Z"
+        view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
+        view.addSubview(scrollHome)
+        setupUI()
         setupNavigationBar()
         activityIndicatorPrincipalImage.startAnimating()
         activityIndicatorTableHome.startAnimating()
@@ -194,6 +201,7 @@ class HomeView: UIViewController {
         contactView.presenter = presenter
         socialView.presenter = presenter
         presenter?.socialView = socialView
+        selectedToolbarItem(selectedButton: homeButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,10 +214,7 @@ class HomeView: UIViewController {
         settingsView.start()
     }
     
-    func setupBannerView() {
-        self.title = "Dragon Ball Z"
-        view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
-        view.addSubview(scrollHome)
+    func setupUI() {
         scrollHome.addSubview(viewContainer)
         viewContainer.addSubview(bannerView)
         viewContainer.addSubview(tableHome)
@@ -311,9 +316,8 @@ class HomeView: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
         self.navigationController?.toolbar.barTintColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         
-        let image = UIImage(named: "userImage")?.withRenderingMode(.alwaysOriginal)
-        
         let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            let image = UIImage(named: "userImage")
             image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
         
@@ -325,31 +329,29 @@ class HomeView: UIViewController {
         )
         
         navigationItem.rightBarButtonItem = button
-        
-        let homeIcon = UIImage(named: "homeIcon")?.withRenderingMode(.alwaysOriginal)
-        let newsIcon = UIImage(named: "newsIcon")?.withRenderingMode(.alwaysOriginal)
-        let settingIcon = UIImage(named: "settingIcon")?.withRenderingMode(.alwaysOriginal)
-        let contactIcon = UIImage(named: "contactIcon")?.withRenderingMode(.alwaysOriginal)
-        let storeIcon = UIImage(named: "storeIcon")?.withRenderingMode(.alwaysOriginal)
-        
-        
+                
         let homeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            let homeIcon = UIImage(named: "homeIcon")
             homeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
         
         let newsIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            let newsIcon = UIImage(named: "newsIcon")
             newsIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
         
         let settingIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            let settingIcon = UIImage(named: "settingIcon")
             settingIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
         
         let contactIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            let contactIcon = UIImage(named: "contactIcon")
             contactIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
         
         let storeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            let storeIcon = UIImage(named: "storeIcon")
             storeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
         
@@ -422,6 +424,12 @@ class HomeView: UIViewController {
         ])
     }
     
+    func selectedToolbarItem(selectedButton: UIBarButtonItem) {
+        let buttons = [homeButton, newsButton, storeButton, contactButton, settingButton]
+        for button in buttons {
+            button.tintColor = (button == selectedButton) ? .black : .darkGray
+        }
+    }
 }
 
 extension HomeView: UITableViewDataSource, UITableViewDelegate {
