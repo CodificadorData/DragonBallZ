@@ -12,6 +12,7 @@
 		6529C8212E3FF8070099C84B /* MangaUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8202E3FF7FC0099C84B /* MangaUIView.swift */; };
 		6529C8232E401FD10099C84B /* MusicUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8222E401FC60099C84B /* MusicUIView.swift */; };
 		6529C8272E4287890099C84B /* ShortsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8262E4287880099C84B /* ShortsCollectionViewCell.swift */; };
+		6529C8292E4536F90099C84B /* HomeView+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8282E4536EF0099C84B /* HomeView+TableView.swift */; };
 		655E80262DB60D32006C733E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E80252DB60D26006C733E /* WebView.swift */; };
 		655E80282DB6C214006C733E /* ProductEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E80272DB6C208006C733E /* ProductEntity.swift */; };
 		6580E7412E280BD0009A647A /* UIImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580E7402E280BAB009A647A /* UIImageUtil.swift */; };
@@ -62,6 +63,7 @@
 		6529C8202E3FF7FC0099C84B /* MangaUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaUIView.swift; sourceTree = "<group>"; };
 		6529C8222E401FC60099C84B /* MusicUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicUIView.swift; sourceTree = "<group>"; };
 		6529C8262E4287880099C84B /* ShortsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsCollectionViewCell.swift; sourceTree = "<group>"; };
+		6529C8282E4536EF0099C84B /* HomeView+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+TableView.swift"; sourceTree = "<group>"; };
 		655E80252DB60D26006C733E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		655E80272DB6C208006C733E /* ProductEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntity.swift; sourceTree = "<group>"; };
 		6580E7402E280BAB009A647A /* UIImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageUtil.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				65DD45C62D3EC80B00B48BE9 /* Store */,
 				65DD45C52D3EC7FC00B48BE9 /* Contact */,
 				65DD45C22D3E29C200B48BE9 /* Settings */,
+				6529C8282E4536EF0099C84B /* HomeView+TableView.swift */,
 				65DBA1E92B81D851008393FE /* HomeView.swift */,
 				65DBA1EF2B81D86C008393FE /* HomePresenter.swift */,
 				65DBA1EB2B81D85E008393FE /* HomeInteractor.swift */,
@@ -429,6 +432,7 @@
 				65DBA1EC2B81D85E008393FE /* HomeInteractor.swift in Sources */,
 				65D6473A2D2B93CF00431310 /* LoginRouter.swift in Sources */,
 				655E80282DB6C214006C733E /* ProductEntity.swift in Sources */,
+				6529C8292E4536F90099C84B /* HomeView+TableView.swift in Sources */,
 				65D6473D2D2C1D2D00431310 /* RegisterView.swift in Sources */,
 				6580E7522E3E7BBB009A647A /* ShortsEntity.swift in Sources */,
 				658879E12D26089A000EA056 /* MainRouter.swift in Sources */,
