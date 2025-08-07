@@ -7,7 +7,6 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import WebKit
 
 class HomeRouter {
     
@@ -31,7 +30,7 @@ class HomeRouter {
     }
     
     func goToSocialMedia(mainView: AnyObject, socialMedia: SocialMedia){
-        let webView = WebView()
+        let webView = WebViews()
         var url: String = ""
         switch socialMedia {
         case .facebook:

@@ -20,6 +20,11 @@
     <string>http://$(shorts_url)</string>
     <key>multimedia_url</key>
     <string>http://$(multimedia_url)</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
