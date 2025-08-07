@@ -14,10 +14,10 @@
             filePath = "AppPapple/Home/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "activityIndicatorPrincipalImage"
-            landmarkType = "24">
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "HomeView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -70,6 +70,7 @@ class HomeView: UIViewController {
         table.delegate = self
         table.dataSource = self
         table.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifi)
+        table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
     
@@ -84,6 +85,7 @@ class HomeView: UIViewController {
         labelHeader.textAlignment = .center
         labelHeader.font = UIFont.boldSystemFont(ofSize: 18)
         labelHeader.textColor = .white
+        labelHeader.translatesAutoresizingMaskIntoConstraints = false
         return labelHeader
     }()
     
@@ -96,6 +98,7 @@ class HomeView: UIViewController {
     lazy var scrollHome: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
         return scroll
     }()
     
@@ -105,7 +108,7 @@ class HomeView: UIViewController {
         button.contentHorizontalAlignment = .center
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -113,6 +116,7 @@ class HomeView: UIViewController {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
@@ -120,6 +124,7 @@ class HomeView: UIViewController {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
@@ -130,6 +135,7 @@ class HomeView: UIViewController {
         description.textColor = .white
         description.numberOfLines = 0
         description.font = UIFont.systemFont(ofSize: 15)
+        description.translatesAutoresizingMaskIntoConstraints = false
         return description
     }()
     
@@ -140,12 +146,14 @@ class HomeView: UIViewController {
         tittle.numberOfLines = 0
         tittle.textColor = .white
         tittle.font = UIFont.systemFont(ofSize: 18)
+        tittle.translatesAutoresizingMaskIntoConstraints = false
         return tittle
     }()
     
     lazy var viewContainer: UIView = {
         let container = UIView()
         container.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()
     
@@ -154,6 +162,7 @@ class HomeView: UIViewController {
         view.backgroundColor = UIColor(red: 7/255.0, green: 32/255.0, blue: 131/255.0, alpha: 1)
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -161,6 +170,7 @@ class HomeView: UIViewController {
         let activity = UIActivityIndicatorView(style: .large)
         activity.hidesWhenStopped = true
         activity.color = .gray
+        activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
@@ -168,6 +178,7 @@ class HomeView: UIViewController {
         let activity = UIActivityIndicatorView(style: .large)
         activity.hidesWhenStopped = true
         activity.color = .black
+        activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
@@ -175,6 +186,7 @@ class HomeView: UIViewController {
         let activity = UIActivityIndicatorView(style: .medium)
         activity.hidesWhenStopped = true
         activity.color = .black
+        activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
@@ -234,20 +246,6 @@ class HomeView: UIViewController {
         headerView.addSubview(labelHeader)
         principalImage.addSubview(activityIndicatorPrincipalImage)
         bannerImage.addSubview(activityIndicatorBannerImage)
-        
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        bannerButton.translatesAutoresizingMaskIntoConstraints = false
-        bannerTittle.translatesAutoresizingMaskIntoConstraints = false
-        bannerDescription.translatesAutoresizingMaskIntoConstraints = false
-        bannerImage.translatesAutoresizingMaskIntoConstraints = false
-        viewContainer.translatesAutoresizingMaskIntoConstraints = false
-        scrollHome.translatesAutoresizingMaskIntoConstraints = false
-        tableHome.translatesAutoresizingMaskIntoConstraints = false
-        principalImage.translatesAutoresizingMaskIntoConstraints = false
-        labelHeader.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorTableHome.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorPrincipalImage.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicatorBannerImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
@@ -511,9 +509,4 @@ extension HomeView: UIScrollViewDelegate {
         }
     }
     
-}
-
-enum Dimention {
-    case width
-    case height
 }
