@@ -67,6 +67,9 @@ class HomeView: UIViewController {
         table.layer.cornerRadius = 15
         table.clipsToBounds = true
         table.rowHeight = 50.0
+        table.delegate = self
+        table.dataSource = self
+        table.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifi)
         return table
     }()
     
@@ -101,6 +104,8 @@ class HomeView: UIViewController {
         button.setTitle(">", for: .normal)
         button.contentHorizontalAlignment = .center
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+
         return button
     }()
     
@@ -120,8 +125,8 @@ class HomeView: UIViewController {
     
     lazy var bannerDescription: UILabel = {
         let description = UILabel()
-        description.text = "Todos los personajes cuentan con caracteristicas distintas y estan en la siguiente pantalla:"
-        description.textAlignment = .justified
+        description.text = "Todos los personajes cuentan con caracteristicas distintas, Todos los personajes cuentan con caracteristicas distintas"
+        description.textAlignment = .center
         description.textColor = .white
         description.numberOfLines = 0
         description.font = UIFont.systemFont(ofSize: 15)
@@ -188,6 +193,7 @@ class HomeView: UIViewController {
         view.addSubview(scrollHome)
         setupUI()
         setupNavigationBar()
+        setupToolBar()
         activityIndicatorPrincipalImage.startAnimating()
         activityIndicatorTableHome.startAnimating()
         activityIndicatorBannerImage.startAnimating()
@@ -223,10 +229,6 @@ class HomeView: UIViewController {
         bannerView.addSubview(bannerTittle)
         bannerView.addSubview(bannerDescription)
         bannerView.addSubview(bannerImage)
-        bannerButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
-        tableHome.delegate = self
-        tableHome.dataSource = self
-        tableHome.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifi)
         tableHome.tableHeaderView = headerView
         tableHome.addSubview(activityIndicatorTableHome)
         headerView.addSubview(labelHeader)
@@ -260,40 +262,38 @@ class HomeView: UIViewController {
             viewContainer.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
             viewContainer.widthAnchor.constraint(equalTo: scrollHome.widthAnchor),
             
-            bannerView.topAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: getBounds(percentage: 2, .height)),
-            bannerView.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: getBounds(percentage: 2, .width)),
-            bannerView.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: getBounds(percentage: -2, .width)),
-            bannerView.heightAnchor.constraint(equalToConstant: getBounds(percentage: 12, .height)),
-            bannerView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor, constant: getBounds(percentage: -35, .height)),
+            bannerView.topAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: 10),
+            bannerView.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 10),
+            bannerView.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -10),
+            bannerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.11),
+            bannerView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor),
             
-            bannerButton.heightAnchor.constraint(equalToConstant: getBounds(percentage: 3, .height)),
-            bannerButton.widthAnchor.constraint(equalToConstant: getBounds(percentage: 4, .width)),
-
+            bannerButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.03),
+            bannerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.04),
             bannerButton.centerYAnchor.constraint(equalTo: bannerView.centerYAnchor),
-            bannerButton.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor, constant: getBounds(percentage: -2, .width)),
+            bannerButton.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor, constant: -15),
             
-            bannerTittle.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: getBounds(percentage: 1, .height)),
+            bannerImage.centerYAnchor.constraint(equalTo: bannerView.centerYAnchor),
+            bannerImage.leadingAnchor.constraint(equalTo: bannerButton.leadingAnchor, constant: -50),
+            bannerImage.trailingAnchor.constraint(equalTo: bannerButton.leadingAnchor),
+            bannerImage.heightAnchor.constraint(equalTo: bannerView.heightAnchor, multiplier: 0.8),
+
+            bannerTittle.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: 10),
             bannerTittle.centerXAnchor.constraint(equalTo: bannerView.centerXAnchor),
             
-            bannerDescription.topAnchor.constraint(equalTo: bannerTittle.topAnchor, constant: getBounds(percentage: 3, .height)),
-            bannerDescription.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor, constant: getBounds(percentage: -24, .width)),
-            bannerDescription.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor, constant: getBounds(percentage: 4, .width)),
-            bannerDescription.widthAnchor.constraint(equalToConstant: getBounds(percentage: 45, .width)),
-            
-            bannerImage.topAnchor.constraint(equalTo: bannerView.topAnchor, constant: getBounds(percentage: 2, .height)),
-            bannerImage.leadingAnchor.constraint(equalTo: bannerDescription.trailingAnchor, constant: getBounds(percentage: 1, .width)),
-            bannerImage.trailingAnchor.constraint(equalTo: bannerButton.leadingAnchor, constant: getBounds(percentage: -1, .width)),
-            bannerImage.heightAnchor.constraint(equalToConstant: getBounds(percentage: 9, .height)),
-            
-            tableHome.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: getBounds(percentage: 2, .height)),
-            tableHome.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: getBounds(percentage: 2, .width)),
-            tableHome.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: getBounds(percentage: -48, .width)),
-            tableHome.heightAnchor.constraint(equalToConstant: getBounds(percentage: 60, .height)),
+            bannerDescription.centerYAnchor.constraint(equalTo: bannerView.centerYAnchor, constant: 10),
+            bannerDescription.trailingAnchor.constraint(equalTo: bannerImage.leadingAnchor, constant: -5),
+            bannerDescription.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor, constant: 15),
+                        
+            tableHome.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 10),
+            tableHome.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 10),
+            tableHome.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -5),
+            tableHome.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.65),
             
             principalImage.centerYAnchor.constraint(equalTo: tableHome.centerYAnchor),
-            principalImage.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: getBounds(percentage: -2, .width)),
-            principalImage.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: getBounds(percentage: 54, .width)),
-            principalImage.heightAnchor.constraint(equalToConstant: getBounds(percentage: 50, .height)),
+            principalImage.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -10),
+            principalImage.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 5),
+            principalImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
             
             labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
             labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
@@ -329,7 +329,9 @@ class HomeView: UIViewController {
         )
         
         navigationItem.rightBarButtonItem = button
-                
+    }
+    
+    func setupToolBar() {
         let homeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             let homeIcon = UIImage(named: "homeIcon")
             homeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
@@ -400,18 +402,7 @@ class HomeView: UIViewController {
         alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func getBounds(percentage: Double, _ dimention: Dimention) -> CGFloat {
-        var total: CGFloat = 0
-        switch dimention {
-        case .width :
-            total = UIScreen.main.bounds.width
-        case .height :
-            total = UIScreen.main.bounds.height
-        }
-        return total * (percentage/100)
-    }
-    
+        
     func setupConstraintsView(uiView: UIView) {
         scrollHome.addSubview(uiView)
         uiView.translatesAutoresizingMaskIntoConstraints = false
@@ -430,6 +421,7 @@ class HomeView: UIViewController {
             button.tintColor = (button == selectedButton) ? .black : .darkGray
         }
     }
+    
 }
 
 extension HomeView: UITableViewDataSource, UITableViewDelegate {
@@ -482,6 +474,7 @@ extension HomeView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.bounds.height * 0.1
     }
+    
 }
 
 extension HomeView: HomeViewProtocol {
@@ -500,9 +493,11 @@ extension HomeView: HomeViewProtocol {
             isLoading = true
         }
     }
+    
 }
 
 extension HomeView: UIScrollViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == tableHome {
             let position = scrollView.contentOffset.y
@@ -515,6 +510,7 @@ extension HomeView: UIScrollViewDelegate {
             }
         }
     }
+    
 }
 
 enum Dimention {
