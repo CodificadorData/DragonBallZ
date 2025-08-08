@@ -26,11 +26,11 @@ class HomeView: UIViewController {
     var contactButton = UIBarButtonItem()
     var settingButton = UIBarButtonItem()
     
-    @IBAction func buttonPressed(_ sender: UIButton) {
+    @objc func buttonPressed(_ sender: UIButton) {
         presenter?.goToCharacterDetail(dragonBallModel: personaje!)
     }
     
-    @IBAction func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+    @objc func buttonToolBarPressed(_ sender: UIBarButtonItem) {
         switch sender {
         case homeButton:
             scrollHome.subviews.forEach { $0.removeFromSuperview() }
@@ -130,7 +130,7 @@ class HomeView: UIViewController {
     
     lazy var bannerDescription: UILabel = {
         let description = UILabel()
-        description.text = "Todos los personajes cuentan con caracteristicas distintas, Todos los personajes cuentan con caracteristicas distintas"
+        description.text = "Todos los personajes cuentan con caracteristicas distintas."
         description.textAlignment = .center
         description.textColor = .white
         description.numberOfLines = 0
@@ -177,7 +177,7 @@ class HomeView: UIViewController {
     lazy var activityIndicatorPrincipalImage: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .large)
         activity.hidesWhenStopped = true
-        activity.color = .black
+        activity.color = .gray
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
@@ -185,7 +185,7 @@ class HomeView: UIViewController {
     lazy var activityIndicatorBannerImage: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(style: .medium)
         activity.hidesWhenStopped = true
-        activity.color = .black
+        activity.color = .gray
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
