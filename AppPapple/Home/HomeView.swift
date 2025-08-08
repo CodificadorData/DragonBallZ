@@ -209,22 +209,12 @@ class HomeView: UIViewController {
         activityIndicatorPrincipalImage.startAnimating()
         activityIndicatorTableHome.startAnimating()
         activityIndicatorBannerImage.startAnimating()
+        injectDependenciesIntoViews()
         DispatchQueue.main.async {
             self.presenter?.bringData()
         }
-        settingsView.presenter = presenter
-        presenter?.settingsView = settingsView
-        storeView.presenter = presenter
-        presenter?.storeView = storeView
-        contactView.presenter = presenter
-        socialView.presenter = presenter
-        presenter?.socialView = socialView
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.isToolbarHidden = false
-    }
-    
+        
     @objc func profileViewTapped() {
         scrollHome.subviews.forEach { $0.removeFromSuperview() }
         setupConstraintsView(uiView: self.settingsView)
@@ -307,11 +297,11 @@ class HomeView: UIViewController {
     }
     
     func setupNavigationBar() {
-        self.navigationController?.navigationBar.barTintColor = .clear
+        self.navigationController?.navigationBar.barTintColor = UIColor(
+            red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1
+        )
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.backgroundColor = .clear
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
-        self.navigationController?.toolbar.barTintColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         
         let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             let image = UIImage(named: "userImage")
@@ -324,11 +314,14 @@ class HomeView: UIViewController {
             target: self,
             action: #selector(profileViewTapped)
         )
-        
         navigationItem.rightBarButtonItem = button
     }
     
     func setupToolBar() {
+        self.navigationController?.isToolbarHidden = false
+        self.navigationController?.toolbar.barTintColor = UIColor(
+            red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1
+        )
         let homeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             let homeIcon = UIImage(named: "homeIcon")
             homeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
@@ -420,6 +413,15 @@ class HomeView: UIViewController {
         }
     }
     
+    func injectDependenciesIntoViews() {
+        settingsView.presenter = presenter
+        presenter?.settingsView = settingsView
+        storeView.presenter = presenter
+        presenter?.storeView = storeView
+        contactView.presenter = presenter
+        socialView.presenter = presenter
+        presenter?.socialView = socialView
+    }
 }
 
 extension HomeView: HomeViewProtocol {
