@@ -88,13 +88,7 @@ class HomeView: UIViewController {
         labelHeader.translatesAutoresizingMaskIntoConstraints = false
         return labelHeader
     }()
-    
-    lazy var tableCellHome: UITableViewCell = {
-        let cell = UITableViewCell()
-        cell.backgroundColor = .white
-        return cell
-    }()
-    
+        
     lazy var scrollHome: UIScrollView = {
         let scroll = UIScrollView()
         scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)

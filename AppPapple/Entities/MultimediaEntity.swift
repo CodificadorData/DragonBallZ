@@ -12,6 +12,7 @@ struct MultimediaEntity: Decodable {
 struct MultimediaEntityResult: Decodable {
     let mangas: [MangaEntity]
     let songs: [SongsEntity]
+    let songBackground: String
 }
 
 struct MangaEntity: Decodable {
@@ -24,5 +25,5 @@ struct SongsEntity: Decodable {
     let songTitle: String
     let songLink: String
     let songCover: String
-    let songBackground: String
+    let songArtist: String
 }

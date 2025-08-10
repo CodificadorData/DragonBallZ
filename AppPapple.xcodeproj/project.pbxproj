@@ -13,6 +13,9 @@
 		6529C8232E401FD10099C84B /* MusicUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8222E401FC60099C84B /* MusicUIView.swift */; };
 		6529C8272E4287890099C84B /* ShortsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8262E4287880099C84B /* ShortsCollectionViewCell.swift */; };
 		6529C8292E4536F90099C84B /* HomeView+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8282E4536EF0099C84B /* HomeView+TableView.swift */; };
+		6529C82B2E4662230099C84B /* SocialView+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C82A2E4662140099C84B /* SocialView+UICollectionView.swift */; };
+		6529C82D2E4692070099C84B /* SongsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C82C2E468E890099C84B /* SongsListView.swift */; };
+		6529C82F2E46974C0099C84B /* SongsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C82E2E46974A0099C84B /* SongsTableViewCell.swift */; };
 		655E80262DB60D32006C733E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E80252DB60D26006C733E /* WebView.swift */; };
 		655E80282DB6C214006C733E /* ProductEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E80272DB6C208006C733E /* ProductEntity.swift */; };
 		6580E7412E280BD0009A647A /* UIImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580E7402E280BAB009A647A /* UIImageUtil.swift */; };
@@ -64,6 +67,9 @@
 		6529C8222E401FC60099C84B /* MusicUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicUIView.swift; sourceTree = "<group>"; };
 		6529C8262E4287880099C84B /* ShortsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortsCollectionViewCell.swift; sourceTree = "<group>"; };
 		6529C8282E4536EF0099C84B /* HomeView+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+TableView.swift"; sourceTree = "<group>"; };
+		6529C82A2E4662140099C84B /* SocialView+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SocialView+UICollectionView.swift"; sourceTree = "<group>"; };
+		6529C82C2E468E890099C84B /* SongsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsListView.swift; sourceTree = "<group>"; };
+		6529C82E2E46974A0099C84B /* SongsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsTableViewCell.swift; sourceTree = "<group>"; };
 		655E80252DB60D26006C733E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		655E80272DB6C208006C733E /* ProductEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntity.swift; sourceTree = "<group>"; };
 		6580E7402E280BAB009A647A /* UIImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageUtil.swift; sourceTree = "<group>"; };
@@ -228,6 +234,9 @@
 		65DD45C72D3EC84A00B48BE9 /* Social */ = {
 			isa = PBXGroup;
 			children = (
+				6529C82E2E46974A0099C84B /* SongsTableViewCell.swift */,
+				6529C82C2E468E890099C84B /* SongsListView.swift */,
+				6529C82A2E4662140099C84B /* SocialView+UICollectionView.swift */,
 				6529C8262E4287880099C84B /* ShortsCollectionViewCell.swift */,
 				6580E74D2E3B3267009A647A /* SocialCollectionViewCell.swift */,
 				6529C8222E401FC60099C84B /* MusicUIView.swift */,
@@ -446,10 +455,13 @@
 				65D647362D2B93B300431310 /* LoginPresenter.swift in Sources */,
 				6529C8272E4287890099C84B /* ShortsCollectionViewCell.swift in Sources */,
 				CD10C35C2B3C6AF80068484A /* AppDelegate.swift in Sources */,
+				6529C82F2E46974C0099C84B /* SongsTableViewCell.swift in Sources */,
+				6529C82B2E4662230099C84B /* SocialView+UICollectionView.swift in Sources */,
 				CD10C35E2B3C6AF80068484A /* SceneDelegate.swift in Sources */,
 				65DBA1EE2B81D865008393FE /* HomeRouter.swift in Sources */,
 				6580E7412E280BD0009A647A /* UIImageUtil.swift in Sources */,
 				6580E74E2E3B3281009A647A /* SocialCollectionViewCell.swift in Sources */,
+				6529C82D2E4692070099C84B /* SongsListView.swift in Sources */,
 				65DBA1F22B81D880008393FE /* HomeEntity.swift in Sources */,
 				65DBA1FF2B81D988008393FE /* CharactersEntity.swift in Sources */,
 				6529C8212E3FF8070099C84B /* MangaUIView.swift in Sources */,

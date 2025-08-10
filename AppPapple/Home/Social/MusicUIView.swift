@@ -10,6 +10,8 @@ import Kingfisher
 
 class MusicUIView: UIView {
     
+    var onPlayButtonTap: (() -> Void)?
+
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -42,6 +44,17 @@ class MusicUIView: UIView {
         return label
     }()
     
+    lazy var playImageView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "playIcon")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(listSongs))
+        imageView.addGestureRecognizer(tapGesture)
+        return imageView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -51,13 +64,19 @@ class MusicUIView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func listSongs() {
+        onPlayButtonTap?()
+    }
+    
     func setupUI() {
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(countLabel)
         addSubview(backgroundImageView)
         sendSubviewToBack(backgroundImageView)
-        
+        addSubview(playImageView)
+        bringSubviewToFront(playImageView)
+
         NSLayoutConstraint.activate([
             
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
@@ -65,8 +84,8 @@ class MusicUIView: UIView {
             backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5),
             
@@ -76,15 +95,21 @@ class MusicUIView: UIView {
             countLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             countLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             
+            playImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            playImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            playImageView.heightAnchor.constraint(equalToConstant: 30),
+            playImageView.widthAnchor.constraint(equalToConstant: 30)
+            
             ])
+        
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.cornerRadius = 20
         self.clipsToBounds = true
         }
     
-    func configure(music: SongsEntity, count: Int) {
+    func configure(backgroundImage: String,music: SongsEntity, count: Int) {
         guard let cover = URL(string: music.songCover),
-              let background = URL(string: music.songBackground) else { return }
+              let background = URL(string: backgroundImage) else { return }
         
         self.backgroundImageView.kf.setImage(with: background)
         self.imageView.kf.setImage(with: cover)

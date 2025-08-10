@@ -10,7 +10,12 @@ import UIKit
 class SocialView: UIView {
     
     var presenter: HomePresenter?
-    
+    private var timer: Timer?
+    private var currentIndex = 0
+    var firtsMangaView = MangaUIView()
+    var lastMangaView = MangaUIView()
+    var musicView = MusicUIView()
+
     lazy var title: UILabel = {
         let title = UILabel()
         title.textAlignment = .center
@@ -21,16 +26,7 @@ class SocialView: UIView {
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
-    
-    lazy var greetingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Hello, amigo!"
-        label.textColor = .white
-        label.font = UIFont.systemFont(ofSize: 32)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+        
     lazy var newsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -56,11 +52,7 @@ class SocialView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    var firtsMangaView = MangaUIView()
-    var lastMangaView = MangaUIView()
-    var musicView = MusicUIView()
-    
+        
     lazy var shortsLabel: UILabel = {
        let label = UILabel()
         label.text = "Shorts"
@@ -86,10 +78,7 @@ class SocialView: UIView {
         collection.translatesAutoresizingMaskIntoConstraints = false
         return collection
     }()
-    
-    private var timer: Timer?
-    private var currentIndex = 0
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -100,12 +89,15 @@ class SocialView: UIView {
         
     func start() {
         self.setupView()
+        startAutoScroll()
         DispatchQueue.main.async {
             self.presenter?.fetchNews()
             self.presenter?.fetchShorts()
             self.presenter?.fetchMultimedia()
         }
-        startAutoScroll()
+        musicView.onPlayButtonTap = { [weak self] in
+            self?.presenter?.showSongsList()
+        }
     }
     
     func setupView() {
@@ -178,66 +170,6 @@ class SocialView: UIView {
     }
     
 }
-extension SocialView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case newsCollectionView:
-            return presenter?.modelNews.count ?? 0
-        case shortsCollectionView:
-            return presenter?.modelShorts.count ?? 0
-        default:
-            return 0
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch collectionView {
-            case newsCollectionView:
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: SocialCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? SocialCollectionViewCell else {
-                    return UICollectionViewCell()
-                }
-                guard let modelNews = self.presenter?.modelNews else { return cell }
-                
-                guard let url = URL(string: modelNews[indexPath.row].imageUrl) else { return cell }
-                
-                cell.configure(title: modelNews[indexPath.row].title, description: modelNews[indexPath.row].description, url: url)
-                return cell
-            case shortsCollectionView:
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: ShortsCollectionViewCell.reuseIdentifier,
-                    for: indexPath
-                ) as? ShortsCollectionViewCell else {
-                    return UICollectionViewCell()
-                    }
-            guard let modelShorts = self.presenter?.modelShorts else { return cell }
-            guard let url = URL(string: modelShorts[indexPath.row].imageShort) else { return cell}
-            cell.configure(description: modelShorts[indexPath.row].description, imageUrl: url)
-                return cell
-        default:
-            return UICollectionViewCell()
-        }
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch collectionView {
-        case newsCollectionView:
-            return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-        case shortsCollectionView:
-            return CGSize(width: 150, height: collectionView.frame.height)
-        default:
-            return CGSize(width: 0, height: 0)
-        }
-    }
-
-}
 
 extension SocialView: SocialViewProtocol {
     func fetchMultimedia(multimedia: MultimediaEntity) {
@@ -246,7 +178,7 @@ extension SocialView: SocialViewProtocol {
             self?.firtsMangaView.configure(image: url, title: multimedia.results.mangas[0].mangaTitle)
             guard let url = URL(string: multimedia.results.mangas.last!.mangaImage) else { return }
             self?.lastMangaView.configure(image: url, title: multimedia.results.mangas.last!.mangaTitle)
-            self?.musicView.configure(music: multimedia.results.songs.first!, count: multimedia.results.songs.count)
+            self?.musicView.configure(backgroundImage: multimedia.results.songBackground,music: multimedia.results.songs.first!, count: multimedia.results.songs.count)
         }
     }
     

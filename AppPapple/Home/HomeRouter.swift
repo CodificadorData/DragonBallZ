@@ -44,4 +44,9 @@ class HomeRouter {
         mainView.present(webView, animated: true)
     }
     
+    func showSongsList(mainView: AnyObject){
+        let viewController = SongsListView()
+        viewController.view.backgroundColor = .red
+        mainView.navigationController?.present(viewController, animated: true)
+    }
 }

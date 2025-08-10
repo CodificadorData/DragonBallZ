@@ -132,6 +132,10 @@ class HomePresenter {
         router.goToSocialMedia(mainView: view, socialMedia: socialMedia)
     }
     
+    func showSongsList(){
+        guard let view = view else { return }
+        router.showSongsList(mainView: view)
+    }
 }
 
 protocol HomeViewProtocol: AnyObject {
