@@ -11,20 +11,6 @@ import UIKit
 class ContactViewController: BaseViewController {
     
     var presenter: ContactPresenter?
-
-    lazy var mainContainerScroll: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        return scroll
-    }()
-
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     
     lazy var titleLabel: UILabel = {
         let title = UILabel()
@@ -93,7 +79,7 @@ class ContactViewController: BaseViewController {
         start()
     }
     
-    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+    @objc override func didTapToolBarButton(_ sender: UIBarButtonItem) {
         switch sender.tag {
         case 0:
             presenter?.didTapHomeButton()
@@ -115,7 +101,7 @@ class ContactViewController: BaseViewController {
         }
     }
 
-    @objc override func profileViewTapped(navigation: UIViewController) {
+    @objc override func didTapProfileView(navigation: UIViewController) {
         presenter?.didTapSettingstButton()
     }
 
@@ -136,13 +122,11 @@ class ContactViewController: BaseViewController {
     }
     
     func setupView() {
-        view.addSubview(mainContainerScroll)
-        mainContainerScroll.addSubview(containerView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(contactInfoLabel)
-        containerView.addSubview(facebookImageView)
-        containerView.addSubview(instagramImageView)
-        containerView.addSubview(youtubeImageView)
+        viewContainer.addSubview(titleLabel)
+        viewContainer.addSubview(contactInfoLabel)
+        viewContainer.addSubview(facebookImageView)
+        viewContainer.addSubview(instagramImageView)
+        viewContainer.addSubview(youtubeImageView)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         facebookImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -151,29 +135,17 @@ class ContactViewController: BaseViewController {
         instagramImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            
-            mainContainerScroll.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainContainerScroll.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            mainContainerScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mainContainerScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            containerView.topAnchor.constraint(equalTo: mainContainerScroll.topAnchor),
-            containerView.bottomAnchor.constraint(equalTo: mainContainerScroll.bottomAnchor),
-            containerView.leadingAnchor.constraint(equalTo: mainContainerScroll.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: mainContainerScroll.trailingAnchor),
-            containerView.widthAnchor.constraint(equalTo: mainContainerScroll.widthAnchor),
-            
-            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             
             contactInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            contactInfoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            contactInfoLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            contactInfoLabel.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 20),
+            contactInfoLabel.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -20),
             
             facebookImageView.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
             facebookImageView.widthAnchor.constraint(equalToConstant: 25),
             facebookImageView.heightAnchor.constraint(equalToConstant: 25),
-            facebookImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            facebookImageView.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 20),
             
             instagramImageView.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
             instagramImageView.widthAnchor.constraint(equalToConstant: 25),
@@ -184,7 +156,7 @@ class ContactViewController: BaseViewController {
             youtubeImageView.widthAnchor.constraint(equalToConstant: 25),
             youtubeImageView.heightAnchor.constraint(equalToConstant: 25),
             youtubeImageView.leadingAnchor.constraint(equalTo: instagramImageView.trailingAnchor, constant: 20),
-            youtubeImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            youtubeImageView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor)
         ])
         
         DispatchQueue.main.async {

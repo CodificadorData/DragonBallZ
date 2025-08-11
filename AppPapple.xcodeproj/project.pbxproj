@@ -31,6 +31,7 @@
 		6529C8492E49AD960099C84B /* SocialRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C8482E49AD930099C84B /* SocialRouter.swift */; };
 		6529C84B2E49B26A0099C84B /* PresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C84A2E49B2650099C84B /* PresenterProtocol.swift */; };
 		6529C84D2E49B28C0099C84B /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C84C2E49B2860099C84B /* RouterProtocol.swift */; };
+		6529C84F2E4A96CD0099C84B /* EnumGeneral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6529C84E2E4A96C70099C84B /* EnumGeneral.swift */; };
 		655E80262DB60D32006C733E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E80252DB60D26006C733E /* WebView.swift */; };
 		655E80282DB6C214006C733E /* ProductEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 655E80272DB6C208006C733E /* ProductEntity.swift */; };
 		6580E7412E280BD0009A647A /* UIImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6580E7402E280BAB009A647A /* UIImageUtil.swift */; };
@@ -100,6 +101,7 @@
 		6529C8482E49AD930099C84B /* SocialRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialRouter.swift; sourceTree = "<group>"; };
 		6529C84A2E49B2650099C84B /* PresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterProtocol.swift; sourceTree = "<group>"; };
 		6529C84C2E49B2860099C84B /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
+		6529C84E2E4A96C70099C84B /* EnumGeneral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumGeneral.swift; sourceTree = "<group>"; };
 		655E80252DB60D26006C733E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		655E80272DB6C208006C733E /* ProductEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntity.swift; sourceTree = "<group>"; };
 		6580E7402E280BAB009A647A /* UIImageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageUtil.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 		65DD45BB2D35DBDB00B48BE9 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				6529C84E2E4A96C70099C84B /* EnumGeneral.swift */,
 				6529C81E2E3F11E10099C84B /* MultimediaEntity.swift */,
 				6580E7512E3E7BB6009A647A /* ShortsEntity.swift */,
 				6580E74F2E3B4055009A647A /* NewsEntity.swift */,
@@ -527,6 +530,7 @@
 				65DD45CB2D3EC85E00B48BE9 /* StoreView.swift in Sources */,
 				65DD45C42D3E29D300B48BE9 /* SettingsView.swift in Sources */,
 				6529C8412E49AAD20099C84B /* StoreInteractor.swift in Sources */,
+				6529C84F2E4A96CD0099C84B /* EnumGeneral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

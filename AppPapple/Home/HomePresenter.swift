@@ -7,12 +7,6 @@
 
 import SwiftKeychainWrapper
 
-enum SocialMedia: String {
-    case facebook = "https://www.facebook.com/"
-    case instagram = "https://www.instagram.com/"
-    case youtube = "https://www.youtube.com"
-}
-
 class HomePresenter: PresenterProtocol {
     
     typealias RouterType = HomeRouter

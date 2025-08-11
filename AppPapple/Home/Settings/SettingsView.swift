@@ -11,20 +11,6 @@ import Kingfisher
 class SettingsViewController: BaseViewController {
     
     var presenter: SettingsPresenter?
-    
-    lazy var scrollHome: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        return scroll
-    }()
-
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
 
     lazy var profileImage: UIImageView = {
         let image = UIImageView()
@@ -186,7 +172,7 @@ class SettingsViewController: BaseViewController {
         start()
     }
     
-    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+    @objc override func didTapToolBarButton(_ sender: UIBarButtonItem) {
         switch sender.tag {
         case 0:
             presenter?.didTapHomeButton()
@@ -208,7 +194,7 @@ class SettingsViewController: BaseViewController {
         }
     }
 
-    @objc override func profileViewTapped(navigation: UIViewController) {
+    @objc override func didTapProfileView(navigation: UIViewController) {
         presenter?.didTapSettingstButton()
     }
     
@@ -244,18 +230,16 @@ class SettingsViewController: BaseViewController {
     }
     
     func setupView() {
-        view.addSubview(scrollHome)
-        scrollHome.addSubview(containerView)
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(profileImage)
-        containerView.addSubview(emailTextField)
-        containerView.addSubview(passwordTextField)
-        containerView.addSubview(phoneNumberTextField)
-        containerView.addSubview(nameTextField)
-        containerView.addSubview(surNameTextField)
-        containerView.addSubview(logOutLabel)
-        containerView.addSubview(activityIndicator)
-        containerView.addSubview(saveButton)
+        viewContainer.addSubview(titleLabel)
+        viewContainer.addSubview(profileImage)
+        viewContainer.addSubview(emailTextField)
+        viewContainer.addSubview(passwordTextField)
+        viewContainer.addSubview(phoneNumberTextField)
+        viewContainer.addSubview(nameTextField)
+        viewContainer.addSubview(surNameTextField)
+        viewContainer.addSubview(logOutLabel)
+        viewContainer.addSubview(activityIndicator)
+        viewContainer.addSubview(saveButton)
         saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: .touchUpInside)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -270,65 +254,53 @@ class SettingsViewController: BaseViewController {
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            
-            scrollHome.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollHome.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollHome.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollHome.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            containerView.topAnchor.constraint(equalTo: scrollHome.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
-            containerView.widthAnchor.constraint(equalTo: scrollHome.widthAnchor),
-            
-            titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 20),
             titleLabel.widthAnchor.constraint(equalToConstant: 200),
             
             profileImage.heightAnchor.constraint(equalToConstant: 200),
             profileImage.widthAnchor.constraint(equalToConstant: 200),
-            profileImage.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            profileImage.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             profileImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             
             nameTextField.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 20),
-            nameTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
-            nameTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
+            nameTextField.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 30),
+            nameTextField.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -30),
             nameTextField.heightAnchor.constraint(equalToConstant: 40),
             
             surNameTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20),
-            surNameTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
-            surNameTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
+            surNameTextField.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 30),
+            surNameTextField.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -30),
             surNameTextField.heightAnchor.constraint(equalToConstant: 40),
 
             phoneNumberTextField.topAnchor.constraint(equalTo: surNameTextField.bottomAnchor, constant: 20),
-            phoneNumberTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
-            phoneNumberTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
+            phoneNumberTextField.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 30),
+            phoneNumberTextField.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -30),
             phoneNumberTextField.heightAnchor.constraint(equalToConstant: 40),
 
             emailTextField.topAnchor.constraint(equalTo: phoneNumberTextField.bottomAnchor, constant: 20),
-            emailTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
-            emailTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
+            emailTextField.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 30),
+            emailTextField.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -30),
             emailTextField.heightAnchor.constraint(equalToConstant: 40),
 
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20),
-            passwordTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 30),
-            passwordTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -30),
+            passwordTextField.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 30),
+            passwordTextField.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -30),
             passwordTextField.heightAnchor.constraint(equalToConstant: 40),
             
             logOutLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
-            logOutLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            logOutLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             logOutLabel.widthAnchor.constraint(equalToConstant: 200),
             logOutLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: viewContainer.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             saveButton.widthAnchor.constraint(equalToConstant: 100),
-            saveButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            saveButton.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             saveButton.topAnchor.constraint(equalTo: logOutLabel.bottomAnchor, constant: 5),
-            saveButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            saveButton.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor)
         ])
         DispatchQueue.main.async {
             self.profileImage.layoutIfNeeded()

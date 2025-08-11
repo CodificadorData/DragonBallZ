@@ -13,20 +13,6 @@ class StoreViewController: BaseViewController {
     var presenter: StorePresenter?
     var contador: CGFloat = 1
     
-    lazy var scrollHome: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        return scroll
-    }()
-
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -62,7 +48,7 @@ class StoreViewController: BaseViewController {
         start()
     }
     
-    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+    @objc override func didTapToolBarButton(_ sender: UIBarButtonItem) {
         switch sender.tag {
         case 0:
             presenter?.didTapHomeButton()
@@ -84,7 +70,7 @@ class StoreViewController: BaseViewController {
         }
     }
 
-    @objc override func profileViewTapped(navigation: UIViewController) {
+    @objc override func didTapProfileView(navigation: UIViewController) {
         presenter?.didTapSettingstButton()
     }
 
@@ -101,29 +87,15 @@ class StoreViewController: BaseViewController {
     
     private func setupCollectionView() {
         
-        view.addSubview(scrollHome)
-        scrollHome.addSubview(containerView)
-        containerView.addSubview(collectionView)
+        viewContainer.addSubview(collectionView)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            
-            scrollHome.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollHome.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollHome.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollHome.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            containerView.topAnchor.constraint(equalTo: scrollHome.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
-            containerView.widthAnchor.constraint(equalTo: scrollHome.widthAnchor),
-            
-            collectionView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: viewContainer.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 1000)
         ])
     }

@@ -16,11 +16,15 @@ class HomeView: BaseViewController {
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
         
-    @objc func buttonPressed(_ sender: UIButton) {
+    @objc func didTapBannerButton(_ sender: UIButton) {
         presenter?.goToCharacterDetail(dragonBallModel: personaje!)
     }
     
-    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+    @objc override func didTapProfileView(navigation: UIViewController) {
+        presenter?.didTapSettingstButton()
+    }
+
+    @objc override func didTapToolBarButton(_ sender: UIBarButtonItem) {
         switch sender.tag {
         case 0:
             presenter?.didTapHomeButton()
@@ -70,19 +74,12 @@ class HomeView: BaseViewController {
         return labelHeader
     }()
         
-    lazy var scrollHome: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        return scroll
-    }()
-    
     lazy var bannerButton: UIButton = {
         let button = UIButton()
         button.setTitle(">", for: .normal)
         button.contentHorizontalAlignment = .center
         button.clipsToBounds = true
-        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapBannerButton(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -124,14 +121,7 @@ class HomeView: BaseViewController {
         tittle.translatesAutoresizingMaskIntoConstraints = false
         return tittle
     }()
-    
-    lazy var viewContainer: UIView = {
-        let container = UIView()
-        container.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        container.translatesAutoresizingMaskIntoConstraints = false
-        return container
-    }()
-    
+        
     lazy var bannerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 7/255.0, green: 32/255.0, blue: 131/255.0, alpha: 1)
@@ -175,7 +165,6 @@ class HomeView: BaseViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        view.addSubview(scrollHome)
         setupUI()
         activityIndicatorPrincipalImage.startAnimating()
         activityIndicatorTableHome.startAnimating()
@@ -186,7 +175,6 @@ class HomeView: BaseViewController {
     }
             
     func setupUI() {
-        scrollHome.addSubview(viewContainer)
         viewContainer.addSubview(bannerView)
         viewContainer.addSubview(tableHome)
         viewContainer.addSubview(principalImage)
@@ -258,10 +246,6 @@ class HomeView: BaseViewController {
             activityIndicatorBannerImage.centerYAnchor.constraint(equalTo: bannerImage.centerYAnchor),
             activityIndicatorBannerImage.centerXAnchor.constraint(equalTo: bannerImage.centerXAnchor)
         ])
-    }
-                    
-    @objc override func profileViewTapped(navigation: UIViewController) {
-        presenter?.didTapSettingstButton()
     }
 
 }

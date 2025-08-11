@@ -7,7 +7,6 @@
 import UIKit
 
 protocol RouterProtocol: AnyObject {
-    
     var viewController: UIViewController? { get set }
     
     func goToContactView()
