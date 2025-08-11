@@ -8,45 +8,29 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class HomeRouter {
+class HomeRouter: HomeRouterProtocol {
     
+    var viewController: UIViewController?
+        
     static func createModule() -> UIViewController {
-        let homeRouter = HomeRouter()
-        let homeInteractor = HomeInteractor()
-        let homePresenter = HomePresenter(homeInteractor: homeInteractor, router: homeRouter)
-        let homeView = HomeView()
-        homePresenter.view = homeView
-        homeView.presenter = homePresenter
-        return homeView
+        let router = HomeRouter()
+        let interactor = HomeInteractor()
+        let presenter = HomePresenter(homeInteractor: interactor, router: router)
+        let view = HomeView()
+        router.viewController = view
+        presenter.view = view
+        view.presenter = presenter
+        return view
     }
     
     func goToCharacterDetail(mainView: AnyObject, dragonBallModel: Item) {
         let charactersView = CharacterViewController(dragonBallModel: dragonBallModel)
-        mainView.navigationController?.pushViewController(charactersView, animated: true)
+        viewController?.navigationController?.pushViewController(charactersView, animated: true)
     }
-    
-    func goToLogin(){
-        MainRouter.shared.goToLogin()
-    }
-    
-    func goToSocialMedia(mainView: AnyObject, socialMedia: SocialMedia){
-        let webView = WebViews()
-        var url: String = ""
-        switch socialMedia {
-        case .facebook:
-            url = "https://www.facebook.com/"
-        case .instagram:
-            url = "https://www.instagram.com/"
-        case .youtube:
-            url = "https://www.youtube.com/"
-        }
-        webView.urlString = url
-        mainView.present(webView, animated: true)
-    }
-    
-    func showSongsList(mainView: AnyObject){
-        let viewController = SongsListView()
-        viewController.view.backgroundColor = .red
-        mainView.navigationController?.present(viewController, animated: true)
-    }
+                
+}
+
+protocol HomeRouterProtocol: AnyObject, RouterProtocol {
+    static func createModule() -> UIViewController
+    func goToCharacterDetail(mainView: AnyObject, dragonBallModel: Item)
 }

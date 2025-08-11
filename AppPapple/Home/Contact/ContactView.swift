@@ -8,11 +8,25 @@
 
 import UIKit
 
-class ContactView: UIView {
+class ContactViewController: BaseViewController {
     
-    var presenter: HomePresenter?
+    var presenter: ContactPresenter?
 
-    lazy var title: UILabel = {
+    lazy var mainContainerScroll: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var titleLabel: UILabel = {
         let title = UILabel()
         title.textAlignment = .center
         title.numberOfLines = 0
@@ -33,7 +47,7 @@ class ContactView: UIView {
         return label
     }()
     
-    lazy var facebookImage: UIImageView = {
+    lazy var facebookImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -44,7 +58,7 @@ class ContactView: UIView {
         return image
     }()
     
-    lazy var instagramImage: UIImageView = {
+    lazy var instagramImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -55,7 +69,7 @@ class ContactView: UIView {
         return image
     }()
     
-    lazy var youtubeImage: UIImageView = {
+    lazy var youtubeImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
@@ -66,14 +80,45 @@ class ContactView: UIView {
         return image
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        start()
+    }
+    
+    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+        switch sender.tag {
+        case 0:
+            presenter?.didTapHomeButton()
+            sender.tintColor = .black
+        case 1:
+            presenter?.didTapSocialtButton()
+            sender.tintColor = .black
+        case 2:
+            presenter?.didTapStoreButton()
+            sender.tintColor = .black
+        case 3:
+            presenter?.didTapContactButton()
+            sender.tintColor = .black
+        case 4:
+            presenter?.didTapSettingstButton()
+            sender.tintColor = .black
+        default:
+            break
+        }
+    }
+
+    @objc override func profileViewTapped(navigation: UIViewController) {
+        presenter?.didTapSettingstButton()
+    }
+
     func start() {
         self.setupView()
     }
@@ -91,55 +136,73 @@ class ContactView: UIView {
     }
     
     func setupView() {
-        self.addSubview(title)
-        self.addSubview(contactInfoLabel)
-        self.addSubview(facebookImage)
-        self.addSubview(instagramImage)
-        self.addSubview(youtubeImage)
+        view.addSubview(mainContainerScroll)
+        mainContainerScroll.addSubview(containerView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(contactInfoLabel)
+        containerView.addSubview(facebookImageView)
+        containerView.addSubview(instagramImageView)
+        containerView.addSubview(youtubeImageView)
         
-        title.translatesAutoresizingMaskIntoConstraints = false
-        facebookImage.translatesAutoresizingMaskIntoConstraints = false
-        youtubeImage.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        facebookImageView.translatesAutoresizingMaskIntoConstraints = false
+        youtubeImageView.translatesAutoresizingMaskIntoConstraints = false
         contactInfoLabel.translatesAutoresizingMaskIntoConstraints = false
-        instagramImage.translatesAutoresizingMaskIntoConstraints = false
+        instagramImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            contactInfoLabel.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 20),
-            contactInfoLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            contactInfoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            mainContainerScroll.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainContainerScroll.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mainContainerScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainContainerScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            facebookImage.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
-            facebookImage.widthAnchor.constraint(equalToConstant: 25),
-            facebookImage.heightAnchor.constraint(equalToConstant: 25),
-            facebookImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            containerView.topAnchor.constraint(equalTo: mainContainerScroll.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: mainContainerScroll.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: mainContainerScroll.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: mainContainerScroll.trailingAnchor),
+            containerView.widthAnchor.constraint(equalTo: mainContainerScroll.widthAnchor),
             
-            instagramImage.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
-            instagramImage.widthAnchor.constraint(equalToConstant: 25),
-            instagramImage.heightAnchor.constraint(equalToConstant: 25),
-            instagramImage.leadingAnchor.constraint(equalTo: facebookImage.trailingAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            
+            contactInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            contactInfoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            contactInfoLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            
+            facebookImageView.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
+            facebookImageView.widthAnchor.constraint(equalToConstant: 25),
+            facebookImageView.heightAnchor.constraint(equalToConstant: 25),
+            facebookImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            
+            instagramImageView.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
+            instagramImageView.widthAnchor.constraint(equalToConstant: 25),
+            instagramImageView.heightAnchor.constraint(equalToConstant: 25),
+            instagramImageView.leadingAnchor.constraint(equalTo: facebookImageView.trailingAnchor, constant: 20),
 
-            youtubeImage.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
-            youtubeImage.widthAnchor.constraint(equalToConstant: 25),
-            youtubeImage.heightAnchor.constraint(equalToConstant: 25),
-            youtubeImage.leadingAnchor.constraint(equalTo: instagramImage.trailingAnchor, constant: 20),
-            youtubeImage.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            youtubeImageView.topAnchor.constraint(equalTo: contactInfoLabel.bottomAnchor, constant: 20),
+            youtubeImageView.widthAnchor.constraint(equalToConstant: 25),
+            youtubeImageView.heightAnchor.constraint(equalToConstant: 25),
+            youtubeImageView.leadingAnchor.constraint(equalTo: instagramImageView.trailingAnchor, constant: 20),
+            youtubeImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
         
         DispatchQueue.main.async {
-            self.facebookImage.layoutIfNeeded()
-            self.facebookImage.layer.cornerRadius = self.facebookImage.frame.width / 2
-            self.facebookImage.clipsToBounds = true
+            self.facebookImageView.layoutIfNeeded()
+            self.facebookImageView.layer.cornerRadius = self.facebookImageView.frame.width / 2
+            self.facebookImageView.clipsToBounds = true
             
-            self.instagramImage.layoutIfNeeded()
-            self.instagramImage.layer.cornerRadius = self.instagramImage.frame.width / 2
-            self.instagramImage.clipsToBounds = true
+            self.instagramImageView.layoutIfNeeded()
+            self.instagramImageView.layer.cornerRadius = self.instagramImageView.frame.width / 2
+            self.instagramImageView.clipsToBounds = true
 
-            self.youtubeImage.layoutIfNeeded()
-            self.youtubeImage.layer.cornerRadius = self.youtubeImage.frame.width / 2
-            self.youtubeImage.clipsToBounds = true
+            self.youtubeImageView.layoutIfNeeded()
+            self.youtubeImageView.layer.cornerRadius = self.youtubeImageView.frame.width / 2
+            self.youtubeImageView.clipsToBounds = true
         }
     }
+}
+
+extension ContactViewController: ContactViewProtocol {
+    
 }

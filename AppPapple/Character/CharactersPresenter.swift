@@ -5,4 +5,20 @@
 //  Created by Christian Morante on 18/02/24.
 //
 
-import Foundation
+import UIKit
+
+class CharacterPresenter {
+    
+    var interactor: CharactersInteractor
+    var router: CharactersRouter
+    
+    init(interactor: CharactersInteractor, router: CharactersRouter) {
+        self.interactor = interactor
+        self.router = router
+    }
+    
+    func didTapBackButton(main: UINavigationController?) {
+        router.goToHome(main: main)
+    }
+    
+}

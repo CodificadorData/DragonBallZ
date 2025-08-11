@@ -8,54 +8,35 @@
 import UIKit
 import Kingfisher
 
-class HomeView: UIViewController {
+class HomeView: BaseViewController {
     
     var presenter: HomePresenter?
-    var contactView = ContactView()
-    var socialView = SocialView()
-    var settingsView = SettingsView()
-    var storeView = StoreView()
     let cellIdentifi = "cell"
     var personaje: Item?
     var isLoading = false // Para evitar múltiples cargas simultáneas
     var contador: CGFloat = 1
-    
-    var homeButton = UIBarButtonItem()
-    var newsButton = UIBarButtonItem()
-    var storeButton = UIBarButtonItem()
-    var contactButton = UIBarButtonItem()
-    var settingButton = UIBarButtonItem()
-    
+        
     @objc func buttonPressed(_ sender: UIButton) {
         presenter?.goToCharacterDetail(dragonBallModel: personaje!)
     }
     
-    @objc func buttonToolBarPressed(_ sender: UIBarButtonItem) {
-        switch sender {
-        case homeButton:
-            scrollHome.subviews.forEach { $0.removeFromSuperview() }
-            setupUI()
-            selectedToolbarItem(selectedButton: sender)
-        case newsButton:
-            scrollHome.subviews.forEach { $0.removeFromSuperview() }
-            setupConstraintsView(uiView: self.socialView)
-            socialView.start()
-            selectedToolbarItem(selectedButton: sender)
-        case storeButton:
-            scrollHome.subviews.forEach { $0.removeFromSuperview() }
-            setupConstraintsView(uiView: self.storeView)
-            storeView.start()
-            selectedToolbarItem(selectedButton: sender)
-        case contactButton:
-            scrollHome.subviews.forEach { $0.removeFromSuperview() }
-            setupConstraintsView(uiView: self.contactView)
-            contactView.start()
-            selectedToolbarItem(selectedButton: sender)
-        case settingButton:
-            scrollHome.subviews.forEach { $0.removeFromSuperview() }
-            setupConstraintsView(uiView: self.settingsView)
-            settingsView.start()
-            selectedToolbarItem(selectedButton: sender)
+    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+        switch sender.tag {
+        case 0:
+            presenter?.didTapHomeButton()
+            sender.tintColor = .black
+        case 1:
+            presenter?.didTapSocialtButton()
+            sender.tintColor = .black
+        case 2:
+            presenter?.didTapStoreButton()
+            sender.tintColor = .black
+        case 3:
+            presenter?.didTapContactButton()
+            sender.tintColor = .black
+        case 4:
+            presenter?.didTapSettingstButton()
+            sender.tintColor = .black
         default:
             break
         }
@@ -194,27 +175,16 @@ class HomeView: UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        self.title = "Dragon Ball Z"
-        view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
         view.addSubview(scrollHome)
         setupUI()
-        setupNavigationBar()
-        setupToolBar()
         activityIndicatorPrincipalImage.startAnimating()
         activityIndicatorTableHome.startAnimating()
         activityIndicatorBannerImage.startAnimating()
-        injectDependenciesIntoViews()
         DispatchQueue.main.async {
             self.presenter?.bringData()
         }
     }
-        
-    @objc func profileViewTapped() {
-        scrollHome.subviews.forEach { $0.removeFromSuperview() }
-        setupConstraintsView(uiView: self.settingsView)
-        settingsView.start()
-    }
-    
+            
     func setupUI() {
         scrollHome.addSubview(viewContainer)
         viewContainer.addSubview(bannerView)
@@ -289,133 +259,11 @@ class HomeView: UIViewController {
             activityIndicatorBannerImage.centerXAnchor.constraint(equalTo: bannerImage.centerXAnchor)
         ])
     }
-    
-    func setupNavigationBar() {
-        self.navigationController?.navigationBar.barTintColor = UIColor(
-            red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1
-        )
-        self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
-        
-        let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            let image = UIImage(named: "userImage")
-            image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
-        }
-        
-        let button = UIBarButtonItem(
-            image: resizedImage,
-            style: .plain,
-            target: self,
-            action: #selector(profileViewTapped)
-        )
-        navigationItem.rightBarButtonItem = button
+                    
+    @objc override func profileViewTapped(navigation: UIViewController) {
+        presenter?.didTapSettingstButton()
     }
-    
-    func setupToolBar() {
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.toolbar.barTintColor = UIColor(
-            red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1
-        )
-        let homeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            let homeIcon = UIImage(named: "homeIcon")
-            homeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
-        }
-        
-        let newsIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            let newsIcon = UIImage(named: "newsIcon")
-            newsIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
-        }
-        
-        let settingIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            let settingIcon = UIImage(named: "settingIcon")
-            settingIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
-        }
-        
-        let contactIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            let contactIcon = UIImage(named: "contactIcon")
-            contactIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
-        }
-        
-        let storeIconResized = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
-            let storeIcon = UIImage(named: "storeIcon")
-            storeIcon?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
-        }
-        
-        homeButton = UIBarButtonItem(
-            image: homeIconResized,
-            style: .plain,
-            target: self,
-            action: #selector(buttonToolBarPressed(_:))
-        )
-        
-        newsButton = UIBarButtonItem(
-            image: newsIconResized,
-            style: .plain,
-            target: self,
-            action: #selector(buttonToolBarPressed(_:))
-        )
-        
-        settingButton = UIBarButtonItem(
-            image: settingIconResized,
-            style: .plain,
-            target: self,
-            action: #selector(buttonToolBarPressed(_:))
-        )
-        
-        contactButton = UIBarButtonItem(
-            image: contactIconResized,
-            style: .plain,
-            target: self,
-            action: #selector(buttonToolBarPressed(_:))
-        )
-        
-        storeButton = UIBarButtonItem(
-            image: storeIconResized,
-            style: .plain,
-            target: self,
-            action: #selector(buttonToolBarPressed(_:))
-        )
-        
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        toolbarItems = [homeButton, space, newsButton, space, storeButton, space, contactButton, space, settingButton]
-        selectedToolbarItem(selectedButton: homeButton)
-    }
-    
-    func showErrorPopUp(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
-        self.present(alertController, animated: true, completion: nil)
-    }
-        
-    func setupConstraintsView(uiView: UIView) {
-        scrollHome.addSubview(uiView)
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            uiView.topAnchor.constraint(equalTo: scrollHome.topAnchor),
-            uiView.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
-            uiView.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
-            uiView.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
-            uiView.widthAnchor.constraint(equalTo: scrollHome.widthAnchor)
-        ])
-    }
-    
-    func selectedToolbarItem(selectedButton: UIBarButtonItem) {
-        let buttons = [homeButton, newsButton, storeButton, contactButton, settingButton]
-        for button in buttons {
-            button.tintColor = (button == selectedButton) ? .black : .darkGray
-        }
-    }
-    
-    func injectDependenciesIntoViews() {
-        settingsView.presenter = presenter
-        presenter?.settingsView = settingsView
-        storeView.presenter = presenter
-        presenter?.storeView = storeView
-        contactView.presenter = presenter
-        socialView.presenter = presenter
-        presenter?.socialView = socialView
-    }
+
 }
 
 extension HomeView: HomeViewProtocol {

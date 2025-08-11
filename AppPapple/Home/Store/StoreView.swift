@@ -8,11 +8,25 @@
 import UIKit
 import Kingfisher
 
-class StoreView: UIView {
+class StoreViewController: BaseViewController {
     
-    var presenter: HomePresenter?
+    var presenter: StorePresenter?
     var contador: CGFloat = 1
     
+    lazy var scrollHome: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -28,21 +42,52 @@ class StoreView: UIView {
         return cv
     }()
 
-    lazy var title: UILabel = {
+    lazy var titleLabel: UILabel = {
         let title = UILabel()
         title.textColor = .white
         title.text = "Store"
         return title
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
         
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        start()
+    }
+    
+    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+        switch sender.tag {
+        case 0:
+            presenter?.didTapHomeButton()
+            sender.tintColor = .black
+        case 1:
+            presenter?.didTapSocialtButton()
+            sender.tintColor = .black
+        case 2:
+            presenter?.didTapStoreButton()
+            sender.tintColor = .black
+        case 3:
+            presenter?.didTapContactButton()
+            sender.tintColor = .black
+        case 4:
+            presenter?.didTapSettingstButton()
+            sender.tintColor = .black
+        default:
+            break
+        }
+    }
+
+    @objc override func profileViewTapped(navigation: UIViewController) {
+        presenter?.didTapSettingstButton()
+    }
+
     func start() {
         self.setupView()
         DispatchQueue.main.async {
@@ -55,31 +100,37 @@ class StoreView: UIView {
     }
     
     private func setupCollectionView() {
-        self.addSubview(collectionView)
+        
+        view.addSubview(scrollHome)
+        scrollHome.addSubview(containerView)
+        containerView.addSubview(collectionView)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            scrollHome.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollHome.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollHome.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollHome.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            containerView.topAnchor.constraint(equalTo: scrollHome.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
+            containerView.widthAnchor.constraint(equalTo: scrollHome.widthAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 1000)
         ])
     }
     
-    func showErrorPopUp(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
-        guard let viewController = self.parentViewController() else {
-            return
-        }
-        viewController.present(alertController, animated: true, completion: nil)
-    }
-
 }
 
-extension StoreView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension StoreViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.presenter?.modelProduct.count ?? .zero
     }
@@ -109,7 +160,7 @@ extension StoreView: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
 
 }
 
-extension StoreView: StoreViewProtocol {
+extension StoreViewController: StoreViewProtocol {
     func errorPopUp(title: String, message: String) {
         self.showErrorPopUp(title: title, message: message)
     }
@@ -119,7 +170,7 @@ extension StoreView: StoreViewProtocol {
     }
 }
 
-extension StoreView: UIScrollViewDelegate {
+extension StoreViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == collectionView {
             let position = scrollView.contentOffset.y

@@ -7,16 +7,30 @@
 
 import UIKit
 
-class SocialView: UIView {
+class SocialViewController: BaseViewController {
     
-    var presenter: HomePresenter?
+    var presenter: SocialPresenter?
     private var timer: Timer?
     private var currentIndex = 0
     var firtsMangaView = MangaUIView()
     var lastMangaView = MangaUIView()
     var musicView = MusicUIView()
 
-    lazy var title: UILabel = {
+    lazy var scrollHome: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    lazy var titleLabel: UILabel = {
         let title = UILabel()
         title.textAlignment = .center
         title.textColor = .white
@@ -79,14 +93,45 @@ class SocialView: UIView {
         return collection
     }()
         
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        start()
+    }
+       
+    @objc override func buttonToolBarPressed(_ sender: UIBarButtonItem) {
+        switch sender.tag {
+        case 0:
+            presenter?.didTapHomeButton()
+            sender.tintColor = .black
+        case 1:
+            presenter?.didTapSocialtButton()
+            sender.tintColor = .black
+        case 2:
+            presenter?.didTapStoreButton()
+            sender.tintColor = .black
+        case 3:
+            presenter?.didTapContactButton()
+            sender.tintColor = .black
+        case 4:
+            presenter?.didTapSettingstButton()
+            sender.tintColor = .black
+        default:
+            break
+        }
+    }
+    
+    @objc override func profileViewTapped(navigation: UIViewController) {
+        presenter?.didTapSettingstButton()
+    }
+
     func start() {
         self.setupView()
         startAutoScroll()
@@ -101,50 +146,66 @@ class SocialView: UIView {
     }
     
     func setupView() {
-        self.addSubview(title)
-        self.addSubview(newsCollectionView)
-        self.addSubview(multimediaLabel)
-        self.addSubview(firtsMangaView)
-        self.addSubview(lastMangaView)
-        self.addSubview(musicView)
-        self.addSubview(shortsLabel)
-        self.addSubview(shortsCollectionView)
+        
+        view.addSubview(scrollHome)
+        scrollHome.addSubview(containerView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(newsCollectionView)
+        containerView.addSubview(multimediaLabel)
+        containerView.addSubview(firtsMangaView)
+        containerView.addSubview(lastMangaView)
+        containerView.addSubview(musicView)
+        containerView.addSubview(shortsLabel)
+        containerView.addSubview(shortsCollectionView)
 
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            title.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            newsCollectionView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
-            newsCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-            newsCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            scrollHome.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollHome.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollHome.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollHome.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+            containerView.topAnchor.constraint(equalTo: scrollHome.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
+            containerView.widthAnchor.constraint(equalTo: scrollHome.widthAnchor),
+
+            
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            
+            newsCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            newsCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5),
+            newsCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5),
             newsCollectionView.heightAnchor.constraint(equalToConstant: 150),
             
             multimediaLabel.topAnchor.constraint(equalTo: newsCollectionView.bottomAnchor, constant: 10),
-            multimediaLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            multimediaLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
 
             firtsMangaView.topAnchor.constraint(equalTo: multimediaLabel.bottomAnchor, constant: 10),
-            firtsMangaView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            firtsMangaView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.45),
+            firtsMangaView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            firtsMangaView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.45),
             firtsMangaView.heightAnchor.constraint(equalToConstant: 200),
             
             lastMangaView.topAnchor.constraint(equalTo: multimediaLabel.bottomAnchor, constant: 10),
-            lastMangaView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            lastMangaView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.45),
+            lastMangaView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            lastMangaView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.45),
             lastMangaView.heightAnchor.constraint(equalToConstant: 200),
             
             musicView.topAnchor.constraint(equalTo: lastMangaView.bottomAnchor, constant: 15),
-            musicView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            musicView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            musicView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            musicView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
             musicView.heightAnchor.constraint(equalToConstant: 100),
             
             shortsLabel.topAnchor.constraint(equalTo: musicView.bottomAnchor, constant: 10),
-            shortsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            shortsLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
             
             shortsCollectionView.topAnchor.constraint(equalTo: shortsLabel.bottomAnchor, constant: 10),
-            shortsCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            shortsCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            shortsCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            shortsCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             shortsCollectionView.heightAnchor.constraint(equalToConstant: 200),
-            shortsCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            shortsCollectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
         ])
     }
     
@@ -171,7 +232,11 @@ class SocialView: UIView {
     
 }
 
-extension SocialView: SocialViewProtocol {
+extension SocialViewController: SocialViewProtocol {
+    func errorPopUp(title: String, message: String) {
+        showErrorPopUp(title: title, message: message)
+    }
+    
     func fetchMultimedia(multimedia: MultimediaEntity) {
         DispatchQueue.main.async { [weak self] in
             guard let url = URL(string: multimedia.results.mangas.first!.mangaImage) else { return }

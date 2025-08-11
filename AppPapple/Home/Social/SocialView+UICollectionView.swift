@@ -6,7 +6,7 @@
 //
 import UIKit
 
-extension SocialView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension SocialViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {

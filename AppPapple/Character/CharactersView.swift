@@ -10,6 +10,8 @@ import Kingfisher
 
 class CharacterViewController: UIViewController {
     
+    var presenter: CharacterPresenter?
+    
     lazy var titleNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -95,6 +97,18 @@ class CharacterViewController: UIViewController {
         view.addSubview(scrollView)
         setupConstraints()
         navigationController?.isToolbarHidden = true
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "Atrás",
+            style: .plain,
+            target: nil,
+            action: #selector(didTapBackButton)
+        )
+    }
+    
+    @objc func didTapBackButton() {
+        print("Tap")
+        presenter?.didTapBackButton(main: navigationController)
     }
     
     init(dragonBallModel: Item) {
@@ -126,9 +140,7 @@ class CharacterViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            // Establecer el ancho del contenedor igual al ancho de la vista principal
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            // Altura del contenedor (puedes cambiarla según tus elementos)
             contentView.heightAnchor.constraint(equalToConstant: 1300),
 
             
