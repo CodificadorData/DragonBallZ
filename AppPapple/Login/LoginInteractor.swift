@@ -7,21 +7,17 @@
 import Alamofire
 import SwiftKeychainWrapper
 
-class LoginInteractor {
-    
+class LoginInteractor: LoginInteractorProtocol {
     
     func validateUser(email: String, password: String,
                       dataUser: @escaping (_ dataJson: Result<ResponseUser, Error>) -> Void) {
-        
         guard let endPoint = Bundle.main.object(forInfoDictionaryKey: "verifyUser_url") as? String else {
             return
         }
-        
         let queryParams: [String: String] = [
             "email": email,
             "password": password
         ]
-        
         AF.request(endPoint, method: .get, parameters: queryParams)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseUser.self) {
@@ -35,4 +31,9 @@ class LoginInteractor {
                 }
             }
     }
+}
+
+protocol LoginInteractorProtocol: AnyObject {
+    func validateUser(email: String, password: String,
+                      dataUser: @escaping (_ dataJson: Result<ResponseUser, Error>) -> Void)
 }

@@ -7,7 +7,7 @@
 
 import SwiftKeychainWrapper
 
-class SettingsPresenter: PresenterProtocol {
+class SettingsPresenter: SettingsPresenterProtocol {
     typealias RouterType = SettingsRouter
     
     let interactor: SettingsInteractor
@@ -47,6 +47,12 @@ class SettingsPresenter: PresenterProtocol {
     }
 
 
+}
+
+protocol SettingsPresenterProtocol: AnyObject, PresenterProtocol {
+    func fetchUserData()
+    func updateUserData(user :NewUserEntity)
+    func goToLogin()
 }
 
 protocol SettingsViewProtocol: AnyObject {

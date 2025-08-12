@@ -11,7 +11,7 @@ protocol LoginViewProtocol: AnyObject {
     func validateUser(dataJson: Result<ResponseUser, Error>)
 }
 
-class LoginPresenter {
+class LoginPresenter: LoginPresenterProtocol {
     var interactor: LoginInteractor
     var view: LoginViewProtocol?
     var router: LoginRouter
@@ -36,4 +36,8 @@ class LoginPresenter {
     }
 }
 
-
+protocol LoginPresenterProtocol: AnyObject {
+    func validateUser(email: String, password: String)
+    func goToRegister()
+    func goToHome()
+}

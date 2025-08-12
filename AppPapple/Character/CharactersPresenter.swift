@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CharacterPresenter {
+class CharacterPresenter: CharacterPresenterProtocol {
     
     var interactor: CharactersInteractor
     var router: CharactersRouter
@@ -21,4 +21,8 @@ class CharacterPresenter {
         router.goToHome()
     }
     
+}
+
+protocol CharacterPresenterProtocol: AnyObject {
+    func didTapBackButton()
 }

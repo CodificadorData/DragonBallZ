@@ -7,6 +7,10 @@
 
 import Foundation
 
-class CharactersInteractor {
+class CharactersInteractor: CharactersInteractorProtocol {
+    
+}
+
+protocol CharactersInteractorProtocol: AnyObject {
     
 }

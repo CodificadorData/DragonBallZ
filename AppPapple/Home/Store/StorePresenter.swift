@@ -5,7 +5,7 @@
 //  Created by Christian Morante on 10/08/25.
 //
 
-class StorePresenter: PresenterProtocol {
+class StorePresenter: StorePresenterProtocol {
     typealias RouterType = StoreRouter
     
     let interactor: StoreInteractor
@@ -34,6 +34,9 @@ class StorePresenter: PresenterProtocol {
 
 }
 
+protocol StorePresenterProtocol: AnyObject, PresenterProtocol {
+    func fetchProducts()
+}
 protocol StoreViewProtocol: AnyObject {
     func updateProductList(product: ProductEntity)
     func errorPopUp(title: String, message: String)

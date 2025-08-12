@@ -5,7 +5,7 @@
 //  Created by Christian Morante on 10/08/25.
 //
 
-class ContactPresenter: PresenterProtocol {
+class ContactPresenter: ContactPresenterProtocol {
     typealias RouterType = ContactRouter
     
     let interactor: ContactInteractor
@@ -22,6 +22,10 @@ class ContactPresenter: PresenterProtocol {
         router.goToSocialMedia(socialMedia: socialMedia)
     }
 
+}
+
+protocol ContactPresenterProtocol: AnyObject, PresenterProtocol {
+    func goToSocialMedia(socialMedia: SocialMedia)
 }
 
 protocol ContactViewProtocol: AnyObject {

@@ -11,7 +11,7 @@ protocol RegisterViewProtocol: AnyObject {
     func registerUser(data: Result<ResponseRegister, Error>)
 }
 
-class RegisterPresenter {
+class RegisterPresenter: RegisterPresenterProtocol {
     
     var router: RegisterRouter
     var interactor: RegisterInteractor
@@ -30,4 +30,9 @@ class RegisterPresenter {
     func goToLogin() {
         router.goToLogin()
     }
+}
+
+protocol RegisterPresenterProtocol: AnyObject {
+    func registerUser(user: NewUserEntity)
+    func goToLogin()
 }

@@ -7,7 +7,7 @@
 
 import Alamofire
 
-class SocialInteractor {
+class SocialInteractor: SocialInteractorProtocol {
     
     func fetchNews(dataResponse: @escaping (_ dataJson: Result<NewsEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "news_url") as? String ?? ""
@@ -51,4 +51,10 @@ class SocialInteractor {
             }
     }
 
+}
+
+protocol SocialInteractorProtocol: AnyObject {
+    func fetchNews(dataResponse: @escaping (_ dataJson: Result<NewsEntity, Error>) -> Void)
+    func fetchShorts(dataResponse: @escaping (_ dataJson: Result<ShortsEntity,Error>) -> Void)
+    func fetchMultimedia(dataJson: @escaping (_ dataResponse: Result<MultimediaEntity, Error>) -> Void)
 }

@@ -7,7 +7,7 @@
 
 import SwiftKeychainWrapper
 
-class HomePresenter: PresenterProtocol {
+class HomePresenter: HomePresenterProtocol {
     
     typealias RouterType = HomeRouter
     
@@ -25,7 +25,7 @@ class HomePresenter: PresenterProtocol {
         self.router = router
     }
     
-    func bringData(){
+    func bringData() {
         homeInteractor.requestDragonBall(url: page, dataJson: { dataDragon in
             switch dataDragon {
             case .success(let response):
@@ -43,6 +43,11 @@ class HomePresenter: PresenterProtocol {
         router.goToCharacterDetail(dragonBallModel: dragonBallModel)
     }
 
+}
+
+protocol HomePresenterProtocol: AnyObject, PresenterProtocol {
+    func bringData()
+    func goToCharacterDetail(dragonBallModel: Item)
 }
 
 protocol HomeViewProtocol: AnyObject {

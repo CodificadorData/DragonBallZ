@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SocialPresenter: PresenterProtocol {
+class SocialPresenter: SocialPresenterProtocol {
     typealias RouterType = SocialRouter
     
     let interactor: SocialInteractor
@@ -58,11 +58,18 @@ class SocialPresenter: PresenterProtocol {
         }
     }
 
-    func showSongsList(){
+    func showSongsList() {
         guard let view = view else { return }
         router.showSongsList()
     }
 
+}
+
+protocol SocialPresenterProtocol: AnyObject, PresenterProtocol {
+    func fetchNews()
+    func fetchShorts()
+    func fetchMultimedia()
+    func showSongsList()
 }
 
 protocol SocialViewProtocol: AnyObject {
