@@ -22,7 +22,7 @@ class ContactRouter: ContactRouterProtocol {
         return view
     }
     
-    func goToSocialMedia(mainView: AnyObject, socialMedia: SocialMedia){
+    func goToSocialMedia(socialMedia: SocialMedia){
         let webView = WebViews()
         webView.urlString = socialMedia.rawValue
         viewController?.present(webView, animated: true)
@@ -32,5 +32,5 @@ class ContactRouter: ContactRouterProtocol {
 
 protocol ContactRouterProtocol: AnyObject, RouterProtocol {
     static func createModule() -> ContactViewController
-    func goToSocialMedia(mainView: AnyObject, socialMedia: SocialMedia)
+    func goToSocialMedia(socialMedia: SocialMedia)
 }

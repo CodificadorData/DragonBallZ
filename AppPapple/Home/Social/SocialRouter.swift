@@ -21,15 +21,15 @@ class SocialRouter: SocialRouterProtocol {
         return view
     }
     
-    func showSongsList(mainView: AnyObject){
-        let viewController = SongsListView()
-        viewController.view.backgroundColor = .red
-        viewController.navigationController?.present(viewController, animated: true)
+    func showSongsList(){
+        let songsListView = SongsListView()
+        viewController?.view.backgroundColor = .red
+        viewController?.navigationController?.present(songsListView, animated: true)
     }
 
 }
 
 protocol SocialRouterProtocol: AnyObject, RouterProtocol {
     static func createModule() -> UIViewController
-    func showSongsList(mainView: AnyObject)
+    func showSongsList()
 }

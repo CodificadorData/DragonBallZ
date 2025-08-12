@@ -23,7 +23,7 @@ class HomeRouter: HomeRouterProtocol {
         return view
     }
     
-    func goToCharacterDetail(mainView: AnyObject, dragonBallModel: Item) {
+    func goToCharacterDetail(dragonBallModel: Item) {
         let charactersView = CharacterViewController(dragonBallModel: dragonBallModel)
         viewController?.navigationController?.pushViewController(charactersView, animated: true)
     }
@@ -32,5 +32,5 @@ class HomeRouter: HomeRouterProtocol {
 
 protocol HomeRouterProtocol: AnyObject, RouterProtocol {
     static func createModule() -> UIViewController
-    func goToCharacterDetail(mainView: AnyObject, dragonBallModel: Item)
+    func goToCharacterDetail(dragonBallModel: Item)
 }

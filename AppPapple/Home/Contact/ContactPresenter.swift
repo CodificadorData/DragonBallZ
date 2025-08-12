@@ -19,7 +19,7 @@ class ContactPresenter: PresenterProtocol {
     
     func goToSocialMedia(socialMedia: SocialMedia){
         guard let view = view else { return }
-        router.goToSocialMedia(mainView: view, socialMedia: socialMedia)
+        router.goToSocialMedia(socialMedia: socialMedia)
     }
 
 }

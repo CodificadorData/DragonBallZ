@@ -60,7 +60,7 @@ class SocialPresenter: PresenterProtocol {
 
     func showSongsList(){
         guard let view = view else { return }
-        router.showSongsList(mainView: view)
+        router.showSongsList()
     }
 
 }

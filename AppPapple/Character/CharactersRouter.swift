@@ -7,11 +7,11 @@
 
 import UIKit
 
-class CharactersRouter {
+class CharactersRouter: CharactersRouterProtocol {
     
-    var viewController: CharacterViewController?
+    var viewController: UIViewController?
     
-    static func createModule(item: Item) -> CharacterViewController {
+    static func createModule(item: Item) -> UIViewController {
         let interactor = CharactersInteractor()
         let router = CharactersRouter()
         let presenter = CharacterPresenter(interactor: interactor, router: router)
@@ -22,9 +22,14 @@ class CharactersRouter {
         return view
     }
     
-    func goToHome(main: UINavigationController?) {
-        main?.popViewController(animated: true)
-        main?.isToolbarHidden = false
+    func goToHome() {
+        viewController?.navigationController?.popViewController(animated: true)
+        viewController?.navigationController?.isToolbarHidden = false
     }
     
+}
+
+protocol CharactersRouterProtocol: AnyObject, RouterProtocol {
+    static func createModule(item: Item) -> UIViewController
+    func goToHome()
 }

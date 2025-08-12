@@ -17,8 +17,8 @@ class CharacterPresenter {
         self.router = router
     }
     
-    func didTapBackButton(main: UINavigationController?) {
-        router.goToHome(main: main)
+    func didTapBackButton() {
+        router.goToHome()
     }
     
 }

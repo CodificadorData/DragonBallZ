@@ -40,7 +40,7 @@ class HomePresenter: PresenterProtocol {
         
     func goToCharacterDetail(dragonBallModel: Item){
         guard let view = view else { return }
-        router.goToCharacterDetail(mainView: view, dragonBallModel: dragonBallModel)
+        router.goToCharacterDetail(dragonBallModel: dragonBallModel)
     }
 
 }

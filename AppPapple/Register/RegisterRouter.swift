@@ -6,21 +6,27 @@
 //
 import UIKit
 
-class RegisterRouter {
+class RegisterRouter: RegisterRouterProtocol {
+    var viewController: UIViewController?
     
     static func createModule() -> UIViewController {
-        let registerRouter = RegisterRouter()
-        let registerInteractor = RegisterInteractor()
-        let registerPresenter = RegisterPresenter(interactor: registerInteractor, router: registerRouter)
-        let registerViewController = RegisterViewController()
-        
-        registerPresenter.view = registerViewController
-        registerViewController.presenter = registerPresenter
-        return registerViewController
+        let router = RegisterRouter()
+        let interactor = RegisterInteractor()
+        let presenter = RegisterPresenter(interactor: interactor, router: router)
+        let view = RegisterViewController()
+        presenter.view = view
+        view.presenter = presenter
+        router.viewController = view
+        return view
     }
     
-    func goToLogin(mainView: UIViewController) {
-        mainView.navigationController?.popViewController(animated: true)
+    func goToLogin() {
+        viewController?.navigationController?.popViewController(animated: true)
     }
     
+}
+
+protocol RegisterRouterProtocol: AnyObject, RouterProtocol {
+    static func createModule() -> UIViewController
+    func goToLogin()
 }

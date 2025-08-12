@@ -27,7 +27,7 @@ class RegisterPresenter {
         }
     }
     
-    func goToLogin(mainView: UIViewController) {
-        router.goToLogin(mainView: mainView)
+    func goToLogin() {
+        router.goToLogin()
     }
 }

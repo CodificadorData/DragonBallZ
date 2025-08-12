@@ -7,25 +7,33 @@
 
 import UIKit
 
-class LoginRouter {
+class LoginRouter: RouterProtocol {
+    var viewController: UIViewController?
     
     static func createModule() -> UIViewController {
-        let loginRouter = LoginRouter()
-        let loginInteractor = LoginInteractor()
-        let loginPresenter = LoginPresenter(interactor: loginInteractor, router: loginRouter)
-        let loginView = LoginViewController()
-        loginView.presenter = loginPresenter
-        loginPresenter.view = loginView
-        return loginView
+        let router = LoginRouter()
+        let interactor = LoginInteractor()
+        let presenter = LoginPresenter(interactor: interactor, router: router)
+        let view = LoginViewController()
+        view.presenter = presenter
+        presenter.view = view
+        router.viewController = view
+        return view
     }
     
     func goToHome() {
         MainRouter.shared.goToHome()
     }
     
-    func goToRegister(mainView: UIViewController) {
+    func goToRegister() {
         let registerModule = RegisterRouter.createModule()
-        mainView.navigationController?.pushViewController(registerModule, animated: true)
+        viewController?.navigationController?.pushViewController(registerModule, animated: true)
     }
     
+}
+
+protocol LoginRouterProtocol: AnyObject, RouterProtocol {
+    static func createModule() -> UIViewController
+    func goToHome()
+    func goToRegister()
 }
