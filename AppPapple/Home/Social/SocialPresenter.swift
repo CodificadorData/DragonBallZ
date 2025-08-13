@@ -58,9 +58,8 @@ class SocialPresenter: SocialPresenterProtocol {
         }
     }
 
-    func showSongsList() {
-        guard let view = view else { return }
-        router.showSongsList()
+    func showSongsList(songsList: [SongsEntity]) {
+        router.showSongsList(songsList: songsList)
     }
 
 }
@@ -69,7 +68,7 @@ protocol SocialPresenterProtocol: AnyObject, PresenterProtocol {
     func fetchNews()
     func fetchShorts()
     func fetchMultimedia()
-    func showSongsList()
+    func showSongsList(songsList: [SongsEntity])
 }
 
 protocol SocialViewProtocol: AnyObject {

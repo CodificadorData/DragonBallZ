@@ -129,7 +129,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func register() {
-        presenter?.goToRegister(mainView: self)
+        presenter?.goToRegister()
     }
     
     @objc func ocultarTeclado() {

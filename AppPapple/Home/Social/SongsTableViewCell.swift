@@ -53,6 +53,7 @@ class SongsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
+        contentView.backgroundColor = .orange
     }
     
     @objc func playSong() {
@@ -60,31 +61,31 @@ class SongsTableViewCell: UITableViewCell {
     }
     
     func setupUI() {
-        addSubview(imageCoverSong)
-        addSubview(titleSong)
-        addSubview(artistSong)
-        addSubview(playImageView)
+        contentView.addSubview(imageCoverSong)
+        contentView.addSubview(titleSong)
+        contentView.addSubview(artistSong)
+        contentView.addSubview(playImageView)
         
         NSLayoutConstraint.activate([
-            imageCoverSong.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageCoverSong.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            imageCoverSong.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            imageCoverSong.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             imageCoverSong.widthAnchor.constraint(equalToConstant: 50),
             imageCoverSong.heightAnchor.constraint(equalToConstant: 50),
             
-            titleSong.leftAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: 10),
-            titleSong.centerYAnchor.constraint(equalTo: centerYAnchor),
-            
-            artistSong.leftAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: 10),
+            titleSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: -10),
+            titleSong.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+//
+            artistSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: 10),
             artistSong.topAnchor.constraint(equalTo: titleSong.bottomAnchor, constant: 5),
             
-            playImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            playImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            playImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            playImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             playImageView.widthAnchor.constraint(equalToConstant: 30),
             playImageView.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
     
-    func cofigure(song: SongsEntity, songsCant: Int) {
+    func configure(song: SongsEntity, songsCant: Int) {
         guard let cover = URL(string: song.songCover) else { return }
         imageCoverSong.kf.setImage(with: cover)
         titleSong.text = song.songTitle

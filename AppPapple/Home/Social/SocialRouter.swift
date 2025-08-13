@@ -21,9 +21,8 @@ class SocialRouter: SocialRouterProtocol {
         return view
     }
     
-    func showSongsList(){
-        let songsListView = SongsListView()
-        viewController?.view.backgroundColor = .red
+    func showSongsList(songsList: [SongsEntity]) {
+        let songsListView = SongsListView(songsList: songsList )
         viewController?.navigationController?.present(songsListView, animated: true)
     }
 
@@ -31,5 +30,5 @@ class SocialRouter: SocialRouterProtocol {
 
 protocol SocialRouterProtocol: AnyObject, RouterProtocol {
     static func createModule() -> UIViewController
-    func showSongsList()
+    func showSongsList(songsList: [SongsEntity])
 }

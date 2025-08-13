@@ -205,7 +205,7 @@ class RegisterViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.presenter?.registerUser(user: newUser)
-            self.presenter?.goToLogin(mainView: self)
+            self.presenter?.goToLogin()
             self.activityIndicator.stopAnimating()
             self.view.layer.opacity = 1
             self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)

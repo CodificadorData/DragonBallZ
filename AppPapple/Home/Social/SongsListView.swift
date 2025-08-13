@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SongsListView: UIViewController {
+    
+    var songList: [SongsEntity]
     
     lazy var titleSongsList: UILabel = {
         let label = UILabel()
@@ -28,14 +31,15 @@ class SongsListView: UIViewController {
     
     lazy var tableSongs: UITableView = {
         let tableView = UITableView()
-        tableView.register(SongsTableViewCell.self, forCellReuseIdentifier: SongsTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(SongsTableViewCell.self, forCellReuseIdentifier: SongsTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    init() {
+    init(songsList: [SongsEntity]) {
+        self.songList = songsList
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -45,7 +49,6 @@ class SongsListView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
         setupUI()
     }
     
@@ -68,18 +71,28 @@ class SongsListView: UIViewController {
             tableSongs.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableSongs.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        view.backgroundColor = .systemOrange
     }
     
 }
 
 extension SongsListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return songList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SongsTableViewCell.identifier, for: indexPath) as? SongsTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.configure(song: songList[indexPath.row], songsCant: songList.count)
+        coverSongs.kf.setImage(with: URL(string: (songList.first?.songCover)!))
+        return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.bounds.height * 0.15
+    }
+
     
 }

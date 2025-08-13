@@ -108,7 +108,7 @@ class CharacterViewController: UIViewController {
     
     @objc func didTapBackButton() {
         print("Tap")
-        presenter?.didTapBackButton(main: navigationController)
+        presenter?.didTapBackButton()
     }
     
     init(dragonBallModel: Item) {
