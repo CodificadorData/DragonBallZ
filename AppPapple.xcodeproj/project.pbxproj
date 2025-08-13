@@ -157,6 +157,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6529C8512E4C56410099C84B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6529C82E2E46974A0099C84B /* SongsTableViewCell.swift */,
+				6529C82C2E468E890099C84B /* SongsListView.swift */,
+				6529C82A2E4662140099C84B /* SocialView+UICollectionView.swift */,
+				6529C8262E4287880099C84B /* ShortsCollectionViewCell.swift */,
+				6580E74D2E3B3267009A647A /* SocialCollectionViewCell.swift */,
+				6529C8222E401FC60099C84B /* MusicUIView.swift */,
+				6529C8202E3FF7FC0099C84B /* MangaUIView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		659900E62D9BCC1F003970AE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,14 +296,8 @@
 				6529C8482E49AD930099C84B /* SocialRouter.swift */,
 				6529C8462E49AD820099C84B /* SocialInteractor.swift */,
 				6529C8442E49ABD20099C84B /* SocialPresenter.swift */,
-				6529C82E2E46974A0099C84B /* SongsTableViewCell.swift */,
-				6529C82C2E468E890099C84B /* SongsListView.swift */,
-				6529C82A2E4662140099C84B /* SocialView+UICollectionView.swift */,
-				6529C8262E4287880099C84B /* ShortsCollectionViewCell.swift */,
-				6580E74D2E3B3267009A647A /* SocialCollectionViewCell.swift */,
-				6529C8222E401FC60099C84B /* MusicUIView.swift */,
-				6529C8202E3FF7FC0099C84B /* MangaUIView.swift */,
 				65DD45CC2D3EC86D00B48BE9 /* SocialView.swift */,
+				6529C8512E4C56410099C84B /* Components */,
 			);
 			path = Social;
 			sourceTree = "<group>";

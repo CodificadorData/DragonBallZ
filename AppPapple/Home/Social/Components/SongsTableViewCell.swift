@@ -74,7 +74,7 @@ class SongsTableViewCell: UITableViewCell {
             
             titleSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: -10),
             titleSong.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//
+
             artistSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: 10),
             artistSong.topAnchor.constraint(equalTo: titleSong.bottomAnchor, constant: 5),
             
