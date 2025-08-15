@@ -22,12 +22,13 @@ class SocialPresenter: SocialPresenterProtocol {
         self.router = router
     }
     
-    func fetchNews() {
+    func fetchNews(action: @escaping()-> Void) {
         interactor.fetchNews { dataJson in
             switch dataJson {
             case .success(let response):
                 self.view?.fetchNews(news: response)
                 self.modelNews = response.news
+                action()
             case .failure(let error):
                 self.view?.errorPopUp(title: "error fetchNews", message: error.localizedDescription)
             }
@@ -65,7 +66,7 @@ class SocialPresenter: SocialPresenterProtocol {
 }
 
 protocol SocialPresenterProtocol: AnyObject, PresenterProtocol {
-    func fetchNews()
+    func fetchNews(action: @escaping()-> Void)
     func fetchShorts()
     func fetchMultimedia()
     func showSongsList(songsList: [SongsEntity])

@@ -29,9 +29,9 @@ extension SocialViewController: UICollectionViewDataSource, UICollectionViewDele
                 ) as? SocialCollectionViewCell else {
                     return UICollectionViewCell()
                 }
-                guard let modelNews = self.presenter?.modelNews else { return cell }
+                guard let modelNews = self.presenter?.modelNews else { return UICollectionViewCell() }
                 
-                guard let url = URL(string: modelNews[indexPath.row].imageUrl) else { return cell }
+                guard let url = URL(string: modelNews[indexPath.row].imageUrl) else { return UICollectionViewCell() }
                 
                 cell.configure(title: modelNews[indexPath.row].title, description: modelNews[indexPath.row].description, url: url)
                 return cell
@@ -42,8 +42,8 @@ extension SocialViewController: UICollectionViewDataSource, UICollectionViewDele
                 ) as? ShortsCollectionViewCell else {
                     return UICollectionViewCell()
                     }
-            guard let modelShorts = self.presenter?.modelShorts else { return cell }
-            guard let url = URL(string: modelShorts[indexPath.row].imageShort) else { return cell}
+            guard let modelShorts = self.presenter?.modelShorts else { return UICollectionViewCell() }
+            guard let url = URL(string: modelShorts[indexPath.row].imageShort) else { return UICollectionViewCell()}
             cell.configure(description: modelShorts[indexPath.row].description, imageUrl: url)
                 return cell
         default:

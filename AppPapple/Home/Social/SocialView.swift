@@ -120,9 +120,10 @@ class SocialViewController: BaseViewController {
 
     func start() {
         self.setupView()
-        startAutoScroll()
         DispatchQueue.main.async {
-            self.presenter?.fetchNews()
+            self.presenter?.fetchNews {
+                self.startAutoScroll()
+            }
             self.presenter?.fetchShorts()
             self.presenter?.fetchMultimedia()
         }
@@ -212,11 +213,9 @@ extension SocialViewController: SocialViewProtocol {
             guard let url = URL(string: multimedia.results.mangas.last!.mangaImage) else { return }
             self?.lastMangaView.configure(image: url, title: multimedia.results.mangas.last!.mangaTitle)
             self?.musicView.configure(backgroundImage: multimedia.results.songBackground,music: multimedia.results.songs.first!, count: multimedia.results.songs.count)
-
             self?.musicView.onPlayButtonTap = { [weak self] in
                 self?.presenter?.showSongsList(songsList: multimedia.results.songs)
             }
-
         }
     }
     
