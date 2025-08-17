@@ -7,7 +7,7 @@
 
 import Alamofire
 
-class StoreInteractor {
+final class StoreInteractor {
     
     func fetchProducts(url: String?, dataResponse: @escaping (_ dataJson: Result<ProductEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "product_url") as? String ?? ""

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SocialPresenter: SocialPresenterProtocol {
+final class SocialPresenter: SocialPresenterProtocol {
     typealias RouterType = SocialRouter
     
     let interactor: SocialInteractor

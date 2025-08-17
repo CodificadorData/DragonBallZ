@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StoreRouter: StoreRouterProtocol {
+final class StoreRouter: StoreRouterProtocol {
     var viewController: UIViewController?
     
     static func createModule() -> UIViewController {

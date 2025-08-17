@@ -7,7 +7,7 @@
 
 import SwiftKeychainWrapper
 
-class HomePresenter: HomePresenterProtocol {
+final class HomePresenter: HomePresenterProtocol {
     
     typealias RouterType = HomeRouter
     

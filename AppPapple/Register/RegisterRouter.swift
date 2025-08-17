@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class RegisterRouter: RegisterRouterProtocol {
+final class RegisterRouter: RegisterRouterProtocol {
     var viewController: UIViewController?
     
     static func createModule() -> UIViewController {

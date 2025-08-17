@@ -7,7 +7,7 @@
 
 import SwiftKeychainWrapper
 
-class SettingsPresenter: SettingsPresenterProtocol {
+final class SettingsPresenter: SettingsPresenterProtocol {
     typealias RouterType = SettingsRouter
     
     let interactor: SettingsInteractor

@@ -7,7 +7,7 @@
 import Alamofire
 import SwiftKeychainWrapper
 
-class LoginInteractor: LoginInteractorProtocol {
+final class LoginInteractor: LoginInteractorProtocol {
     
     func validateUser(email: String, password: String,
                       dataUser: @escaping (_ dataJson: Result<ResponseUser, Error>) -> Void) {

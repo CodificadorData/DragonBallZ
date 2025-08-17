@@ -11,7 +11,7 @@ protocol RegisterViewProtocol: AnyObject {
     func registerUser(data: Result<ResponseRegister, Error>)
 }
 
-class RegisterPresenter: RegisterPresenterProtocol {
+final class RegisterPresenter: RegisterPresenterProtocol {
     
     var router: RegisterRouter
     var interactor: RegisterInteractor

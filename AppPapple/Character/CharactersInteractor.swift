@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CharactersInteractor: CharactersInteractorProtocol {
+final class CharactersInteractor: CharactersInteractorProtocol {
     
 }
 

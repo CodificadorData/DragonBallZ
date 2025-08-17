@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CharactersRouter: CharactersRouterProtocol {
+final class CharactersRouter: CharactersRouterProtocol {
     
     var viewController: UIViewController?
     

@@ -7,7 +7,7 @@
 
 import Alamofire
 
-class RegisterInteractor: RegisterInteractorProtocol {
+final class RegisterInteractor: RegisterInteractorProtocol {
     
     func registerUser(user: NewUserEntity, dataJson: @escaping (Result<ResponseRegister, Error>) -> Void) {
         guard let endPoint = Bundle.main.object(forInfoDictionaryKey: "user_url") as? String else {

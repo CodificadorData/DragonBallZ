@@ -8,7 +8,7 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class HomeRouter: HomeRouterProtocol {
+final class HomeRouter: HomeRouterProtocol {
     
     var viewController: UIViewController?
         

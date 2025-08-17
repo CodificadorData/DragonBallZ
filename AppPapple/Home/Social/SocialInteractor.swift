@@ -7,7 +7,7 @@
 
 import Alamofire
 
-class SocialInteractor: SocialInteractorProtocol {
+final class SocialInteractor: SocialInteractorProtocol {
     
     func fetchNews(dataResponse: @escaping (_ dataJson: Result<NewsEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "news_url") as? String ?? ""

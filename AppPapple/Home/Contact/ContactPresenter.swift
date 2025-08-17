@@ -5,7 +5,7 @@
 //  Created by Christian Morante on 10/08/25.
 //
 
-class ContactPresenter: ContactPresenterProtocol {
+final class ContactPresenter: ContactPresenterProtocol {
     typealias RouterType = ContactRouter
     
     let interactor: ContactInteractor
