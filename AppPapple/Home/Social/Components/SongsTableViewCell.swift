@@ -11,7 +11,9 @@ import Kingfisher
 class SongsTableViewCell: UITableViewCell {
     
     static let identifier = "SongsTableViewCell"
-    
+    private var url: String?
+    var onPlayTapped: (() -> Bool)?
+
     lazy var imageCoverSong: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -57,7 +59,21 @@ class SongsTableViewCell: UITableViewCell {
     }
     
     @objc func playSong() {
-        print("play")
+        if onPlayTapped!() {
+            UIView.transition(with: playImageView,
+                              duration: 0.3,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                self.playImageView.image = UIImage(named: "pauseIcon")
+            }, completion: nil)
+        } else {
+            UIView.transition(with: playImageView,
+                              duration: 0.3,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                self.playImageView.image = UIImage(named: "playIcon")
+            }, completion: nil)
+        }
     }
     
     func setupUI() {
@@ -72,14 +88,14 @@ class SongsTableViewCell: UITableViewCell {
             imageCoverSong.widthAnchor.constraint(equalToConstant: 50),
             imageCoverSong.heightAnchor.constraint(equalToConstant: 50),
             
-            titleSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: -10),
+            titleSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: 10),
             titleSong.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
-            artistSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: 10),
-            artistSong.topAnchor.constraint(equalTo: titleSong.bottomAnchor, constant: 5),
+            artistSong.leadingAnchor.constraint(equalTo: imageCoverSong.trailingAnchor, constant: 20),
+            artistSong.topAnchor.constraint(equalTo: titleSong.bottomAnchor, constant: 3),
             
             playImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            playImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            playImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             playImageView.widthAnchor.constraint(equalToConstant: 30),
             playImageView.heightAnchor.constraint(equalToConstant: 30),
         ])
@@ -90,5 +106,6 @@ class SongsTableViewCell: UITableViewCell {
         imageCoverSong.kf.setImage(with: cover)
         titleSong.text = song.songTitle
         artistSong.text = song.songArtist
+        url = song.songLink
     }
 }

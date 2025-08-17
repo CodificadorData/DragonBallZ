@@ -236,13 +236,6 @@
 			path = Character;
 			sourceTree = "<group>";
 		};
-		65DD45B82D356C1200B48BE9 /* DataMock */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataMock;
-			sourceTree = "<group>";
-		};
 		65DD45BB2D35DBDB00B48BE9 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +339,6 @@
 				CD10C35B2B3C6AF80068484A /* AppDelegate.swift */,
 				CD10C35D2B3C6AF80068484A /* SceneDelegate.swift */,
 				65DD45BB2D35DBDB00B48BE9 /* Entities */,
-				65DD45B82D356C1200B48BE9 /* DataMock */,
 				65D6473B2D2C1D1300431310 /* Register */,
 				65D647322D2B938F00431310 /* Login */,
 				65DBA1F52B81D941008393FE /* Character */,

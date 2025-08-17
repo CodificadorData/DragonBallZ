@@ -7,10 +7,13 @@
 
 import UIKit
 import Kingfisher
+import AVFoundation
 
 class SongsListView: UIViewController {
     
-    var songList: [SongsEntity]
+    private var songList: [SongsEntity]
+    private var player: AVPlayer?
+    private var indicatorReproduction: IndexPath.Index = 99
     
     lazy var titleSongsList: UILabel = {
         let label = UILabel()
@@ -35,6 +38,7 @@ class SongsListView: UIViewController {
         tableView.dataSource = self
         tableView.register(SongsTableViewCell.self, forCellReuseIdentifier: SongsTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemOrange
         return tableView
     }()
     
@@ -74,6 +78,23 @@ class SongsListView: UIViewController {
         view.backgroundColor = .systemOrange
     }
     
+    private func playSong(url: String?, index: IndexPath.Index) -> Bool {
+        if indicatorReproduction == index {
+            player?.pause()
+            indicatorReproduction = 99
+            return false
+        } else {
+            player?.replaceCurrentItem(with: nil)
+            guard let urlSong = URL(string: url!) else { return false}
+            // Preparar la nueva
+            let playerItem = AVPlayerItem(url: urlSong)
+            player = AVPlayer(playerItem: playerItem)
+            player?.play()
+            indicatorReproduction = index
+            return true
+        }
+    }
+    
 }
 
 extension SongsListView: UITableViewDelegate, UITableViewDataSource {
@@ -86,6 +107,10 @@ extension SongsListView: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.configure(song: songList[indexPath.row], songsCant: songList.count)
+        cell.onPlayTapped = { [weak self] in
+            let songPlaying = self?.playSong(url: self?.songList[indexPath.row].songLink, index: indexPath.row)
+            return songPlaying ?? false
+        }
         coverSongs.kf.setImage(with: URL(string: (songList.first?.songCover)!))
         return cell
     }
@@ -93,6 +118,5 @@ extension SongsListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.bounds.height * 0.15
     }
-
     
 }
