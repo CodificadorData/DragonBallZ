@@ -12,7 +12,7 @@ protocol LoginViewProtocol: AnyObject {
 }
 
 final class LoginPresenter: LoginPresenterProtocol {
-    var interactor: LoginInteractor
+    private let interactor: LoginInteractor
     var view: LoginViewProtocol?
     var router: LoginRouter
     

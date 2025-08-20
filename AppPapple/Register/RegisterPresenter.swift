@@ -14,7 +14,7 @@ protocol RegisterViewProtocol: AnyObject {
 final class RegisterPresenter: RegisterPresenterProtocol {
     
     var router: RegisterRouter
-    var interactor: RegisterInteractor
+    private let interactor: RegisterInteractor
     weak var view: RegisterViewProtocol?
     
     init(interactor: RegisterInteractor, router: RegisterRouter) {

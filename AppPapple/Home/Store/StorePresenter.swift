@@ -8,7 +8,7 @@
 final class StorePresenter: StorePresenterProtocol {
     typealias RouterType = StoreRouter
     
-    let interactor: StoreInteractor
+    private let interactor: StoreInteractor
     var router: RouterType
     weak var view: StoreViewProtocol?
     var modelProduct: [Results] = []
