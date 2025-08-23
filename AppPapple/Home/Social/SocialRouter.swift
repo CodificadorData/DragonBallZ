@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SocialRouter: SocialRouterProtocol {
+final class SocialRouter: SocialRouterProtocol {
     var viewController: UIViewController?
     
     static func createModule() -> UIViewController {

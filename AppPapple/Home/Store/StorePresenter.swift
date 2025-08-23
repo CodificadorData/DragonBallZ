@@ -5,10 +5,10 @@
 //  Created by Christian Morante on 10/08/25.
 //
 
-class StorePresenter: StorePresenterProtocol {
+final class StorePresenter: StorePresenterProtocol {
     typealias RouterType = StoreRouter
     
-    let interactor: StoreInteractor
+    private let interactor: StoreInteractor
     var router: RouterType
     weak var view: StoreViewProtocol?
     var modelProduct: [Results] = []

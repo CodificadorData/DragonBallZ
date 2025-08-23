@@ -8,7 +8,7 @@
 import Alamofire
 import Kingfisher
 
-class HomeInteractor {
+final class HomeInteractor {
     
     func requestDragonBall(url: String?, dataJson: @escaping (_ dataDragon: Result<DragonBallEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "db_url") as? String ?? ""

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginRouter: RouterProtocol {
+final class LoginRouter: RouterProtocol {
     var viewController: UIViewController?
     
     static func createModule() -> UIViewController {

@@ -7,10 +7,10 @@
 
 import SwiftKeychainWrapper
 
-class SettingsPresenter: SettingsPresenterProtocol {
+final class SettingsPresenter: SettingsPresenterProtocol {
     typealias RouterType = SettingsRouter
     
-    let interactor: SettingsInteractor
+    private let interactor: SettingsInteractor
     var router: RouterType
     weak var view: SettingsViewProtocol?
     let token = KeychainWrapper.standard.string(forKey: "authToken") ?? ""

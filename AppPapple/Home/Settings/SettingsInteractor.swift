@@ -6,7 +6,7 @@
 //
 import Alamofire
 
-class SettingsInteractor {
+final class SettingsInteractor {
     
     func fetchUserData(authorizationToken: String, dataUser: @escaping (_ dataJson: Result<NewUserEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "user_url") as? String

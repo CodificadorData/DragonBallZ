@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ContactRouter: ContactRouterProtocol {
+final class ContactRouter: ContactRouterProtocol {
     
     var viewController: UIViewController?
     

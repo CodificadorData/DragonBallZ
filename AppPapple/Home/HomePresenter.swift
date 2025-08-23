@@ -7,15 +7,15 @@
 
 import SwiftKeychainWrapper
 
-class HomePresenter: HomePresenterProtocol {
+final class HomePresenter: HomePresenterProtocol {
     
     typealias RouterType = HomeRouter
     
     private let homeInteractor: HomeInteractor
-    var view: HomeViewProtocol?
-    var storeView: StoreViewProtocol?
-    var settingsView: SettingsViewProtocol?
-    var socialView: SocialViewProtocol?
+    weak var view: HomeViewProtocol?
+    private var storeView: StoreViewProtocol?
+    private var settingsView: SettingsViewProtocol?
+    private var socialView: SocialViewProtocol?
     var modelDragon: [Item] = []
     var page: String?
     var router: RouterType
@@ -39,7 +39,6 @@ class HomePresenter: HomePresenterProtocol {
     }
         
     func goToCharacterDetail(dragonBallModel: Item){
-        guard let view = view else { return }
         router.goToCharacterDetail(dragonBallModel: dragonBallModel)
     }
 

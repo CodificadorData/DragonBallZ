@@ -11,8 +11,8 @@ protocol LoginViewProtocol: AnyObject {
     func validateUser(dataJson: Result<ResponseUser, Error>)
 }
 
-class LoginPresenter: LoginPresenterProtocol {
-    var interactor: LoginInteractor
+final class LoginPresenter: LoginPresenterProtocol {
+    private let interactor: LoginInteractor
     var view: LoginViewProtocol?
     var router: LoginRouter
     

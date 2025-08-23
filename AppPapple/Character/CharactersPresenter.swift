@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CharacterPresenter: CharacterPresenterProtocol {
+final class CharacterPresenter: CharacterPresenterProtocol {
     
-    var interactor: CharactersInteractor
+    private var interactor: CharactersInteractor
     var router: CharactersRouter
     
     init(interactor: CharactersInteractor, router: CharactersRouter) {

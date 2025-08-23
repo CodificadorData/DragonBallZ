@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsRouter: SettingsRouterProtocol {
+final class SettingsRouter: SettingsRouterProtocol {
     var viewController: UIViewController?
     
     static func createModule() -> UIViewController {

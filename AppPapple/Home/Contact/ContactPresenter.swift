@@ -5,10 +5,10 @@
 //  Created by Christian Morante on 10/08/25.
 //
 
-class ContactPresenter: ContactPresenterProtocol {
+final class ContactPresenter: ContactPresenterProtocol {
     typealias RouterType = ContactRouter
     
-    let interactor: ContactInteractor
+    private let interactor: ContactInteractor
     var router: RouterType
     weak var view: ContactViewProtocol?
     
@@ -18,7 +18,6 @@ class ContactPresenter: ContactPresenterProtocol {
     }
     
     func goToSocialMedia(socialMedia: SocialMedia){
-        guard let view = view else { return }
         router.goToSocialMedia(socialMedia: socialMedia)
     }
 
