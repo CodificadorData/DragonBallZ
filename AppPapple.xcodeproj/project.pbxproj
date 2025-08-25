@@ -60,6 +60,8 @@
 		65DBA1FB2B81D975008393FE /* CharactersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBA1FA2B81D975008393FE /* CharactersInteractor.swift */; };
 		65DBA1FD2B81D97C008393FE /* CharactersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBA1FC2B81D97C008393FE /* CharactersRouter.swift */; };
 		65DBA1FF2B81D988008393FE /* CharactersEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBA1FE2B81D988008393FE /* CharactersEntity.swift */; };
+		65DCA4C72E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65DCA4C52E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodeld */; };
+		65DCA4CA2E5C268C00DEABE7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DCA4C92E5C268500DEABE7 /* CoreDataStack.swift */; };
 		65DD45BD2D35DD1900B48BE9 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DD45BC2D35DD0E00B48BE9 /* UserEntity.swift */; };
 		65DD45C42D3E29D300B48BE9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DD45C32D3E29CC00B48BE9 /* SettingsView.swift */; };
 		65DD45C92D3EC85600B48BE9 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DD45C82D3EC85400B48BE9 /* ContactView.swift */; };
@@ -131,6 +133,8 @@
 		65DBA1FA2B81D975008393FE /* CharactersInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersInteractor.swift; sourceTree = "<group>"; };
 		65DBA1FC2B81D97C008393FE /* CharactersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersRouter.swift; sourceTree = "<group>"; };
 		65DBA1FE2B81D988008393FE /* CharactersEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersEntity.swift; sourceTree = "<group>"; };
+		65DCA4C62E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyAppDataBase.xcdatamodel; sourceTree = "<group>"; };
+		65DCA4C92E5C268500DEABE7 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		65DD45BC2D35DD0E00B48BE9 /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 		65DD45C32D3E29CC00B48BE9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		65DD45C82D3EC85400B48BE9 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				655E80272DB6C208006C733E /* ProductEntity.swift */,
 				651A0CCF2DA42BBF00C63241 /* NewUserEntity.swift */,
 				65DD45BC2D35DD0E00B48BE9 /* UserEntity.swift */,
+				65DCA4C52E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodeld */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 		CD10C35A2B3C6AF80068484A /* AppPapple */ = {
 			isa = PBXGroup;
 			children = (
+				65DCA4C92E5C268500DEABE7 /* CoreDataStack.swift */,
 				659900E62D9BCC1F003970AE /* Utils */,
 				658879E02D26087D000EA056 /* MainRouter.swift */,
 				CD10C35B2B3C6AF80068484A /* AppDelegate.swift */,
@@ -482,11 +488,13 @@
 				65DBA1FD2B81D97C008393FE /* CharactersRouter.swift in Sources */,
 				6529C8332E493E890099C84B /* ContactInteractor.swift in Sources */,
 				65DBA1EA2B81D851008393FE /* HomeView.swift in Sources */,
+				65DCA4C72E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodeld in Sources */,
 				65DD45BD2D35DD1900B48BE9 /* UserEntity.swift in Sources */,
 				6529C8392E49980A0099C84B /* SettingsPresenter.swift in Sources */,
 				6580E74C2E3AF9F6009A647A /* CustomCollectionViewCell.swift in Sources */,
 				65DBA1F72B81D957008393FE /* CharactersView.swift in Sources */,
 				6529C84D2E49B28C0099C84B /* RouterProtocol.swift in Sources */,
+				65DCA4CA2E5C268C00DEABE7 /* CoreDataStack.swift in Sources */,
 				65DBA1F02B81D86C008393FE /* HomePresenter.swift in Sources */,
 				6529C8472E49AD870099C84B /* SocialInteractor.swift in Sources */,
 				65D647382D2B93BC00431310 /* LoginInteractor.swift in Sources */,
@@ -766,6 +774,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		65DCA4C52E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				65DCA4C62E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodel */,
+			);
+			currentVersion = 65DCA4C62E5BEF7400DEABE7 /* MyAppDataBase.xcdatamodel */;
+			path = MyAppDataBase.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CD10C3502B3C6AF80068484A /* Project object */;
 }
