@@ -190,17 +190,19 @@ class HomeView: BaseViewController {
         
         NSLayoutConstraint.activate([
             
-            scrollHome.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollHome.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollHome.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollHome.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableHome.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 10),
+            tableHome.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 10),
+            tableHome.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -5),
+            tableHome.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.65),
             
-            viewContainer.topAnchor.constraint(equalTo: scrollHome.topAnchor),
-            viewContainer.leadingAnchor.constraint(equalTo: scrollHome.leadingAnchor),
-            viewContainer.trailingAnchor.constraint(equalTo: scrollHome.trailingAnchor),
-            viewContainer.bottomAnchor.constraint(equalTo: scrollHome.bottomAnchor),
-            viewContainer.widthAnchor.constraint(equalTo: scrollHome.widthAnchor),
+            principalImage.centerYAnchor.constraint(equalTo: tableHome.centerYAnchor),
+            principalImage.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -10),
+            principalImage.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 5),
+            principalImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
             
+            labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+
             bannerView.topAnchor.constraint(equalTo: tableHome.bottomAnchor, constant: 10),
             bannerView.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 10),
             bannerView.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -10),
@@ -224,19 +226,6 @@ class HomeView: BaseViewController {
             bannerDescription.trailingAnchor.constraint(equalTo: bannerImage.leadingAnchor, constant: -5),
             bannerDescription.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor, constant: 15),
                         
-            tableHome.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 10),
-            tableHome.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 10),
-            tableHome.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -5),
-            tableHome.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.65),
-            
-            principalImage.centerYAnchor.constraint(equalTo: tableHome.centerYAnchor),
-            principalImage.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -10),
-            principalImage.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 5),
-            principalImage.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
-            
-            labelHeader.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            labelHeader.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            
             activityIndicatorTableHome.centerYAnchor.constraint(equalTo: tableHome.centerYAnchor),
             activityIndicatorTableHome.centerXAnchor.constraint(equalTo: tableHome.centerXAnchor),
             

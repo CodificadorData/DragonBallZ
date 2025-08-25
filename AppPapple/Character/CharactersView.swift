@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class CharacterViewController: UIViewController {
+class CharacterViewController: BaseViewController {
     
     var presenter: CharacterPresenter?
     
@@ -19,6 +19,7 @@ class CharacterViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = dragonBallModel.name
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -29,6 +30,7 @@ class CharacterViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = dragonBallModel.gender
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -39,6 +41,7 @@ class CharacterViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = dragonBallModel.race
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -49,6 +52,7 @@ class CharacterViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.text = dragonBallModel.maxKi
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -59,6 +63,7 @@ class CharacterViewController: UIViewController {
         label.textAlignment = .justified
         label.numberOfLines = 0
         label.text = dragonBallModel.description
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -67,43 +72,28 @@ class CharacterViewController: UIViewController {
         guard let imageUrl = dragonBallModel.image else { return image }
         image.kf.setImage(with: URL(string: imageUrl))
         image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    
-    lazy var scrollView: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        scroll.addSubview(contentView)
-        return scroll
-    }()
-    
-    lazy var contentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        view.addSubview(characterImageView)
-        view.addSubview(additionalDataOneLabel)
-        view.addSubview(additionalDataTwoLabel)
-        view.addSubview(additionalDataThreeLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(titleNameLabel)
-        return view
-    }()
-    
+        
     var dragonBallModel: Item
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
-        view.addSubview(scrollView)
         setupConstraints()
-        navigationController?.isToolbarHidden = true
-        
         navigationItem.backBarButtonItem = UIBarButtonItem(
             title: "Atrás",
             style: .plain,
             target: nil,
             action: #selector(didTapBackButton)
         )
+        navigationItem.hidesBackButton = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isToolbarHidden = true
     }
     
     @objc func didTapBackButton() {
@@ -121,48 +111,38 @@ class CharacterViewController: UIViewController {
     }
     
     func setupConstraints() {
-        titleNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalDataOneLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalDataTwoLabel.translatesAutoresizingMaskIntoConstraints = false
-        additionalDataThreeLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        characterImageView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         
+        viewContainer.addSubview(titleNameLabel)
+        viewContainer.addSubview(additionalDataOneLabel)
+        viewContainer.addSubview(additionalDataTwoLabel)
+        viewContainer.addSubview(additionalDataThreeLabel)
+        viewContainer.addSubview(descriptionLabel)
+        viewContainer.addSubview(characterImageView)
+
         NSLayoutConstraint.activate([
             
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 1300),
+            scrollHome.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            
-            titleNameLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
-            titleNameLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            titleNameLabel.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 20),
+            titleNameLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             
             additionalDataOneLabel.topAnchor.constraint(equalTo: titleNameLabel.bottomAnchor, constant: 20),
-            additionalDataOneLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            additionalDataOneLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             
             additionalDataTwoLabel.topAnchor.constraint(equalTo: additionalDataOneLabel.bottomAnchor, constant: 20),
-            additionalDataTwoLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            additionalDataTwoLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             
             additionalDataThreeLabel.topAnchor.constraint(equalTo: additionalDataTwoLabel.bottomAnchor, constant: 20),
-            additionalDataThreeLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            additionalDataThreeLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             
             descriptionLabel.topAnchor.constraint(equalTo: additionalDataThreeLabel.bottomAnchor, constant: 20),
-            descriptionLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            descriptionLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            descriptionLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
+            descriptionLabel.widthAnchor.constraint(equalTo: viewContainer.widthAnchor, multiplier: 0.9),
             
             characterImageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
             characterImageView.heightAnchor.constraint(equalToConstant: 500),
-            characterImageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
+            characterImageView.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
+            characterImageView.bottomAnchor.constraint(equalTo: viewContainer.bottomAnchor)
         ])
     }
                                     
