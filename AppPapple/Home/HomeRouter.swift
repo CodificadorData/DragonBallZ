@@ -24,7 +24,7 @@ final class HomeRouter: HomeRouterProtocol {
     }
     
     func goToCharacterDetail(dragonBallModel: Item) {
-        let charactersView = CharacterViewController(dragonBallModel: dragonBallModel)
+        let charactersView = CharactersRouter.createModule(item: dragonBallModel)
         viewController?.navigationController?.pushViewController(charactersView, animated: true)
     }
                 

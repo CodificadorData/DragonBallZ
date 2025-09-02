@@ -11,7 +11,8 @@ import Kingfisher
 class CharacterViewController: BaseViewController {
     
     var presenter: CharacterPresenter?
-    
+    var dragonBallModel: Item
+
     lazy var titleNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -75,20 +76,24 @@ class CharacterViewController: BaseViewController {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-        
-    var dragonBallModel: Item
     
+    lazy var starImageView: UIImageView = {
+       let image = UIImageView()
+        image.image = UIImage(named: "starIcon")?.withRenderingMode(.alwaysTemplate)
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappableStar))
+        image.addGestureRecognizer(tapGesture)
+        return image
+    }()
+                
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 255/255.0, green: 140/255.0, blue: 0/255.0, alpha: 1)
         setupConstraints()
-        navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "Atrás",
-            style: .plain,
-            target: nil,
-            action: #selector(didTapBackButton)
-        )
-        navigationItem.hidesBackButton = false
+        setupNavigationBar()
+        presenter?.checkFavoriteCharacter(id: dragonBallModel.id)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,9 +101,25 @@ class CharacterViewController: BaseViewController {
         navigationController?.isToolbarHidden = true
     }
     
+    override func setupNavigationBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "Atrás",
+            style: .plain,
+            target: nil,
+            action: #selector(didTapBackButton)
+        )
+        navigationItem.hidesBackButton = false
+
+    }
+    
+    @objc func tappableStar() {
+        presenter?.didTapStar(dragonBallModel: dragonBallModel)
+        starImageView.tintColor = .green
+    }
+    
     @objc func didTapBackButton() {
-        print("Tap")
         presenter?.didTapBackButton()
+        starImageView.tintColor = .clear
     }
     
     init(dragonBallModel: Item) {
@@ -118,6 +139,7 @@ class CharacterViewController: BaseViewController {
         viewContainer.addSubview(additionalDataThreeLabel)
         viewContainer.addSubview(descriptionLabel)
         viewContainer.addSubview(characterImageView)
+        viewContainer.addSubview(starImageView)
 
         NSLayoutConstraint.activate([
             
@@ -125,6 +147,11 @@ class CharacterViewController: BaseViewController {
 
             titleNameLabel.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 20),
             titleNameLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
+            
+            starImageView.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 20),
+            starImageView.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -20),
+            starImageView.heightAnchor.constraint(equalToConstant: 20),
+            starImageView.widthAnchor.constraint(equalToConstant: 20),
             
             additionalDataOneLabel.topAnchor.constraint(equalTo: titleNameLabel.bottomAnchor, constant: 20),
             additionalDataOneLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
@@ -146,4 +173,19 @@ class CharacterViewController: BaseViewController {
         ])
     }
                                     
+}
+
+extension CharacterViewController: CharacterViewProtocol {
+    func showMessage(title: String, message: String) {
+        self.showErrorPopUp(title: title, message: message)
+    }
+    
+    func checkFavoriteCharacter(isFavorite: Bool) {
+        if isFavorite {
+            starImageView.tintColor = .green
+        } else {
+//            starImageView.tintColor = .clear
+        }
+    }
+
 }

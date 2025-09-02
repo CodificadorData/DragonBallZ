@@ -61,17 +61,28 @@ class BaseViewController: UIViewController {
         )
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(white: 1, alpha: 1)]
-        let resizedImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+        let userImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
             let image = UIImage(named: "userImage")
             image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         }
-        let button = UIBarButtonItem(
-            image: resizedImage,
+        let listCharacterImage = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+            let image = UIImage(named: "listCharacterImage")
+            image?.draw(in: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        }
+        let buttonRight = UIBarButtonItem(
+            image: userImage,
             style: .plain,
             target: self,
             action: #selector(didTapProfileView)
         )
-        navigationItem.rightBarButtonItem = button
+        let buttonLeft = UIBarButtonItem(
+            image: listCharacterImage,
+            style: .plain,
+            target: self,
+            action: #selector(didTapFavoriteView)
+        )
+        navigationItem.rightBarButtonItem = buttonRight
+        navigationItem.leftBarButtonItem = buttonLeft
     }
     
     func setupToolBar() {
@@ -118,5 +129,10 @@ class BaseViewController: UIViewController {
     }
     
     @objc func didTapProfileView(navigation: UIViewController) {
+    }
+    
+    @objc func didTapFavoriteView() {
+        let favorite = FavoriteCharacterRouter.createModule()
+        self.navigationController?.present(favorite, animated: true)
     }
 }
