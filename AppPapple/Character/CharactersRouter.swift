@@ -17,6 +17,7 @@ final class CharactersRouter: CharactersRouterProtocol {
         let presenter = CharacterPresenter(interactor: interactor, router: router)
         let view = CharacterViewController(dragonBallModel: item)
         presenter.router = router
+        presenter.view = view
         view.presenter = presenter
         router.viewController = view
         return view

@@ -1,6 +1,14 @@
 # Ignorar archivos de Xcode
+
+# macOS
 .DS_Store
-*.xcuserstate
-*.xcworkspace
+
+# Xcode
+xcuserdata/
 DerivedData/
 build/
+
+# Swift Package Manager
+/.build/
+Packages/
+Package.resolved

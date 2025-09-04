@@ -17,7 +17,6 @@ extension SocialViewController: UICollectionViewDataSource, UICollectionViewDele
         default:
             return 0
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
