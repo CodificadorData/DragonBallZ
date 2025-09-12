@@ -97,6 +97,9 @@ class HomeView: BaseViewController {
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageCharacterTapped))
+        image.addGestureRecognizer(tapGesture)
         return image
     }()
     
@@ -173,7 +176,19 @@ class HomeView: BaseViewController {
             self.presenter?.bringData()
         }
     }
-            
+    
+    @objc func imageCharacterTapped() {
+        let animacion = CASpringAnimation(keyPath: "transform.scale")
+        animacion.fromValue = 0.95  // Escala inicial (ligeramente más pequeña)
+        animacion.toValue = 1.0     // Vuelve a su tamaño original
+        animacion.stiffness = 200   // Rigidez del resorte
+        animacion.mass = 1
+        animacion.damping = 10      // Fricción (más alto = menos rebote)
+        animacion.initialVelocity = 0.5
+        animacion.duration = animacion.settlingDuration
+        principalImage.layer.add(animacion, forKey: nil)
+    }
+    
     func setupUI() {
         viewContainer.addSubview(bannerView)
         viewContainer.addSubview(tableHome)

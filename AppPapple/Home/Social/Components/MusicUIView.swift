@@ -65,6 +65,15 @@ class MusicUIView: UIView {
     }
     
     @objc func listSongs() {
+        let animacion = CASpringAnimation(keyPath: "transform.scale")
+        animacion.fromValue = 0.95  // Escala inicial (ligeramente más pequeña)
+        animacion.toValue = 1.0     // Vuelve a su tamaño original
+        animacion.stiffness = 200   // Rigidez del resorte
+        animacion.mass = 1
+        animacion.damping = 10      // Fricción (más alto = menos rebote)
+        animacion.initialVelocity = 0.5
+        animacion.duration = animacion.settlingDuration
+        playImageView.layer.add(animacion, forKey: nil)
         onPlayButtonTap?()
     }
     
