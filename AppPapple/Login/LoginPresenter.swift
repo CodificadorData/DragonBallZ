@@ -22,9 +22,19 @@ final class LoginPresenter: LoginPresenterProtocol {
     }
     
     func validateUser(email: String, password: String) {
-        interactor.validateUser(email: email, password: password) { dataJson in
-            self.view?.validateUser(dataJson: dataJson)
+        interactor.validateUser(email: email, password: password) { dataUser in
+            self.view?.validateUser(dataJson: dataUser)
         }
+    }
+    
+    func validateUserBiometrics(){
+        interactor.validateUserBiometrics(){ dataUser in
+            self.view?.validateUser(dataJson: dataUser)
+        }
+    }
+
+    func consultBiometricsFlag() -> Bool {
+        return interactor.consultBiometricsFlag()
     }
     
     func goToRegister() {

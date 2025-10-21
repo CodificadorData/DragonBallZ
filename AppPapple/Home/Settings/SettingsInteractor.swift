@@ -5,6 +5,7 @@
 //  Created by Christian Morante on 10/08/25.
 //
 import Alamofire
+import SwiftKeychainWrapper
 
 final class SettingsInteractor {
     
@@ -52,6 +53,22 @@ final class SettingsInteractor {
                 dataUser(.failure(error))
             }
         }
+    }
+    
+    func activateBiometrics(isActive: Bool) {
+        KeychainWrapper.standard.set(isActive, forKey: "biometricsActivationFlag")
+        if isActive {
+            KeychainWrapper.standard.set(isActive, forKey: "refreshToken")
+        } else {
+            KeychainWrapper.standard.removeObject(forKey: "refreshToken")
+        }
+    }
+    
+    func consultBiometricsFlag() -> Bool {
+        guard let biometricsActivationFlag = KeychainWrapper.standard.bool(forKey: "biometricsActivationFlag") else {
+            return false
+        }
+        return biometricsActivationFlag
     }
 
 }

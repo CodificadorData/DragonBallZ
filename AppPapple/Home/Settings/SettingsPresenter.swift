@@ -46,6 +46,18 @@ final class SettingsPresenter: SettingsPresenterProtocol {
         router.goToLogin()
     }
 
+    func logout() {
+        KeychainWrapper.standard.removeObject(forKey: "accessToken")
+        router.goToLogin()
+    }
+    
+    func activateBiometrics(isActive: Bool) {
+        interactor.activateBiometrics(isActive: isActive)
+    }
+
+    func consultBiometricsFlag() -> Bool {
+        return interactor.consultBiometricsFlag()
+    }
 
 }
 

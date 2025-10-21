@@ -10,11 +10,12 @@
 
 #include "Pods/Target Support Files/Pods-AppPapple/Pods-AppPapple.debug.xcconfig"
 db_url=dragonball-api.com/api/characters
-user_url=192.168.18.143:3001/fetchUserAppPapple
-updateUser_url=192.168.18.143:3001/updateUserAppPapple
+user_url=192.168.18.217:3001/fetchUserAppPapple
+updateUser_url=192.168.18.217:3001/updateUserAppPapple
 product_url=rickandmortyapi.com/api/character
-registerUser_url=192.168.18.143:3001/registerUserAppPapple
-verifyUser_url=192.168.18.143:3001/verifyUserAppPaple/v1
-news_url=192.168.18.143:3001/news_url
-shorts_url=192.168.18.143:3001/getShorts
-multimedia_url=192.168.18.143:3001/getMultimedia
+registerUser_url=192.168.18.217:3001/registerUserAppPapple
+verifyUser_url=192.168.18.217:3001/verifyUserAppPaple/v1
+verifyUserBiometrics_url=192.168.18.217:3001/verifyUserBiometricsAppPaple/v1
+news_url=192.168.18.217:3001/news_url
+shorts_url=192.168.18.217:3001/getShorts
+multimedia_url=192.168.18.217:3001/getMultimedia
