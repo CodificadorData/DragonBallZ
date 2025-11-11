@@ -48,9 +48,9 @@
 	<string>http://$(updateUser_url)</string>
 	<key>user_url</key>
 	<string>http://$(user_url)</string>
+	<key>verifyUserBiometrics_url</key>
+	<string>http://$(verifyUserBiometrics_url)</string>
 	<key>verifyUser_url</key>
 	<string>http://$(verifyUser_url)</string>
-    <key>verifyUserBiometrics_url</key>
-    <string>http://$(verifyUserBiometrics_url)</string>
 </dict>
 </plist>

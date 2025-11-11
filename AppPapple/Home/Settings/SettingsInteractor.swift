@@ -57,11 +57,6 @@ final class SettingsInteractor {
     
     func activateBiometrics(isActive: Bool) {
         KeychainWrapper.standard.set(isActive, forKey: "biometricsActivationFlag")
-        if isActive {
-            KeychainWrapper.standard.set(isActive, forKey: "refreshToken")
-        } else {
-            KeychainWrapper.standard.removeObject(forKey: "refreshToken")
-        }
     }
     
     func consultBiometricsFlag() -> Bool {

@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
     
     var presenter: LoginPresenter?
     var isActiveBiometrics: Bool = false
+    var constraintsCenterFaceIDImage: [NSLayoutConstraint] = []
     
     lazy var loginButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -135,9 +136,23 @@ class LoginViewController: UIViewController {
         if isActiveBiometrics {
             passwordTextField.isHidden = true
             loginButton.isHidden = true
+            NSLayoutConstraint.activate(constraintsCenterFaceIDImage)
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+
+        }
+        else {
+            faceIDImage.isHidden = true
         }
     }
     
+    func showErrorPopUp(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+    }
+
     @objc func login() {
         view.backgroundColor = .lightGray
         view.layer.opacity = 0.3
@@ -163,14 +178,14 @@ class LoginViewController: UIViewController {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Accede a tu contraseña") { success, authError in
                 if success {
                     DispatchQueue.main.async {
-                        self.presenter?.validateUserBiometrics()
+                        self.presenter?.validateUserBiometrics(email: self.idTextField.text!)
                     }
                 } else {
-                    print("Falló la autenticación biométrica")
+                    self.showErrorPopUp(title: "Falló la autenticación biométrica", message: "Fallido")
                 }
             }
         } else {
-            print("Biometría no disponible")
+            self.showErrorPopUp(title: "Biometría no disponible", message: "Biometría no disponible")
         }
     }
     
@@ -225,6 +240,12 @@ class LoginViewController: UIViewController {
             faceIDImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 
         ])
+        constraintsCenterFaceIDImage = [
+            faceIDImage.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: 20),
+            faceIDImage.widthAnchor.constraint(equalToConstant: 60),
+            faceIDImage.heightAnchor.constraint(equalToConstant: 60),
+            faceIDImage.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ]
     }
 }
 
@@ -240,6 +261,7 @@ extension LoginViewController: LoginViewProtocol {
                 self.view.layer.opacity = 1
                 self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
                 self.present(self.alert, animated: true, completion: nil)
+                self.showErrorPopUp(title: "Login Fallido", message: "Complete campos correctamente")
             }
         }
     }

@@ -9,13 +9,16 @@
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 
 #include "Pods/Target Support Files/Pods-AppPapple/Pods-AppPapple.debug.xcconfig"
+
+BASE_URL=192.168.18.143:3001
+
 db_url=dragonball-api.com/api/characters
-user_url=192.168.18.217:3001/fetchUserAppPapple
-updateUser_url=192.168.18.217:3001/updateUserAppPapple
+user_url=$(BASE_URL)/fetchUserAppPapple
+updateUser_url=$(BASE_URL)/updateUserAppPapple
 product_url=rickandmortyapi.com/api/character
-registerUser_url=192.168.18.217:3001/registerUserAppPapple
-verifyUser_url=192.168.18.217:3001/verifyUserAppPaple/v1
-verifyUserBiometrics_url=192.168.18.217:3001/verifyUserBiometricsAppPaple/v1
-news_url=192.168.18.217:3001/news_url
-shorts_url=192.168.18.217:3001/getShorts
-multimedia_url=192.168.18.217:3001/getMultimedia
+registerUser_url=$(BASE_URL)/registerUserAppPapple
+verifyUser_url=$(BASE_URL)/verifyUserAppPaple/v1
+verifyUserBiometrics_url=$(BASE_URL)/verifyUserBiometricsAppPaple/v1
+news_url=$(BASE_URL)/news_url
+shorts_url=$(BASE_URL)/getShorts
+multimedia_url=$(BASE_URL)/getMultimedia
