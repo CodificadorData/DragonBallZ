@@ -1,14 +1,38 @@
-# Ignorar archivos de Xcode
-
-# macOS
-.DS_Store
-
 # Xcode
-xcuserdata/
-DerivedData/
 build/
+DerivedData/
+*.xcuserstate
+
+# User-specific files
+*.xcuserdata/
+*.xcuserdatad/
+*.moved-aside
+*.xccheckout
+*.xcodeproj/project.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
 
 # Swift Package Manager
 /.build/
 Packages/
+Package.pins
 Package.resolved
+*.xcodeproj/project.xcworkspace/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+S
+
+# Archives
+*.xcarchive
+
+# Xcode configuration files
+xcuserdata/
+*.xcuserdatad
+*.xcsettings
+
+# Other
+.DS_Store
+.idea/
+*.swp
+*.swo
+*.env
+*.xcconfig.local
