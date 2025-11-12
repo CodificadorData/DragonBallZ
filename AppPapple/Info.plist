@@ -2,29 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>db_url</key>
-	<string>https://$(db_url)</string>
-    <key>user_url</key>
-    <string>http://$(user_url)</string>
-    <key>product_url</key>
-    <string>https://$(product_url)</string>
-    <key>updateUser_url</key>
-    <string>http://$(updateUser_url)</string>
-    <key>registerUser_url</key>
-    <string>http://$(registerUser_url)</string>
-    <key>verifyUser_url</key>
-    <string>http://$(verifyUser_url)</string>
-    <key>news_url</key>
-    <string>http://$(news_url)</string>
-    <key>shorts_url</key>
-    <string>http://$(shorts_url)</string>
-    <key>multimedia_url</key>
-    <string>http://$(multimedia_url)</string>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -34,17 +16,35 @@
 			<key>UIWindowSceneSessionRoleApplication</key>
 			<array>
 				<dict>
+					<key>NSPhotoLibraryUsageDescription</key>
+					<string>Necesitamos acceder a tu galería para elegir una foto</string>
 					<key>UISceneConfigurationName</key>
 					<string>Default Configuration</string>
 					<key>UISceneDelegateClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
 					<string>Main</string>
-					<key>NSPhotoLibraryUsageDescription</key>
-					<string>Necesitamos acceder a tu galería para elegir una foto</string>
 				</dict>
 			</array>
 		</dict>
 	</dict>
+	<key>db_url</key>
+	<string>https://$(db_url)</string>
+	<key>multimedia_url</key>
+	<string>http://$(multimedia_url)</string>
+	<key>news_url</key>
+	<string>http://$(news_url)</string>
+	<key>product_url</key>
+	<string>https://$(product_url)</string>
+	<key>registerUser_url</key>
+	<string>http://$(registerUser_url)</string>
+	<key>shorts_url</key>
+	<string>http://$(shorts_url)</string>
+	<key>updateUser_url</key>
+	<string>http://$(updateUser_url)</string>
+	<key>user_url</key>
+	<string>http://$(user_url)</string>
+	<key>verifyUser_url</key>
+	<string>http://$(verifyUser_url)</string>
 </dict>
 </plist>
