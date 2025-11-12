@@ -181,7 +181,9 @@ class LoginViewController: UIViewController {
                         self.presenter?.validateUserBiometrics(email: self.idTextField.text!)
                     }
                 } else {
-                    self.showErrorPopUp(title: "Falló la autenticación biométrica", message: "Fallido")
+                    DispatchQueue.main.async {
+                        self.showErrorPopUp(title: "Falló la autenticación biométrica", message: authError!.localizedDescription)
+                    }
                 }
             }
         } else {
