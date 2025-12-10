@@ -21,7 +21,7 @@ class SocialViewController: BaseViewController {
         title.textAlignment = .center
         title.textColor = .white
         title.numberOfLines = 0
-        title.font = UIFont.systemFont(ofSize: 18)
+        title.font = .systemFont(ofSize: 18, weight: .bold)
         title.text = "Social"
         title.translatesAutoresizingMaskIntoConstraints = false
         return title

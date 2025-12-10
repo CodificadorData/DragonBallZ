@@ -11,7 +11,7 @@ final class SocialInteractor: SocialInteractorProtocol {
     
     func fetchNews(dataResponse: @escaping (_ dataJson: Result<NewsEntity, Error>) -> Void) {
         let endPoint = Bundle.main.object(forInfoDictionaryKey: "news_url") as? String ?? ""
-        AF.request(endPoint, method: .get)
+        AF.request(endPoint, method: .get, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: NewsEntity.self) { response in
                 switch response.result {
@@ -25,7 +25,7 @@ final class SocialInteractor: SocialInteractorProtocol {
     
     func fetchShorts(dataResponse: @escaping (_ dataJson: Result<ShortsEntity,Error>) -> Void) {
         let endPoint = Bundle.main.infoDictionary?["shorts_url"] as? String ?? ""
-        AF.request(endPoint, method: .get)
+        AF.request(endPoint, method: .get, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ShortsEntity.self) { response in
                 switch response.result {
@@ -39,7 +39,7 @@ final class SocialInteractor: SocialInteractorProtocol {
     
     func fetchMultimedia(dataJson: @escaping (_ dataResponse: Result<MultimediaEntity, Error>) -> Void) {
         let endPoint = Bundle.main.infoDictionary?["multimedia_url"] as? String ?? ""
-        AF.request(endPoint, method: .get)
+        AF.request(endPoint, method: .get, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: MultimediaEntity.self) { response in
                 switch response.result {

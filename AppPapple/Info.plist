@@ -35,22 +35,22 @@
 	<key>db_url</key>
 	<string>https://$(db_url)</string>
 	<key>multimedia_url</key>
-	<string>http://$(multimedia_url)</string>
+	<string>https://$(multimedia_url)</string>
 	<key>news_url</key>
-	<string>http://$(news_url)</string>
+	<string>https://$(news_url)</string>
 	<key>product_url</key>
 	<string>https://$(product_url)</string>
 	<key>registerUser_url</key>
-	<string>http://$(registerUser_url)</string>
+	<string>https://$(registerUser_url)</string>
 	<key>shorts_url</key>
-	<string>http://$(shorts_url)</string>
+	<string>https://$(shorts_url)</string>
 	<key>updateUser_url</key>
-	<string>http://$(updateUser_url)</string>
+	<string>https://$(updateUser_url)</string>
 	<key>user_url</key>
-	<string>http://$(user_url)</string>
+	<string>https://$(user_url)</string>
 	<key>verifyUserBiometrics_url</key>
-	<string>http://$(verifyUserBiometrics_url)</string>
+	<string>https://$(verifyUserBiometrics_url)</string>
 	<key>verifyUser_url</key>
-	<string>http://$(verifyUser_url)</string>
+	<string>https://$(verifyUser_url)</string>
 </dict>
 </plist>

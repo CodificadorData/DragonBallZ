@@ -18,7 +18,7 @@ final class LoginInteractor: LoginInteractorProtocol {
             "email": email,
             "password": password
         ]
-        AF.request(endPoint, method: .get, parameters: queryParams)
+        AF.request(endPoint, method: .get, parameters: queryParams, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseUser.self) {
                 response in
@@ -42,7 +42,7 @@ final class LoginInteractor: LoginInteractorProtocol {
             "email": email,
             "refreshToken": refreshToken
         ]
-        AF.request(endPoint, method: .post, parameters: body, encoding: JSONEncoding.default)
+        AF.request(endPoint, method: .get, parameters: body, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseUser.self) {
                 response in
