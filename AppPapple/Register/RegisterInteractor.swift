@@ -23,7 +23,7 @@ final class RegisterInteractor: RegisterInteractorProtocol {
             "imageProfile": user.imageProfile
         ]
         
-        AF.request(endPoint, method: .post, parameters: parameters)
+        AF.request(endPoint, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: ResponseRegister.self){
                 response in

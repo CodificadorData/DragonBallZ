@@ -9,12 +9,25 @@
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 
 #include "Pods/Target Support Files/Pods-AppPapple/Pods-AppPapple.debug.xcconfig"
+
+BASE_URL=192.168.18.5:3001
+
 db_url=dragonball-api.com/api/characters
-user_url=192.168.18.143:3001/fetchUserAppPapple
-updateUser_url=192.168.18.143:3001/updateUserAppPapple
+
 product_url=rickandmortyapi.com/api/character
-registerUser_url=192.168.18.143:3001/registerUserAppPapple
-verifyUser_url=192.168.18.143:3001/verifyUserAppPaple/v1
-news_url=192.168.18.143:3001/news_url
-shorts_url=192.168.18.143:3001/getShorts
-multimedia_url=192.168.18.143:3001/getMultimedia
+
+user_url=firebasestorage.googleapis.com/v0/b/projectt-9bda0.firebasestorage.app/o/AppApple%2Fjson%2FfetchUser.json?alt=media&token=5569b513-3a7a-4aa7-8033-ed6ed1405830
+
+updateUser_url=firebasestorage.googleapis.com/v0/b/projectt-9bda0.firebasestorage.app/o/AppApple%2Fjson%2FupdateUser.json?alt=media&token=d2314f49-47e3-4b7c-9ee7-ce2efdf3d118
+
+registerUser_url=registerUserAppPapple
+
+verifyUser_url=firebasestorage.googleapis.com/v0/b/projectt-9bda0.firebasestorage.app/o/AppApple%2Fjson%2FverifyUser.json?alt=media&token=3722cf24-7e04-43ea-86b0-749236d835a3
+
+verifyUserBiometrics_url=firebasestorage.googleapis.com/v0/b/projectt-9bda0.firebasestorage.app/o/AppApple%2Fjson%2FverifyUserBiometrics.json?alt=media&token=6c442a95-60a8-49bf-a1af-c5b173231b2d
+
+news_url=firebasestorage.googleapis.com/v0/b/projectt-9bda0.firebasestorage.app/o/AppApple%2Fjson%2FgetNews.json?alt=media&token=1421ea93-c5d7-4657-a946-9815d4549909
+
+shorts_url=firebasestorage.googleapis.com/v0/b/projectt-9bda0.firebasestorage.app/o/AppApple%2Fjson%2FgetShorts.json?alt=media&token=79f4e1a6-889b-4346-84d8-8137293da2d7
+
+multimedia_url=firebasestorage.googleapis.com/v0/b/projectt-9bda0.firebasestorage.app/o/AppApple%2Fjson%2FgetMedias.json?alt=media&token=a7d50f2e-595e-4df1-be3d-e385d935a073

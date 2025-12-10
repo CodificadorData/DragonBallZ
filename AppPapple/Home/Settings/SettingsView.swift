@@ -158,6 +158,13 @@ class SettingsViewController: BaseViewController {
         button.setTitle("Guardar", for: .normal)
         return button
     }()
+    
+    lazy var activateBiometricsSwitch: UISwitch = {
+        let aSwitch = UISwitch()
+        aSwitch.isOn = false
+        aSwitch.addTarget(self, action: #selector(switchChanged(_:)), for: .valueChanged)
+        return aSwitch
+    }()
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -170,6 +177,11 @@ class SettingsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         start()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        activateBiometricsSwitch.isOn = presenter?.consultBiometricsFlag() ?? false
     }
     
     @objc override func didTapToolBarButton(_ sender: UIBarButtonItem) {
@@ -218,7 +230,15 @@ class SettingsViewController: BaseViewController {
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.activityIndicator.stopAnimating()
-            self.presenter?.goToLogin()
+            self.presenter?.logout()
+        }
+    }
+    
+    @objc func switchChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            presenter?.activateBiometrics(isActive: true)
+        } else {
+            presenter?.activateBiometrics(isActive: false)
         }
     }
     
@@ -240,6 +260,7 @@ class SettingsViewController: BaseViewController {
         viewContainer.addSubview(logOutLabel)
         viewContainer.addSubview(activityIndicator)
         viewContainer.addSubview(saveButton)
+        viewContainer.addSubview(activateBiometricsSwitch)
         saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: .touchUpInside)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -252,6 +273,7 @@ class SettingsViewController: BaseViewController {
         logOutLabel.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
+        activateBiometricsSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
@@ -288,7 +310,10 @@ class SettingsViewController: BaseViewController {
             passwordTextField.trailingAnchor.constraint(equalTo: viewContainer.trailingAnchor, constant: -30),
             passwordTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            logOutLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            activateBiometricsSwitch.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            activateBiometricsSwitch.leadingAnchor.constraint(equalTo: viewContainer.leadingAnchor, constant: 30),
+            
+            logOutLabel.topAnchor.constraint(equalTo: activateBiometricsSwitch.bottomAnchor, constant: 20),
             logOutLabel.centerXAnchor.constraint(equalTo: viewContainer.centerXAnchor),
             logOutLabel.widthAnchor.constraint(equalToConstant: 200),
             logOutLabel.heightAnchor.constraint(equalToConstant: 40),

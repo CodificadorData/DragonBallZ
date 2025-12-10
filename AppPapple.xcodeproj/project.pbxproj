@@ -736,6 +736,8 @@
 				DEVELOPMENT_TEAM = 54232YBU5D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppPapple/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "dame acceso";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Permitir acceso a FaceID?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -768,6 +770,8 @@
 				DEVELOPMENT_TEAM = 54232YBU5D;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AppPapple/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "dame acceso";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Permitir acceso a FaceID?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

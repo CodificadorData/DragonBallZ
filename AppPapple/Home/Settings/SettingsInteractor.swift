@@ -5,6 +5,7 @@
 //  Created by Christian Morante on 10/08/25.
 //
 import Alamofire
+import SwiftKeychainWrapper
 
 final class SettingsInteractor {
     
@@ -15,7 +16,7 @@ final class SettingsInteractor {
             "Content-Type": "application/json",
             "Authorization": authorizationToken
         ]
-        AF.request(url, method: .get, headers: headers)
+        AF.request(url, method: .get, encoding: JSONEncoding.default)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: NewUserEntity.self) {
                 response in
@@ -44,7 +45,7 @@ final class SettingsInteractor {
             "Content-Type": "application/json",
             "Authorization": authorizationToken
         ]
-        AF.request(url, method: .get, parameters: queryParams, headers: headers).responseDecodable(of: NewUserEntity.self) { response in
+        AF.request(url, method: .get, parameters: queryParams, encoding: JSONEncoding.default).responseDecodable(of: NewUserEntity.self) { response in
             switch response.result {
             case .success(let response):
                 dataUser(.success(response))
@@ -52,6 +53,17 @@ final class SettingsInteractor {
                 dataUser(.failure(error))
             }
         }
+    }
+    
+    func activateBiometrics(isActive: Bool) {
+        KeychainWrapper.standard.set(isActive, forKey: "biometricsActivationFlag")
+    }
+    
+    func consultBiometricsFlag() -> Bool {
+        guard let biometricsActivationFlag = KeychainWrapper.standard.bool(forKey: "biometricsActivationFlag") else {
+            return false
+        }
+        return biometricsActivationFlag
     }
 
 }

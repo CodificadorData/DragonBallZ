@@ -6,10 +6,13 @@
 //
 import UIKit
 import Kingfisher
+import LocalAuthentication
 
 class LoginViewController: UIViewController {
     
     var presenter: LoginPresenter?
+    var isActiveBiometrics: Bool = false
+    var constraintsCenterFaceIDImage: [NSLayoutConstraint] = []
     
     lazy var loginButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -86,6 +89,17 @@ class LoginViewController: UIViewController {
         return activity
     }()
     
+    lazy var faceIDImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "faceidIcon")
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
+        image.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageBiometricsTapped))
+        image.addGestureRecognizer(tapGesture)
+       return image
+    }()
+    
     let alert = UIAlertController(title: "Credenciales incorrectas", message: "ID o contraseña incorrecta", preferredStyle: .alert)
     
     let okAction = UIAlertAction(title: "Aceptar", style: .default) { _ in
@@ -110,21 +124,41 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(registerButton)
         view.addSubview(activityIndicator)
+        view.addSubview(faceIDImage)
         setupConstraints()
         alert.addAction(okAction)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ocultarTeclado))
         view.addGestureRecognizer(tapGesture)
     }
     
-    @objc func login() {
-        guard let id = idTextField.text, let password = passwordTextField.text else {
-            return
+    override func viewWillAppear(_ animated: Bool) {
+        isActiveBiometrics = presenter?.consultBiometricsFlag() ?? false
+        if isActiveBiometrics {
+            passwordTextField.isHidden = true
+            loginButton.isHidden = true
+            NSLayoutConstraint.activate(constraintsCenterFaceIDImage)
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+
         }
+        else {
+            faceIDImage.isHidden = true
+        }
+    }
+    
+    func showErrorPopUp(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Aceptar", style: .default))
+        self.present(alertController, animated: true, completion: nil)
+    }
+
+    @objc func login() {
         view.backgroundColor = .lightGray
         view.layer.opacity = 0.3
         self.activityIndicator.startAnimating()
         DispatchQueue.main.async {
-            self.presenter?.validateUser(email: id, password: password)
+            self.presenter?.validateUser(email: self.idTextField.text!, password: self.passwordTextField.text!)
         }
     }
     
@@ -134,6 +168,27 @@ class LoginViewController: UIViewController {
     
     @objc func ocultarTeclado() {
         view.endEditing(true)
+    }
+    
+    @objc func imageBiometricsTapped() {
+        let context = LAContext()
+        var error: NSError?
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Accede a tu contraseña") { success, authError in
+                if success {
+                    DispatchQueue.main.async {
+                        self.presenter?.validateUserBiometrics(email: self.idTextField.text!)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.showErrorPopUp(title: "Falló la autenticación biométrica", message: authError!.localizedDescription)
+                    }
+                }
+            }
+        } else {
+            self.showErrorPopUp(title: "Biometría no disponible", message: "Biometría no disponible")
+        }
     }
     
     func setupConstraints() {
@@ -146,7 +201,8 @@ class LoginViewController: UIViewController {
         registerButton.translatesAutoresizingMaskIntoConstraints = false
         titleLoginLabel.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
+        faceIDImage.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             
             titleLoginLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -178,9 +234,20 @@ class LoginViewController: UIViewController {
             registerButton.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor),
             
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+            faceIDImage.topAnchor.constraint(equalTo: loginButton.topAnchor),
+            faceIDImage.widthAnchor.constraint(equalToConstant: 60),
+            faceIDImage.heightAnchor.constraint(equalToConstant: 60),
+            faceIDImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+
         ])
+        constraintsCenterFaceIDImage = [
+            faceIDImage.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: 20),
+            faceIDImage.widthAnchor.constraint(equalToConstant: 60),
+            faceIDImage.heightAnchor.constraint(equalToConstant: 60),
+            faceIDImage.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ]
     }
 }
 
@@ -196,6 +263,7 @@ extension LoginViewController: LoginViewProtocol {
                 self.view.layer.opacity = 1
                 self.view.backgroundColor = UIColor(red: 210/255.0, green: 105/255.0, blue: 30/255.0, alpha: 1)
                 self.present(self.alert, animated: true, completion: nil)
+                self.showErrorPopUp(title: "Login Fallido", message: "Complete campos correctamente")
             }
         }
     }

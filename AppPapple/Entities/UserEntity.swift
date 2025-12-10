@@ -5,7 +5,8 @@
 //  Created by Christian Morante on 13/01/25.
 //
 struct ResponseUser: Decodable {
-    let token: String
+    let accessToken: String
+    let refreshToken: String
 }
 
 struct ResponseRegister: Decodable {
